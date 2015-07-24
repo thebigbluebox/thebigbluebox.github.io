@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Tai Tong&#39;s Blog</title>
+    <description>Blog about everything from coding to anything I find interesting.</description>
+    <link>http://tairuitong.me</link>
+    <atom:link href="http://tairuitong.me/feed.xml" rel="self" type="application/rss+xml" />
+    
+      <item>
+        <title>Streographic OpenGL Setup</title>
+        
+        
+          <description>&lt;h1&gt;Stereographic OpenGL setup&lt;/h1&gt;
+</description>
+        
+        <pubDate>Sun, 04 Jan 2015 04:00:00 -0500</pubDate>
+        <link>http://tairuitong.me/2015/streographic-opengl/</link>
+        <guid isPermaLink="true">http://tairuitong.me/2015/streographic-opengl/</guid>
+      </item>
+    
+      <item>
+        <title>Uploading files to a LAMP stack and keep track of it with a CMS Part 2</title>
+        
+        
+          <description>&lt;h1&gt;Uploading files to a LAMP stack and keep track of it with a CMS Part 2&lt;/h1&gt;
+
+&lt;blockquote&gt;
+&lt;h6&gt;This is technically a continuation of Dave&amp;#39;s tutorial on how to create a Blog with LAMP &lt;a href=&quot;https://daveismyname.com/creating-a-blog-from-scratch-with-php-bp#.Va2tvpNViko&quot;&gt;here&lt;/a&gt;, and I&amp;#39;ve added my own twist and turned it into a small CMS by allowing users to upload photos and keep track of their uploads. I will be referencing a lot of the files back to what was created on Dave&amp;#39;s tutorial&lt;/h6&gt;
+&lt;/blockquote&gt;
+</description>
+        
+        <pubDate>Tue, 23 Dec 2014 04:00:00 -0500</pubDate>
+        <link>http://tairuitong.me/2014/uploading-to-php-2/</link>
+        <guid isPermaLink="true">http://tairuitong.me/2014/uploading-to-php-2/</guid>
+      </item>
+    
+      <item>
+        <title>Uploading files to a LAMP stack and keep track of it with a CMS</title>
+        
+        
+          <description>&lt;h1&gt;Uploading files to a LAMP stack and keep track of it with a CMS Part 1&lt;/h1&gt;
+
+&lt;blockquote&gt;
+&lt;h6&gt;This is technically a continuation of Dave&amp;#39;s tutorial on how to create a Blog with LAMP &lt;a href=&quot;https://daveismyname.com/creating-a-blog-from-scratch-with-php-bp#.Va2tvpNViko&quot;&gt;here&lt;/a&gt;, and I&amp;#39;ve added my own twist and turned it into a small CMS by allowing users to upload photos and keep track of their uploads. I will be referencing a lot of the files back to what was created on Dave&amp;#39;s tutorial&lt;/h6&gt;
+&lt;/blockquote&gt;
+</description>
+        
+        <pubDate>Mon, 22 Dec 2014 04:00:00 -0500</pubDate>
+        <link>http://tairuitong.me/2014/uploading-to-php/</link>
+        <guid isPermaLink="true">http://tairuitong.me/2014/uploading-to-php/</guid>
+      </item>
+    
+      <item>
+        <title>Welcome to Jekyll!</title>
+        
+        
+          <description>&lt;p&gt;You&amp;#39;ll find this post in your &lt;code&gt;_posts&lt;/code&gt; directory - edit this post and re-build (or run with the &lt;code&gt;-w&lt;/code&gt; switch) to see your changes!
+To add new posts, simply add a file in the &lt;code&gt;_posts&lt;/code&gt; directory that follows the convention: YYYY-MM-DD-name-of-post.ext.&lt;/p&gt;
+</description>
+        
+        <pubDate>Sun, 10 Nov 2013 05:18:00 -0500</pubDate>
+        <link>http://tairuitong.me/2013/welcome-to-jekyll/</link>
+        <guid isPermaLink="true">http://tairuitong.me/2013/welcome-to-jekyll/</guid>
+      </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Tai Tong's Blog - Streographic OpenGL Setup</title>
+  <link rel="shortcut icon" href="/assets/images/favicon.ico">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="alternate" type="application/rss+xml" title="My Blog" href="/rss.xml">
+  <link rel="stylesheet" href="/assets/css/highlight.css">
+</head>
+<body>
+
+  <nav class="main-nav">
+    
+        <a href='/'> <span class="arrow">←</span> Home </a>
+    
+
+    
+        
+            <a href='/about'>About </a>
+        
+    
+    <a class="cta" href="/feed.xml">Subscribe</a>
+</nav>
+
+  
+
+  <section id="wrapper" class="">
+    <article class="post">
+    <header>
+        <h1>Streographic OpenGL Setup</h1>
+        <h2 class="headline">January 4, 2015</h2>
+    </header>
+    <section id="post-body">
+        <h1>Stereographic OpenGL setup</h1>
+
+<h5>The code described here are applicable to OpenGL 1.5 but the concept works the same for other versions of OpenGL</h5>
+
+<p>For my final graphics project, my group decided to opt for a stereographic final project that would work with the Google Cardboard or any device that can support rendering stereographic displays. Our finished project is written in C++ and is available on github here. The purpose of this page is to explain how I created the correct projection for the two different displays for the individual eyes.</p>
+
+<p><img src="http://i.imgur.com/21kXpLH.png" alt="screenshot of the game" title="Screen shot of Tie Fighters"></p>
+
+<p>First we must be able to render split screen, and the way to do this is by dividing up the main window in to two parts, the left and right eyes. We do this by changing the glViewPort parameters to only render to half the given window size, and render the scene twice, once for each eye.</p>
+
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">void</span> <span class="nb">display</span><span class="p">(</span><span class="n">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">glClear</span><span class="p">(</span><span class="no">GL_COLOR_BUFFER_BIT</span> <span class="o">|</span> <span class="no">GL_DEPTH_BUFFER_BIT</span><span class="p">);</span>
+    <span class="n">glViewport</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="no">Set</span><span class="o">.</span><span class="n">windowx</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="no">Set</span><span class="o">.</span><span class="n">windowy</span><span class="p">);</span>
+<span class="p">}</span></code></pre></div>
+
+<p>Now that we can render our scenes to two separate view ports, we should talk about how our eyes perceive things. There is a great talk about how stereo projection works by Paul Bourke, but to generalize his article I can give you the imperfect stereo projection. In short our eyes stare at one projection plane from two different sources, and this can be mimicked by using perspective view translated +2 and -2 from the an origin. This can be all explained by the diagram below.</p>
+
+<p><img src="http://i.imgur.com/GmBGqrc.png" alt="your eyes" title="Diagram A"></p>
+
+<p>So I defined the projection here in the display function, with perspective with the parameters with the correct screen ratio to compensate for the division of the glViewport. The far and near are set to the closest and as far as possible this is because we want each eye to view generally the same thing without the objects getting culled early in one eye.</p>
+
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">void</span> <span class="nb">display</span><span class="p">(</span><span class="n">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">glClear</span><span class="p">(</span><span class="no">GL_COLOR_BUFFER_BIT</span> <span class="o">|</span> <span class="no">GL_DEPTH_BUFFER_BIT</span><span class="p">);</span>
+    <span class="sr">//</span><span class="k">for</span> <span class="n">a</span> <span class="n">single</span> <span class="n">viewport</span><span class="p">,</span> <span class="n">we</span> <span class="n">set</span> <span class="n">the</span> <span class="n">width</span> <span class="n">to</span> <span class="n">be</span> <span class="n">only</span> <span class="n">half</span> <span class="n">the</span> <span class="n">window</span> <span class="n">size</span>
+    <span class="n">glViewport</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="no">Set</span><span class="o">.</span><span class="n">windowx</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="no">Set</span><span class="o">.</span><span class="n">windowy</span><span class="p">);</span>
+    <span class="n">glMatrixMode</span><span class="p">(</span><span class="no">GL_PROJECTION</span><span class="p">);</span>
+    <span class="n">glLoadIdentity</span><span class="p">();</span>
+    <span class="sr">//</span><span class="n">the</span> <span class="n">perspective</span> <span class="n">parameters</span> <span class="n">includes</span> <span class="n">the</span> <span class="n">field</span> <span class="n">of</span> <span class="n">view</span><span class="p">,</span> <span class="ow">and</span> <span class="n">the</span> <span class="n">ratio</span> <span class="n">of</span> <span class="n">the</span> <span class="n">screen</span>
+    <span class="n">gluPerspective</span><span class="p">(</span><span class="no">Set</span><span class="o">.</span><span class="n">fieldOfView</span><span class="p">,</span> <span class="p">(</span><span class="n">float</span><span class="p">)(</span><span class="no">Set</span><span class="o">.</span><span class="n">windowx</span> <span class="o">/</span> <span class="mi">2</span><span class="o">.</span><span class="mi">0</span><span class="n">f</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">float</span><span class="p">)</span><span class="no">Set</span><span class="o">.</span><span class="n">windowy</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">200</span><span class="p">);</span>
+    <span class="n">glMatrixMode</span><span class="p">(</span><span class="no">GL_MODELVIEW</span><span class="p">);</span>
+    <span class="n">glLoadIdentity</span><span class="p">();</span>
+    <span class="sr">//</span><span class="n">translates</span> <span class="n">the</span> <span class="n">scene</span> <span class="n">to</span> <span class="n">offset</span> <span class="k">for</span> <span class="n">the</span> <span class="n">camera</span>
+    <span class="n">glTranslatef</span><span class="p">(</span><span class="no">Set</span><span class="o">.</span><span class="n">eyeDistance</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span></code></pre></div>
+
+<p>With the scene rendering, we encapsulated it into another class that interfaces with the camera controls to make the scene move. By encapsulating it, it makes the code cleaner to read and easier to build additional features. The scene is translated +/- 2 before it is drawn to compensate for the camera differences. </p>
+
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">void</span> <span class="nb">display</span><span class="p">(</span><span class="n">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">glClear</span><span class="p">(</span><span class="no">GL_COLOR_BUFFER_BIT</span> <span class="o">|</span> <span class="no">GL_DEPTH_BUFFER_BIT</span><span class="p">);</span>
+    <span class="sr">//</span><span class="no">Viewport</span> <span class="no">Left</span>
+    <span class="n">glViewport</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="no">Set</span><span class="o">.</span><span class="n">windowx</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="no">Set</span><span class="o">.</span><span class="n">windowy</span><span class="p">);</span>
+    <span class="n">glMatrixMode</span><span class="p">(</span><span class="no">GL_PROJECTION</span><span class="p">);</span>
+    <span class="n">glLoadIdentity</span><span class="p">();</span>
+    <span class="n">gluPerspective</span><span class="p">(</span><span class="no">Set</span><span class="o">.</span><span class="n">fieldOfView</span><span class="p">,</span> <span class="p">(</span><span class="n">float</span><span class="p">)(</span><span class="no">Set</span><span class="o">.</span><span class="n">windowx</span> <span class="o">/</span> <span class="mi">2</span><span class="o">.</span><span class="mi">0</span><span class="n">f</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">float</span><span class="p">)</span><span class="no">Set</span><span class="o">.</span><span class="n">windowy</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">200</span><span class="p">);</span>
+    <span class="n">glMatrixMode</span><span class="p">(</span><span class="no">GL_MODELVIEW</span><span class="p">);</span>
+    <span class="n">glLoadIdentity</span><span class="p">();</span>
+    <span class="sr">//</span><span class="n">translates</span> <span class="n">the</span> <span class="n">scene</span> <span class="n">to</span> <span class="n">offset</span> <span class="k">for</span> <span class="n">the</span> <span class="n">camera</span>
+    <span class="n">glTranslatef</span><span class="p">(</span><span class="no">Set</span><span class="o">.</span><span class="n">eyeDistance</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="n">glPushMatrix</span><span class="p">();</span> <span class="sr">//</span> <span class="no">Pushing</span> <span class="n">to</span> <span class="n">attempt</span> <span class="n">to</span> <span class="n">save</span> <span class="n">the</span> <span class="n">translate</span> <span class="k">for</span> <span class="n">hud</span><span class="o">.</span><span class="n">draw</span><span class="p">();</span> <span class="ow">not</span> <span class="n">the</span> <span class="n">right</span> <span class="n">idea</span><span class="o">.</span>
+    <span class="n">gluLookAt</span><span class="p">(</span><span class="n">playerPos</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">playerPos</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">playerPos</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="n">lookAt</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">lookAt</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">lookAt</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="n">cameraUp</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">cameraUp</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">cameraUp</span><span class="o">.</span><span class="n">z</span><span class="p">);</span>
+    <span class="n">draw</span><span class="p">();</span>
+    <span class="n">glPopMatrix</span><span class="p">();</span> <span class="sr">//</span> <span class="n">pop!</span>
+
+
+    <span class="sr">//</span><span class="no">Viewport</span> <span class="no">Right</span>
+    <span class="n">glViewport</span><span class="p">(</span><span class="no">Set</span><span class="o">.</span><span class="n">windowx</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="no">Set</span><span class="o">.</span><span class="n">windowx</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="no">Set</span><span class="o">.</span><span class="n">windowy</span><span class="p">);</span>
+    <span class="n">glMatrixMode</span><span class="p">(</span><span class="no">GL_PROJECTION</span><span class="p">);</span>
+    <span class="n">glLoadIdentity</span><span class="p">();</span>
+    <span class="n">gluPerspective</span><span class="p">(</span><span class="no">Set</span><span class="o">.</span><span class="n">fieldOfView</span><span class="p">,</span> <span class="p">(</span><span class="n">float</span><span class="p">)(</span><span class="no">Set</span><span class="o">.</span><span class="n">windowx</span> <span class="o">/</span> <span class="mi">2</span><span class="o">.</span><span class="mi">0</span><span class="n">f</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">float</span><span class="p">)</span><span class="no">Set</span><span class="o">.</span><span class="n">windowy</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">200</span><span class="p">);</span>
+    <span class="n">glMatrixMode</span><span class="p">(</span><span class="no">GL_MODELVIEW</span><span class="p">);</span>
+    <span class="n">glLoadIdentity</span><span class="p">();</span>
+    <span class="n">glTranslatef</span><span class="p">(</span><span class="o">-</span><span class="no">Set</span><span class="o">.</span><span class="n">eyeDistance</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="n">glPushMatrix</span><span class="p">();</span> <span class="sr">//</span> <span class="n">push!</span>
+    <span class="n">gluLookAt</span><span class="p">(</span><span class="n">playerPos</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">playerPos</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">playerPos</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="n">lookAt</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">lookAt</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">lookAt</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="n">cameraUp</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">cameraUp</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">cameraUp</span><span class="o">.</span><span class="n">z</span><span class="p">);</span>
+    <span class="n">draw</span><span class="p">();</span>
+    <span class="n">glPopMatrix</span><span class="p">();</span> <span class="sr">//</span> <span class="n">pop!</span>
+<span class="p">}</span></code></pre></div>
+
+    </section>
+</article>
+<footer id="post-meta" class="clearfix">
+    <a href="http://twitter.com/TaiRTong">
+        <img class="avatar" src="/assets/images/avatar.png">
+        <div>
+            <span class="dark">Tai Tong</span>
+            <span>Blog about everything from coding to anything I find interesting.</span>
+        </div>
+    </a>
+
+    <section id="sharing">
+        <a class="twitter" href="https://twitter.com/intent/tweet?text=//2015/streographic-opengl/ - Streographic OpenGL Setup by @TaiRTong"><span class="icon-twitter"> Tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+    </section>
+</footer>
+
+<!-- Disqus comments -->
+
+
+<!-- Archive post list -->
+
+    <ul id="post-list" class="archive readmore">
+        <h3>Read more</h3>
+        
+            <li>
+                <a href="/2015/streographic-opengl/">Streographic OpenGL Setup<aside class="dates">Jan 04</aside></a>
+            </li>
+        
+            <li>
+                <a href="/2014/uploading-to-php-2/">Uploading files to a LAMP stack and keep track of it with a CMS Part 2<aside class="dates">Dec 23</aside></a>
+            </li>
+        
+            <li>
+                <a href="/2014/uploading-to-php/">Uploading files to a LAMP stack and keep track of it with a CMS<aside class="dates">Dec 22</aside></a>
+            </li>
+        
+            <li>
+                <a href="/2013/welcome-to-jekyll/">Welcome to Jekyll!<aside class="dates">Nov 10</aside></a>
+            </li>
+        
+    </ul>
+
+
+
+
+
+  </section>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="/assets/js/main.js"></script>
+  <script src="/assets/js/highlight.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-54598212-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>
+
+
+

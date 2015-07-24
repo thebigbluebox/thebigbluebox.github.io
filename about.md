@@ -23,3 +23,5 @@ With all the serious stuff at top, I also like to dabble in:
 - Also enjoy watching people perform magic tricks
 
 If you would like to contact me, you can get to me at me@tairuitong.me
+
+{% include footer.html %}
