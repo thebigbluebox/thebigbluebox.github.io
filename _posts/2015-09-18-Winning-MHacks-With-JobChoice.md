@@ -213,5 +213,6 @@ var model = {"subject":"ToMaximizeAandC",
 "variableC" : 3
 }}]
 }
+```
 
 Once we have our model set up we can initiate a call to bluemix with our data through a call to our tradeoffanalytics instance in our app.js which will return the final results in a JSON format.
