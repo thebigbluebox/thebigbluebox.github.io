@@ -3,10 +3,11 @@ title:  "Vignere Cipher"
 date:   2014-12-10 9:00:00
 description: Vignere Cipher
 ---
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 While studying for exams on computer security, I decided to just write up a Javascript caesar cipher and a Vigenère cipher given the key below. A Vigenère cipher works similar to caesar cipher with shifting letters by an off set. A Vigenere cipher works by transcribing a key repeatedly under the plaintext, and according to the letter of the corresponding key the shift is determined. And the matrix below can accompany new characters by generating a new matrix, the matrix is read according to the first column A and given the corresponding key character on the top row, will give the according letter in return.
 
 <div id="charset" style="width: 50%; margin: 0 auto;"><input id="charsetinput" style="width: 80%;" type="text" value="charset"> <button id="charsetupdate">Update</button></div>
-<div id="venmatrix"></div>
+<div id="venmatrix" style="overflow-x:scroll"></div>
 <div id="textencipher" style="width: 80%; margin: 0 auto;"><input id="key" type="text" value="key"> <button id="encipherbutton">Encipher</button> <input id="plaintext" type="text" value="plaintext"> <button id="decipherbutton">Decipher</button> <input id="cipheredtext" type="text" value="cipheredtext"></div>
 
 #### The code used to create the cipher
@@ -165,7 +166,7 @@ $(document).ready(function() {
 		});
 });
 ```
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.map"></script>
+
 <script type="text/javascript">
 var alphabets = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
 var alpha = {};
