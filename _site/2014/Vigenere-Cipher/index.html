@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Tai Tong's Blog - Vignere Cipher</title>
+  <link rel="shortcut icon" href="/assets/images/favicon.ico">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="alternate" type="application/rss+xml" title="My Blog" href="/rss.xml">
+  <link rel="stylesheet" href="/assets/css/highlight.css">
+</head>
+<body>
+
+  <nav class="main-nav">
+    
+        <a href='/'> <span class="arrow">←</span> Home </a>
+    
+
+    
+        
+            <a href='/about'>About </a>
+        
+    
+    <a class="cta" href="/feed.xml">Subscribe</a>
+</nav>
+
+  
+
+  <section id="wrapper" class="">
+    <article class="post">
+    <header>
+        <h1>Vignere Cipher</h1>
+        <h2 class="headline">December 10, 2014</h2>
+    </header>
+    <section id="post-body">
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<p>While studying for exams on computer security, I decided to just write up a Javascript caesar cipher and a Vigenère cipher given the key below. A Vigenère cipher works similar to caesar cipher with shifting letters by an off set. A Vigenere cipher works by transcribing a key repeatedly under the plaintext, and according to the letter of the corresponding key the shift is determined. And the matrix below can accompany new characters by generating a new matrix, the matrix is read according to the first column A and given the corresponding key character on the top row, will give the according letter in return.</p>
+
+<div id="charset" style="width: 50%; margin: 0 auto;"><input id="charsetinput" style="width: 80%;" type="text" value="charset"> <button id="charsetupdate">Update</button></div>
+
+<div id="venmatrix" style="overflow-x:scroll"></div>
+
+<div id="textencipher" style="width: 80%; margin: 0 auto;"><input id="key" type="text" value="key"> <button id="encipherbutton">Encipher</button> <input id="plaintext" type="text" value="plaintext"> <button id="decipherbutton">Decipher</button> <input id="cipheredtext" type="text" value="cipheredtext"></div>
+
+<h4>The code used to create the cipher</h4>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">alphabets</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">,</span><span class="s2">&quot;B&quot;</span><span class="p">,</span><span class="s2">&quot;C&quot;</span><span class="p">,</span><span class="s2">&quot;D&quot;</span><span class="p">,</span><span class="s2">&quot;E&quot;</span><span class="p">,</span><span class="s2">&quot;F&quot;</span><span class="p">,</span><span class="s2">&quot;G&quot;</span><span class="p">,</span><span class="s2">&quot;H&quot;</span><span class="p">,</span><span class="s2">&quot;I&quot;</span><span class="p">,</span><span class="s2">&quot;J&quot;</span><span class="p">,</span><span class="s2">&quot;K&quot;</span><span class="p">,</span><span class="s2">&quot;L&quot;</span><span class="p">,</span><span class="s2">&quot;M&quot;</span><span class="p">,</span><span class="s2">&quot;N&quot;</span><span class="p">,</span><span class="s2">&quot;O&quot;</span><span class="p">,</span><span class="s2">&quot;P&quot;</span><span class="p">,</span><span class="s2">&quot;Q&quot;</span><span class="p">,</span><span class="s2">&quot;R&quot;</span><span class="p">,</span><span class="s2">&quot;S&quot;</span><span class="p">,</span><span class="s2">&quot;T&quot;</span><span class="p">,</span><span class="s2">&quot;U&quot;</span><span class="p">,</span><span class="s2">&quot;V&quot;</span><span class="p">,</span><span class="s2">&quot;W&quot;</span><span class="p">,</span><span class="s2">&quot;X&quot;</span><span class="p">,</span><span class="s2">&quot;Y&quot;</span><span class="p">,</span><span class="s2">&quot;Z&quot;</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">alpha</span> <span class="o">=</span> <span class="p">{};</span>
+
+<span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">alphabets</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+    <span class="nx">alpha</span><span class="p">[</span><span class="nx">alphabets</span><span class="p">[</span><span class="nx">i</span><span class="p">]]</span> <span class="o">=</span> <span class="nx">i</span><span class="p">;</span> <span class="c1">//assigns each alphabet a integer key</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">newAlpha</span><span class="p">(</span><span class="nx">inputChar</span><span class="p">){</span>
+    <span class="nx">alphabets</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">inputChar</span><span class="p">);</span>
+    <span class="nx">mapfunc</span><span class="p">();</span>
+    <span class="nx">genVernier</span><span class="p">(</span><span class="s2">&quot;venmatrix&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">alphaset</span><span class="p">(</span><span class="nx">inputString</span><span class="p">){</span>
+    <span class="nx">alphabets</span> <span class="o">=</span> <span class="nx">inputString</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">);</span>
+    <span class="nx">mapfunc</span><span class="p">();</span>
+    <span class="nx">genVernier</span><span class="p">(</span><span class="s2">&quot;venmatrix&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">returnsalphaset</span><span class="p">(){</span>
+    <span class="k">return</span>  <span class="nx">alphabets</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">mapfunc</span><span class="p">(){</span> <span class="c1">//creates a mapping of the alphabets</span>
+    <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">alphabets</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="nx">alpha</span><span class="p">[</span><span class="nx">alphabets</span><span class="p">[</span><span class="nx">i</span><span class="p">]]</span> <span class="o">=</span> <span class="nx">i</span><span class="p">;</span> <span class="c1">//assigns each alphabet a integer key</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nb">Number</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">mod</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="p">((</span><span class="k">this</span><span class="o">%</span><span class="nx">n</span><span class="p">)</span><span class="o">+</span><span class="nx">n</span><span class="p">)</span><span class="o">%</span><span class="nx">n</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">verniercipher</span><span class="p">(</span><span class="nx">inputString</span><span class="p">,</span> <span class="nx">keyString</span><span class="p">,</span> <span class="nx">flag</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">outputArray</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">inputString</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">inputStringArray</span> <span class="o">=</span> <span class="nx">inputString</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">().</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">keyArray</span> <span class="o">=</span> <span class="nx">keyString</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">().</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">outputArray</span><span class="p">.</span><span class="nx">length</span> <span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">flag</span> <span class="o">==</span> <span class="kc">true</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">outputArray</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">alphabets</span><span class="p">[(</span><span class="nx">alpha</span><span class="p">[</span><span class="nx">inputStringArray</span><span class="p">[</span><span class="nx">i</span><span class="p">]]</span> <span class="o">+</span> <span class="nx">alpha</span><span class="p">[</span><span class="nx">keyArray</span><span class="p">[</span><span class="nx">counter</span><span class="p">]]).</span><span class="nx">mod</span><span class="p">(</span><span class="nx">alphabets</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">)];</span>        
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+            <span class="nx">outputArray</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">alphabets</span><span class="p">[(</span><span class="nx">alpha</span><span class="p">[</span><span class="nx">inputStringArray</span><span class="p">[</span><span class="nx">i</span><span class="p">]]</span> <span class="o">-</span> <span class="nx">alpha</span><span class="p">[</span><span class="nx">keyArray</span><span class="p">[</span><span class="nx">counter</span><span class="p">]]).</span><span class="nx">mod</span><span class="p">(</span><span class="nx">alphabets</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">)];</span>        
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">((</span><span class="nx">counter</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="nx">keyArray</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">//Resets the keyArray Counter so it continues from zero again</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+            <span class="nx">counter</span> <span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">outputArray</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">ceasercipher</span><span class="p">(</span><span class="nx">inputString</span><span class="p">,</span> <span class="nx">shift</span><span class="p">,</span> <span class="nx">flag</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">outputArray</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">inputString</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">inputStringArray</span> <span class="o">=</span> <span class="nx">inputString</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">().</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">outputArray</span><span class="p">.</span><span class="nx">length</span> <span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+
+        <span class="k">if</span><span class="p">(</span><span class="nx">flag</span> <span class="o">==</span> <span class="kc">true</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">outputArray</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">alphabets</span><span class="p">[(</span><span class="nx">alpha</span><span class="p">[</span><span class="nx">inputStringArray</span><span class="p">[</span><span class="nx">i</span><span class="p">]]</span> <span class="o">+</span> <span class="nx">shift</span><span class="p">).</span><span class="nx">mod</span><span class="p">(</span><span class="nx">alphabets</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">)];</span>       
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+            <span class="nx">outputArray</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">alphabets</span><span class="p">[(</span><span class="nx">alpha</span><span class="p">[</span><span class="nx">inputStringArray</span><span class="p">[</span><span class="nx">i</span><span class="p">]]</span> <span class="o">-</span> <span class="nx">shift</span><span class="p">).</span><span class="nx">mod</span><span class="p">(</span><span class="nx">alphabets</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">)];</span>       
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">outputArray</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">Encipher</span><span class="p">(){</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;cipheredtext&quot;</span><span class="p">).</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">verniercipher</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;plaintext&quot;</span><span class="p">).</span><span class="nx">value</span> <span class="p">,</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;key&quot;</span><span class="p">).</span><span class="nx">value</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">Decipher</span><span class="p">(){</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;plaintext&quot;</span><span class="p">).</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">verniercipher</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;cipheredtext&quot;</span><span class="p">).</span><span class="nx">value</span> <span class="p">,</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;key&quot;</span><span class="p">).</span><span class="nx">value</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">genVernier</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">myTableDiv</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;genVernier&quot;</span><span class="p">)){</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#genVernier&#39;</span><span class="p">).</span><span class="nx">remove</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="kd">var</span> <span class="nx">table</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;TABLE&#39;</span><span class="p">);</span>
+    <span class="nx">table</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;genVernier&quot;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">tableBody</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;TBODY&#39;</span><span class="p">);</span>
+
+    <span class="nx">table</span><span class="p">.</span><span class="nx">border</span> <span class="o">=</span> <span class="s1">&#39;0&#39;</span>
+    <span class="nx">table</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">tableBody</span><span class="p">);</span>
+
+
+    <span class="c1">//TABLE COLUMNS</span>
+    <span class="kd">var</span> <span class="nx">tr</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;TR&#39;</span><span class="p">);</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="nx">alphabets</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">th</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;TH&#39;</span><span class="p">)</span>
+        <span class="nx">th</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="s1">&#39;10&#39;</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+            <span class="nx">th</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">));</span>
+            <span class="nx">tr</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">th</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span><span class="p">{</span>
+            <span class="nx">th</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="nx">alphabets</span><span class="p">[</span><span class="nx">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]));</span>
+            <span class="nx">tr</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">th</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="nx">tableBody</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">tr</span><span class="p">);</span>
+
+    <span class="c1">//TABLE ROWS</span>
+    <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">alphabets</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">tr</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;TR&#39;</span><span class="p">);</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;=</span> <span class="nx">alphabets</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">td</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;TD&#39;</span><span class="p">)</span>
+            <span class="k">if</span><span class="p">(</span><span class="nx">j</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+                <span class="nx">td</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="nx">alphabets</span><span class="p">[</span><span class="nx">i</span><span class="p">]));</span>
+                <span class="nx">tr</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">td</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">else</span><span class="p">{</span>
+                <span class="nx">td</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="nx">alphabets</span><span class="p">[(</span><span class="nx">alpha</span><span class="p">[</span><span class="nx">alphabets</span><span class="p">[</span><span class="nx">i</span><span class="p">]]</span> <span class="o">+</span> <span class="nx">alpha</span><span class="p">[</span><span class="nx">alphabets</span><span class="p">[</span><span class="nx">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]]).</span><span class="nx">mod</span><span class="p">(</span><span class="nx">alphabets</span><span class="p">.</span><span class="nx">length</span><span class="p">)]));</span>
+                <span class="nx">tr</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">td</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="nx">tableBody</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">tr</span><span class="p">);</span>
+    <span class="p">}</span>  
+    <span class="nx">myTableDiv</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">table</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">genVernier</span><span class="p">(</span><span class="s2">&quot;venmatrix&quot;</span><span class="p">);</span>
+        <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;charsetinput&quot;</span><span class="p">).</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">returnsalphaset</span><span class="p">();</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#charsetupdate&quot;</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+            <span class="nx">alphabets</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;charsetinput&quot;</span><span class="p">).</span><span class="nx">value</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">);</span>
+            <span class="nx">mapfunc</span><span class="p">();</span>
+            <span class="nx">genVernier</span><span class="p">(</span><span class="s2">&quot;venmatrix&quot;</span><span class="p">);</span>
+        <span class="p">});</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#encipherbutton&quot;</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+            <span class="nx">Encipher</span><span class="p">();</span>
+        <span class="p">});</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#decipherbutton&quot;</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+            <span class="nx">Decipher</span><span class="p">();</span>
+        <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div>
+<script type="text/javascript">
+var alphabets = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+var alpha = {};
+
+for(var i = 0; i < alphabets.length; i++){
+    alpha[alphabets[i]] = i; //assigns each alphabet a integer key
+}
+
+function newAlpha(inputChar){
+    alphabets.push(inputChar);
+    mapfunc();
+    genVernier("venmatrix");
+}
+
+function alphaset(inputString){
+    alphabets = inputString.split("");
+    mapfunc();
+    genVernier("venmatrix");
+}
+
+function returnsalphaset(){
+    return  alphabets.join("");
+}
+
+function mapfunc(){ //creates a mapping of the alphabets
+    for(var i = 0; i < alphabets.length; i++){
+        alpha[alphabets[i]] = i; //assigns each alphabet a integer key
+    }
+}
+
+Number.prototype.mod = function(n) { return ((this%n)+n)%n; }
+
+function verniercipher(inputString, keyString, flag){
+    var outputArray = new Array(inputString.length);
+    var inputStringArray = inputString.toUpperCase().split('');
+    var keyArray = keyString.toUpperCase().split('');
+    var counter = 0;
+
+    for(var i = 0; i < outputArray.length ; i++)
+    {
+        if(flag == true)
+        {
+            outputArray[i] = alphabets[(alpha[inputStringArray[i]] + alpha[keyArray[counter]]).mod(alphabets.length-1)];        
+        }
+        else
+        {
+            outputArray[i] = alphabets[(alpha[inputStringArray[i]] - alpha[keyArray[counter]]).mod(alphabets.length-1)];        
+        }
+        if((counter + 1) >= keyArray.length)
+        {
+            counter = 0; //Resets the keyArray Counter so it continues from zero again
+        }
+        else
+        {
+            counter ++;
+        }
+    }
+    return outputArray.join("");
+}
+
+function ceasercipher(inputString, shift, flag){
+    var outputArray = new Array(inputString.length);
+    var inputStringArray = inputString.toUpperCase().split('');
+    var counter = 0;
+
+    for(var i = 0; i < outputArray.length ; i++)
+    {
+
+        if(flag == true)
+        {
+            outputArray[i] = alphabets[(alpha[inputStringArray[i]] + shift).mod(alphabets.length-1)];       
+        }
+        else
+        {
+            outputArray[i] = alphabets[(alpha[inputStringArray[i]] - shift).mod(alphabets.length-1)];       
+        }
+    }
+    return outputArray.join("");
+}
+
+function Encipher(){
+    document.getElementById("cipheredtext").value = verniercipher(document.getElementById("plaintext").value , document.getElementById("key").value, true);
+}
+
+function Decipher(){
+    document.getElementById("plaintext").value = verniercipher(document.getElementById("cipheredtext").value , document.getElementById("key").value, false);
+}
+
+function genVernier(name) {
+    var myTableDiv = document.getElementById(name);
+    if(document.getElementById("genVernier")){
+        $('#genVernier').remove();
+    }
+
+    var table = document.createElement('TABLE');
+    table.setAttribute("id", "genVernier");
+    var tableBody = document.createElement('TBODY');
+
+    table.border = '0'
+    table.appendChild(tableBody);
+
+
+    //TABLE COLUMNS
+    var tr = document.createElement('TR');
+
+    for (i = 0; i <= alphabets.length; i++) {
+        var th = document.createElement('TH')
+        th.width = '10';
+        if(i == 0){
+            th.appendChild(document.createTextNode(" "));
+            tr.appendChild(th);
+        }
+        else{
+            th.appendChild(document.createTextNode(alphabets[i-1]));
+            tr.appendChild(th);
+        }
+    }
+    tableBody.appendChild(tr);
+
+    //TABLE ROWS
+    for (i = 0; i < alphabets.length; i++) {
+        var tr = document.createElement('TR');
+
+        for (j = 0; j <= alphabets.length; j++) {
+            var td = document.createElement('TD')
+            if(j == 0){
+                td.appendChild(document.createTextNode(alphabets[i]));
+                tr.appendChild(td);
+            }
+            else{
+                td.appendChild(document.createTextNode(alphabets[(alpha[alphabets[i]] + alpha[alphabets[j-1]]).mod(alphabets.length)]));
+                tr.appendChild(td)
+            }
+        }
+        tableBody.appendChild(tr);
+    }  
+    myTableDiv.appendChild(table)
+}
+
+$(document).ready(function() {
+        genVernier("venmatrix");
+        document.getElementById("charsetinput").value = returnsalphaset();
+        $("#charsetupdate").click(function(){
+            alphabets = document.getElementById("charsetinput").value.split("");
+            mapfunc();
+            genVernier("venmatrix");
+        });
+        $("#encipherbutton").click(function(){
+            Encipher();
+        });
+        $("#decipherbutton").click(function(){
+            Decipher();
+        });
+});
+</script>
+
+    </section>
+</article>
+<footer id="post-meta" class="clearfix">
+    <a href="http://twitter.com/TaiRTong">
+        <img class="avatar" src="/assets/images/avatar.png">
+        <div>
+            <span class="dark">Tai Tong</span>
+            <span>Blog about everything from coding to anything I find interesting.</span>
+        </div>
+    </a>
+
+    <section id="sharing">
+        <a class="twitter" href="https://twitter.com/intent/tweet?text=//2014/Vigenere-Cipher/ - Vignere Cipher by @TaiRTong"><span class="icon-twitter"> Tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+    </section>
+</footer>
+
+<!-- Disqus comments -->
+
+    <div class="archive readmore">
+        <h3>Comments</h3>
+        <section class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'theperfectsquareca';
+        var disqus_developer = 0; // developer mode is on
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+    </div>
+
+
+<!-- Archive post list -->
+
+    <ul id="post-list" class="archive readmore">
+        <h3>Read more</h3>
+        
+            <li>
+                <a href="/2015/Winning-MHacks-With-JobChoice/">JobChoice and Winning best in Data Analytics in MHacks<aside class="dates">Sep 22</aside></a>
+            </li>
+        
+            <li>
+                <a href="/2015/streographic-opengl/">Streographic OpenGL Setup<aside class="dates">Jan 04</aside></a>
+            </li>
+        
+            <li>
+                <a href="/2014/uploading-to-php-2/">Uploading files to a LAMP stack and keep track of it with a CMS Part 2<aside class="dates">Dec 23</aside></a>
+            </li>
+        
+            <li>
+                <a href="/2014/uploading-to-php/">Uploading files to a LAMP stack and keep track of it with a CMS<aside class="dates">Dec 22</aside></a>
+            </li>
+        
+            <li>
+                <a href="/2014/Vigenere-Cipher/">Vignere Cipher<aside class="dates">Dec 10</aside></a>
+            </li>
+        
+    </ul>
+
+
+
+
+
+  </section>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="/assets/js/main.js"></script>
+  <script src="/assets/js/highlight.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-54598212-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>
+
+
+

@@ -12,7 +12,7 @@ baseurl: /
 domain_name: 'http://tairuitong.me'
 google_analytics: 'UA-54598212-1'
 disqus_shortname: 'theperfectsquareca'
-
+timezone: America/New_York
 # Details for the RSS feed generator
 url:            'http://tairuitong.me'
 author:         'Tai Tong'
@@ -33,3 +33,4 @@ defaults:
             type: posts
         values:
             layout: post
+            author: "Tai Tong"

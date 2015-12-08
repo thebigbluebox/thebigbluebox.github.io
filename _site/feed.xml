@@ -7,6 +7,18 @@
     <atom:link href="http://tairuitong.me/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>JobChoice and Winning best in Data Analytics in MHacks</title>
+        
+        
+          <description>&lt;h1&gt;JobChoice&lt;/h1&gt;
+</description>
+        
+        <pubDate>Tue, 22 Sep 2015 05:00:00 -0400</pubDate>
+        <link>http://tairuitong.me/2015/Winning-MHacks-With-JobChoice/</link>
+        <guid isPermaLink="true">http://tairuitong.me/2015/Winning-MHacks-With-JobChoice/</guid>
+      </item>
+    
+      <item>
         <title>Streographic OpenGL Setup</title>
         
         
@@ -51,16 +63,17 @@
       </item>
     
       <item>
-        <title>Welcome to Jekyll!</title>
+        <title>Vignere Cipher</title>
         
         
-          <description>&lt;p&gt;You&amp;#39;ll find this post in your &lt;code&gt;_posts&lt;/code&gt; directory - edit this post and re-build (or run with the &lt;code&gt;-w&lt;/code&gt; switch) to see your changes!
-To add new posts, simply add a file in the &lt;code&gt;_posts&lt;/code&gt; directory that follows the convention: YYYY-MM-DD-name-of-post.ext.&lt;/p&gt;
+          <description>&lt;script src=&quot;//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;While studying for exams on computer security, I decided to just write up a Javascript caesar cipher and a Vigenère cipher given the key below. A Vigenère cipher works similar to caesar cipher with shifting letters by an off set. A Vigenere cipher works by transcribing a key repeatedly under the plaintext, and according to the letter of the corresponding key the shift is determined. And the matrix below can accompany new characters by generating a new matrix, the matrix is read according to the first column A and given the corresponding key character on the top row, will give the according letter in return.&lt;/p&gt;
 </description>
         
-        <pubDate>Sun, 10 Nov 2013 05:18:00 -0500</pubDate>
-        <link>http://tairuitong.me/2013/welcome-to-jekyll/</link>
-        <guid isPermaLink="true">http://tairuitong.me/2013/welcome-to-jekyll/</guid>
+        <pubDate>Wed, 10 Dec 2014 04:00:00 -0500</pubDate>
+        <link>http://tairuitong.me/2014/Vigenere-Cipher/</link>
+        <guid isPermaLink="true">http://tairuitong.me/2014/Vigenere-Cipher/</guid>
       </item>
     
   </channel>
