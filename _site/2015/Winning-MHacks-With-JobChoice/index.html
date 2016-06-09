@@ -42,14 +42,14 @@
         <h2 class="headline">September 22, 2015</h2>
     </header>
     <section id="post-body">
-        <h1>JobChoice</h1>
+        <h1 id="jobchoice">JobChoice</h1>
 
-<h5>The project that I did at this year&#39;s MHack6</h5>
+<h5 id="the-project-that-i-did-at-this-years-mhack6">The project that I did at this year’s MHack6</h5>
 
-<p>This year at Michigan University&#39;s 6th hackathon, MHack6, my partner (Ryan C Davis) and I set out to make a web application that made it simple for users to find which location
+<p>This year at Michigan University’s 6th hackathon, MHack6, my partner (Ryan C Davis) and I set out to make a web application that made it simple for users to find which location
 from your different job offers will best fit your choice of savings, comfort, and safety.</p>
 
-<p><img src="http://mhacks.org/images/mhacks_logo.svg" alt="MHACKS Logo"></p>
+<p><img src="http://mhacks.org/images/mhacks_logo.svg" alt="MHACKS Logo" /></p>
 
 <p>The web application that we designed is composed of several different pieces of technology, lets list the stack now
 * Node JS
@@ -59,8 +59,7 @@ from your different job offers will best fit your choice of savings, comfort, an
 
 <p>So how does all of these things work together? Lets dive in with this section by section explanation</p>
 
-<h5>What is IBM Watson Trade Off Analytics?</h5>
-
+<h5 id="what-is-ibm-watson-trade-off-analytics">What is IBM Watson Trade Off Analytics?</h5>
 <p>I am pretty much certain that you’ve heard about IBM’s Watson super computer, well if you didn’t know, it is a super computer that had the capability to understand and respond to a variety of different questions.
 It was able to understand questions from Jeopardy and beat the top 3 champions back in 2011. But now in 2015 IBM has opened up Watson’s intelligent analytics platform for use by everyone through simple API calls in IBM Bluemix.</p>
 
@@ -69,183 +68,197 @@ It was able to understand questions from Jeopardy and beat the top 3 champions b
 <p>IBM tradeoff analytics only require a JSON recipe to brew your solution. The JSON that you send to Watson will include the following:</p>
 
 <ul>
-<li>Values to be returned with its format, key, how you want to optimize it (max/min), and a few presentation parameters</li>
-<li>Options, which are the input data that you will be sending over to Watson to be analyzed. These options should have the same parameters and should have all fields filled or Watson will be automatically discard the options with missing parameters</li>
+  <li>Values to be returned with its format, key, how you want to optimize it (max/min), and a few presentation parameters</li>
+  <li>Options, which are the input data that you will be sending over to Watson to be analyzed. These options should have the same parameters and should have all fields filled or Watson will be automatically discard the options with missing parameters</li>
 </ul>
 
 <p>That’s it, these two are the primary necessary components you need to get Watson to understand your problem and to have it respond to you with a solution.</p>
 
 <p>The comparison takes data from a source that we scrap and uses an web api called import.io to handle the scraping of data and sending it back to us in JSON format.</p>
 
-<h5>The setup</h5>
+<h5 id="the-setup">The setup</h5>
 
 <p>And to actually install Tradeoff analytics in your Node.JS application which are pretty standard for all the Node Packages, here are the steps to do so</p>
 
 <ol>
-<li>Install Watson-Tradeoff analytics through npm by including this line in your package.json &quot;watson-developer-cloud&quot;: &quot;~0.9.3&quot;,</li>
-<li>Run NPM install to download the dependencies</li>
-<li>Create a folder called config and create two files within it, bluemix.js and express.js</li>
+  <li>Install Watson-Tradeoff analytics through npm by including this line in your package.json “watson-developer-cloud”: “~0.9.3”,</li>
+  <li>Run NPM install to download the dependencies</li>
+  <li>Create a folder called config and create two files within it, bluemix.js and express.js</li>
 </ol>
 
-<h5>Bluemix.js</h5>
+<h5 id="bluemixjs">Bluemix.js</h5>
 
 <p>Bluemix.js is the initial starting point of where IBM Bluemix service will start, and this code was copied directly from the <a href="https://github.com/watson-developer-cloud/tradeoff-analytics-nodejs">Bluemix</a> example however we changed it to reference from our credentials.json file:</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
 
-<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="p">.</span><span class="nx">getServiceCreds</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
-<span class="k">if</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">VCAP_SERVICES</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kd">var</span> <span class="nx">services</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">VCAP_SERVICES</span><span class="p">);</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">service_name</span> <span class="k">in</span> <span class="nx">services</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">if</span> <span class="p">(</span><span class="nx">service_name</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-      <span class="kd">var</span> <span class="nx">service</span> <span class="o">=</span> <span class="nx">services</span><span class="p">[</span><span class="nx">service_name</span><span class="p">][</span><span class="mi">0</span><span class="p">];</span>
-      <span class="k">return</span> <span class="p">{</span>
-          <span class="nx">url</span><span class="o">:</span> <span class="nx">service</span><span class="p">.</span><span class="nx">credentials</span><span class="p">.</span><span class="nx">url</span><span class="p">,</span>
-          <span class="nx">username</span><span class="o">:</span> <span class="nx">service</span><span class="p">.</span><span class="nx">credentials</span><span class="p">.</span><span class="nx">username</span><span class="p">,</span>
-          <span class="nx">password</span><span class="o">:</span> <span class="nx">service</span><span class="p">.</span><span class="nx">credentials</span><span class="p">.</span><span class="nx">password</span>
-        <span class="p">};</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-<span class="k">return</span> <span class="p">{};</span>
-<span class="p">};</span>
-</code></pre></div>
-<h5>Express.js</h5>
+<p>```javascript
+‘use strict’;</p>
+
+<p>module.exports.getServiceCreds = function(name) {
+if (process.env.VCAP_SERVICES) {
+  var services = JSON.parse(process.env.VCAP_SERVICES);
+  for (var service_name in services) {
+      if (service_name.indexOf(name) === 0) {
+      var service = services[service_name][0];
+      return {
+          url: service.credentials.url,
+          username: service.credentials.username,
+          password: service.credentials.password
+        };
+      }
+    }
+}
+return {};
+};
+```
+##### Express.js</p>
 
 <p>Within the express.js it contains the an express application to which will be the main where the templating engine will reside. This design was a flaw from how we structured our application from the beginning of the hackathon, a better design would have been to merge this express.js with the app.js in the root directory. However we still have this as crucial part of the web app as it connects the Jade templating engine with the frontend of the application.</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
-<span class="c1">// Module dependencies</span>
-<span class="kd">var</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;express&#39;</span><span class="p">),</span>
-<span class="nx">errorhandler</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;errorhandler&#39;</span><span class="p">),</span>
-<span class="nx">bodyParser</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;body-parser&#39;</span><span class="p">);</span>
 
-<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">app</span><span class="p">)</span> <span class="p">{</span>
+<p>```javascript
+‘use strict’;
+// Module dependencies
+var express = require(‘express’),
+errorhandler = require(‘errorhandler’),
+bodyParser = require(‘body-parser’);</p>
 
-  <span class="c1">// Configure Express</span>
-  <span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">bodyParser</span><span class="p">.</span><span class="nx">urlencoded</span><span class="p">({</span> <span class="nx">extended</span><span class="o">:</span> <span class="kc">true</span> <span class="p">}));</span>
-  <span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">bodyParser</span><span class="p">.</span><span class="nx">json</span><span class="p">());</span>
+<p>module.exports = function (app) {</p>
 
-  <span class="c1">// Setup static public directory</span>
-  <span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="kr">static</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="s1">&#39;/../public&#39;</span><span class="p">));</span>
-  <span class="nx">app</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;view engine&#39;</span><span class="p">,</span> <span class="s1">&#39;jade&#39;</span><span class="p">);</span>
-  <span class="nx">app</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;views&#39;</span><span class="p">,</span> <span class="nx">__dirname</span> <span class="o">+</span> <span class="s1">&#39;/../views&#39;</span><span class="p">);</span>
+<p>// Configure Express
+  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(bodyParser.json());</p>
 
-  <span class="c1">// Add error handling in dev</span>
-  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">VCAP_SERVICES</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">errorhandler</span><span class="p">());</span>
-  <span class="p">}</span>
-<span class="p">};</span>
-</code></pre></div>
-<h5>The problem model</h5>
+<p>// Setup static public directory
+  app.use(express.static(__dirname + ‘/../public’));
+  app.set(‘view engine’, ‘jade’);
+  app.set(‘views’, __dirname + ‘/../views’);</p>
+
+<p>// Add error handling in dev
+  if (!process.env.VCAP_SERVICES) {
+    app.use(errorhandler());
+  }
+};
+```</p>
+
+<h5 id="the-problem-model">The problem model</h5>
 
 <p>I won’t explain too much about how the data is scrapped but only on how to create the problem and then feed the problem model and give it to Bluemix as a solution to solving it.</p>
 
 <p>As our problem was to compare the different living indexes across different cities, we have a fixed number of indexes that we are comparing. With the different indexes we want certain ones to be maximized(air quality, living standards) and others to be minimized(transportation costs, crime). These will be all information included in the problem model.</p>
 
-<h5>Let’s create our problem model</h5>
+<h5 id="lets-create-our-problem-model">Let’s create our problem model</h5>
 
 <p>The problem model is a JSON array with all your parameters, and each parameters being filled with its corresponding values. A problem model JSON is composed of a columns JSON array proceeding that are the options JSON array. The columns JSON array will contain the variables that each option possesses to be compared across each other. While the options are going to be the dataset which will contain the data to be compared.</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">model</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;subject&quot;</span><span class="o">:</span><span class="s2">&quot;ToMaximizeAandC&quot;</span><span class="p">,</span>
-<span class="s2">&quot;columns&quot;</span><span class="o">:</span><span class="p">[{}],</span>
-<span class="s2">&quot;options&quot;</span><span class="o">:</span><span class="p">[{}]}</span>
-</code></pre></div>
-<p>A simple problem model could be where there are three variables that are being analyzed (variable A, B, and C). Our main objective for this problem is trying to maximize variables A and C). To formulate this problem for TradeOff analytics we would create a our columns JSON array like so to reflect our objectives</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="s2">&quot;columns&quot;</span><span class="o">:</span> <span class="p">[{</span>
-<span class="s2">&quot;key&quot;</span><span class="o">:</span><span class="s2">&quot;variableA&quot;</span><span class="p">,</span>
-<span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="s2">&quot;numeric&quot;</span><span class="p">,</span>
-<span class="s2">&quot;goal&quot;</span><span class="o">:</span><span class="s2">&quot;max&quot;</span><span class="p">,</span>
-<span class="s2">&quot;full_name&quot;</span><span class="o">:</span><span class="s2">&quot;Variable A&quot;</span><span class="p">,</span>
-<span class="s2">&quot;is_objective&quot;</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span>
-<span class="s2">&quot;format&quot;</span><span class="o">:</span><span class="s2">&quot;####.##&quot;</span>
-<span class="p">},</span> <span class="p">{</span>
-<span class="s2">&quot;key&quot;</span><span class="o">:</span><span class="s2">&quot;variableB&quot;</span><span class="p">,</span>
-<span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="s2">&quot;numeric&quot;</span><span class="p">,</span>
-<span class="s2">&quot;goal&quot;</span><span class="o">:</span><span class="s2">&quot;min&quot;</span><span class="p">,</span>
-<span class="s2">&quot;full_name&quot;</span><span class="o">:</span><span class="s2">&quot;Variable B&quot;</span><span class="p">,</span>
-<span class="s2">&quot;is_objective&quot;</span><span class="o">:</span><span class="kc">false</span><span class="p">,</span>
-<span class="s2">&quot;format&quot;</span><span class="o">:</span><span class="s2">&quot;####.##&quot;</span>
-<span class="p">},</span> <span class="p">{</span>
-<span class="s2">&quot;key&quot;</span><span class="o">:</span><span class="s2">&quot;variableC&quot;</span><span class="p">,</span>
-<span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="s2">&quot;numeric&quot;</span><span class="p">,</span>
-<span class="s2">&quot;goal&quot;</span><span class="o">:</span><span class="s2">&quot;max&quot;</span><span class="p">,</span>
-<span class="s2">&quot;full_name&quot;</span><span class="o">:</span><span class="s2">&quot;Variable C&quot;</span><span class="p">,</span>
-<span class="s2">&quot;is_objective&quot;</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span>
-<span class="s2">&quot;format&quot;</span><span class="o">:</span><span class="s2">&quot;####.##&quot;</span>
-<span class="p">}],</span>
-</code></pre></div>
-<p>From above we see that for the columns we have 3 different values, which are the corresponding variable A, B, and C. And their types are all numeric, with each having a different goal of whether to be maximized or minimized, and whether if it is part of our primary objectives or not. The key is what the options will have in its JSON document to refer it to the columns.</p>
+
+<p><code>javascript
+var model = {"subject":"ToMaximizeAandC",
+"columns":[{}],
+"options":[{}]}
+</code>
+A simple problem model could be where there are three variables that are being analyzed (variable A, B, and C). Our main objective for this problem is trying to maximize variables A and C). To formulate this problem for TradeOff analytics we would create a our columns JSON array like so to reflect our objectives</p>
+
+<p><code>javascript
+"columns": [{
+"key":"variableA",
+"type":"numeric",
+"goal":"max",
+"full_name":"Variable A",
+"is_objective":true,
+"format":"####.##"
+}, {
+"key":"variableB",
+"type":"numeric",
+"goal":"min",
+"full_name":"Variable B",
+"is_objective":false,
+"format":"####.##"
+}, {
+"key":"variableC",
+"type":"numeric",
+"goal":"max",
+"full_name":"Variable C",
+"is_objective":true,
+"format":"####.##"
+}],
+</code>
+From above we see that for the columns we have 3 different values, which are the corresponding variable A, B, and C. And their types are all numeric, with each having a different goal of whether to be maximized or minimized, and whether if it is part of our primary objectives or not. The key is what the options will have in its JSON document to refer it to the columns.</p>
 
 <p>Within the options we will fill in 3 sample data</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="s2">&quot;options&quot;</span><span class="o">:</span><span class="p">[{</span>
-<span class="s2">&quot;key&quot;</span><span class="o">:</span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;first option&quot;</span><span class="p">,</span>
-<span class="s2">&quot;values&quot;</span><span class="o">:</span><span class="p">{</span>
-<span class="s2">&quot;variableA&quot;</span> <span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
-<span class="s2">&quot;variableB&quot;</span> <span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
-<span class="s2">&quot;variableC&quot;</span> <span class="o">:</span> <span class="mi">99</span>
-<span class="p">},{</span>
-<span class="s2">&quot;key&quot;</span><span class="o">:</span><span class="s2">&quot;2&quot;</span><span class="p">,</span>
-<span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;second option&quot;</span><span class="p">,</span>
-<span class="s2">&quot;values&quot;</span><span class="o">:</span><span class="p">{</span>
-<span class="s2">&quot;variableA&quot;</span> <span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
-<span class="s2">&quot;variableB&quot;</span> <span class="o">:</span> <span class="mi">20</span><span class="p">,</span>
-<span class="s2">&quot;variableC&quot;</span> <span class="o">:</span> <span class="mi">50</span>
-<span class="p">},{</span>
-<span class="s2">&quot;key&quot;</span><span class="o">:</span><span class="s2">&quot;3&quot;</span><span class="p">,</span>
-<span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;third option&quot;</span><span class="p">,</span>
-<span class="s2">&quot;values&quot;</span><span class="o">:</span><span class="p">{</span>
-<span class="s2">&quot;variableA&quot;</span> <span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
-<span class="s2">&quot;variableB&quot;</span> <span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
-<span class="s2">&quot;variableC&quot;</span> <span class="o">:</span> <span class="mi">3</span>
-<span class="p">}]</span>
-</code></pre></div>
-<p>And the final structure should like this</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">model</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;subject&quot;</span><span class="o">:</span><span class="s2">&quot;ToMaximizeAandC&quot;</span><span class="p">,</span>
-<span class="s2">&quot;columns&quot;</span><span class="o">:</span> <span class="p">[{</span>
-<span class="s2">&quot;key&quot;</span><span class="o">:</span><span class="s2">&quot;variableA&quot;</span><span class="p">,</span>
-<span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="s2">&quot;numeric&quot;</span><span class="p">,</span>
-<span class="s2">&quot;goal&quot;</span><span class="o">:</span><span class="s2">&quot;max&quot;</span><span class="p">,</span>
-<span class="s2">&quot;full_name&quot;</span><span class="o">:</span><span class="s2">&quot;Variable A&quot;</span><span class="p">,</span>
-<span class="s2">&quot;is_objective&quot;</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span>
-<span class="s2">&quot;format&quot;</span><span class="o">:</span><span class="s2">&quot;####.##&quot;</span>
-<span class="p">},</span> <span class="p">{</span>
-<span class="s2">&quot;key&quot;</span><span class="o">:</span><span class="s2">&quot;variableB&quot;</span><span class="p">,</span>
-<span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="s2">&quot;numeric&quot;</span><span class="p">,</span>
-<span class="s2">&quot;goal&quot;</span><span class="o">:</span><span class="s2">&quot;min&quot;</span><span class="p">,</span>
-<span class="s2">&quot;full_name&quot;</span><span class="o">:</span><span class="s2">&quot;Variable B&quot;</span><span class="p">,</span>
-<span class="s2">&quot;is_objective&quot;</span><span class="o">:</span><span class="kc">false</span><span class="p">,</span>
-<span class="s2">&quot;format&quot;</span><span class="o">:</span><span class="s2">&quot;####.##&quot;</span>
-<span class="p">},</span> <span class="p">{</span>
-<span class="s2">&quot;key&quot;</span><span class="o">:</span><span class="s2">&quot;variableC&quot;</span><span class="p">,</span>
-<span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="s2">&quot;numeric&quot;</span><span class="p">,</span>
-<span class="s2">&quot;goal&quot;</span><span class="o">:</span><span class="s2">&quot;max&quot;</span><span class="p">,</span>
-<span class="s2">&quot;full_name&quot;</span><span class="o">:</span><span class="s2">&quot;Variable C&quot;</span><span class="p">,</span>
-<span class="s2">&quot;is_objective&quot;</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span>
-<span class="s2">&quot;format&quot;</span><span class="o">:</span><span class="s2">&quot;####.##&quot;</span>
-<span class="p">}],</span>
-<span class="s2">&quot;options&quot;</span><span class="o">:</span><span class="p">[{</span>
-<span class="s2">&quot;key&quot;</span><span class="o">:</span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;first option&quot;</span><span class="p">,</span>
-<span class="s2">&quot;values&quot;</span><span class="o">:</span><span class="p">{</span>
-<span class="s2">&quot;variableA&quot;</span> <span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
-<span class="s2">&quot;variableB&quot;</span> <span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
-<span class="s2">&quot;variableC&quot;</span> <span class="o">:</span> <span class="mi">99</span>
-<span class="p">}},</span> <span class="p">{</span>
-<span class="s2">&quot;key&quot;</span><span class="o">:</span><span class="s2">&quot;2&quot;</span><span class="p">,</span>
-<span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;second option&quot;</span><span class="p">,</span>
-<span class="s2">&quot;values&quot;</span><span class="o">:</span><span class="p">{</span>
-<span class="s2">&quot;variableA&quot;</span> <span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
-<span class="s2">&quot;variableB&quot;</span> <span class="o">:</span> <span class="mi">20</span><span class="p">,</span>
-<span class="s2">&quot;variableC&quot;</span> <span class="o">:</span> <span class="mi">50</span>
-<span class="p">}},</span> <span class="p">{</span>
-<span class="s2">&quot;key&quot;</span><span class="o">:</span><span class="s2">&quot;3&quot;</span><span class="p">,</span>
-<span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;third option&quot;</span><span class="p">,</span>
-<span class="s2">&quot;values&quot;</span><span class="o">:</span><span class="p">{</span>
-<span class="s2">&quot;variableA&quot;</span> <span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
-<span class="s2">&quot;variableB&quot;</span> <span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
-<span class="s2">&quot;variableC&quot;</span> <span class="o">:</span> <span class="mi">3</span>
-<span class="p">}}]</span>
-<span class="p">}</span>
-</code></pre></div>
+
+<p><code>javascript
+"options":[{
+"key":"1",
+"name": "first option",
+"values":{
+"variableA" : 10,
+"variableB" : 2,
+"variableC" : 99
+},{
+"key":"2",
+"name": "second option",
+"values":{
+"variableA" : 2,
+"variableB" : 20,
+"variableC" : 50
+},{
+"key":"3",
+"name": "third option",
+"values":{
+"variableA" : 3,
+"variableB" : 3,
+"variableC" : 3
+}]
+</code>
+And the final structure should like this</p>
+
+<p><code>javascript
+var model = {"subject":"ToMaximizeAandC",
+"columns": [{
+"key":"variableA",
+"type":"numeric",
+"goal":"max",
+"full_name":"Variable A",
+"is_objective":true,
+"format":"####.##"
+}, {
+"key":"variableB",
+"type":"numeric",
+"goal":"min",
+"full_name":"Variable B",
+"is_objective":false,
+"format":"####.##"
+}, {
+"key":"variableC",
+"type":"numeric",
+"goal":"max",
+"full_name":"Variable C",
+"is_objective":true,
+"format":"####.##"
+}],
+"options":[{
+"key":"1",
+"name": "first option",
+"values":{
+"variableA" : 10,
+"variableB" : 2,
+"variableC" : 99
+}}, {
+"key":"2",
+"name": "second option",
+"values":{
+"variableA" : 2,
+"variableB" : 20,
+"variableC" : 50
+}}, {
+"key":"3",
+"name": "third option",
+"values":{
+"variableA" : 3,
+"variableB" : 3,
+"variableC" : 3
+}}]
+}
+</code></p>
+
 <p>Once we have our model set up we can initiate a call to bluemix with our data through a call to our tradeoffanalytics instance in our app.js which will return the final results in a JSON format.</p>
 
     </section>

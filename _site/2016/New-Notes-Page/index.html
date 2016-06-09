@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Tai Tong's Blog - New Notes Page!</title>
+  <link rel="shortcut icon" href="/assets/images/favicon.ico">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="alternate" type="application/rss+xml" title="My Blog" href="/rss.xml">
+  <link rel="stylesheet" href="/assets/css/highlight.css">
+</head>
+<body>
+
+  <nav class="main-nav">
+    
+        <a href='/'> <span class="arrow">←</span> Home </a>
+    
+
+    
+        
+            <a href='/about'>About </a>
+        
+    
+    
+     
+        
+            <a href='/notes'>Notes </a>
+        
+    
+    
+    <a class="cta" href="/feed.xml">Subscribe</a>
+</nav>
+
+  
+
+  <section id="wrapper" class="">
+    <article class="post">
+    <header>
+        <h1>New Notes Page!</h1>
+        <h2 class="headline">January 28, 2016</h2>
+    </header>
+    <section id="post-body">
+        <h1 id="new-notes-page">New Notes Page</h1>
+
+<p>For the people who look at my blog even, there is now a notes page that feature and document all the different things that I’ve learnt.
+Since nowadays technology seems to be a never ending trail of developers churning out new frameworks and cool gizmos everyday, its hard to keep track of what you’ve already learnt and what you haven’t.
+So opening up my notes page is both a place for all the strangers and me to see.</p>
+
+<p>And it was somewhat of a headache making a new notes page, so here is how you do it in Jekyll</p>
+
+<ul>
+  <li>Create the page you want by placing it in the root directory, for me…note.md or note.html they all get rendered back to Html</li>
+  <li>Within note.md or note.html, you’ll again place that lovel YAML Font Matter header that will describe what the page is about</li>
+</ul>
+
+<h2 id="section">```</h2>
+<p>title: Notes
+permalink: notes/
+profile: false
+—
+```</p>
+
+<ul>
+  <li>After that we go into your _config.yml to actually setup a few things, which are your collections (the new collection of things other than posts)</li>
+</ul>
+
+<p>```
+# create a new collection by adding the parameter collections
+collections:
+    notes:
+    # output gives you the same feel as a post like page where each article is rerendered as a individual page
+        output: true</p>
+
+<h1 id="now-we-also-add-to-our-defaults-options-to-theme-and-get-the-pages-have-a-type-covered">now we also add to our defaults options to theme and get the pages have a type covered</h1>
+<p>defaults:
+     - 
+        scope:
+            path: “”
+            type: notes
+        values:
+            layout: post
+```</p>
+
+<ul>
+  <li>After that create a folder with an underscore infront of the name directory ‘_’ and the name should be like “/_notes” using the same name as your collection</li>
+  <li>Then just start to create new posts in the folders with HTML or MD, all gets compiled to their own pages because you set the “output” parameter to true</li>
+</ul>
+
+    </section>
+</article>
+<footer id="post-meta" class="clearfix">
+    <a href="http://twitter.com/TaiRTong">
+        <img class="avatar" src="/assets/images/avatar.png">
+        <div>
+            <span class="dark">Tai Tong</span>
+            <span>Blog about everything from coding to anything I find interesting.</span>
+        </div>
+    </a>
+
+    <section id="sharing">
+        <a class="twitter" href="https://twitter.com/intent/tweet?text=//2016/New-Notes-Page/ - New Notes Page! by @TaiRTong"><span class="icon-twitter"> Tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+    </section>
+</footer>
+
+<!-- Disqus comments -->
+
+    <div class="archive readmore">
+        <h3>Comments</h3>
+        <section class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'theperfectsquareca';
+        var disqus_developer = 0; // developer mode is on
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+    </div>
+
+
+<!-- Archive post list -->
+
+    <ul id="post-list" class="archive readmore">
+        <h3>Read more</h3>
+        
+            <li>
+                <a href="/2016/New-Notes-Page/">New Notes Page!<aside class="dates">Jan 28</aside></a>
+            </li>
+        
+            <li>
+                <a href="/2016/Hackathons-Culture/">Hackathon Culture<aside class="dates">Jan 28</aside></a>
+            </li>
+        
+            <li>
+                <a href="/2015/Winning-MHacks-With-JobChoice/">JobChoice and Winning best in Data Analytics in MHacks<aside class="dates">Sep 22</aside></a>
+            </li>
+        
+            <li>
+                <a href="/2015/streographic-opengl/">Streographic OpenGL Setup<aside class="dates">Jan 04</aside></a>
+            </li>
+        
+            <li>
+                <a href="/2014/uploading-to-php-2/">Uploading files to a LAMP stack and keep track of it with a CMS Part 2<aside class="dates">Dec 23</aside></a>
+            </li>
+        
+            <li>
+                <a href="/2014/uploading-to-php/">Uploading files to a LAMP stack and keep track of it with a CMS<aside class="dates">Dec 22</aside></a>
+            </li>
+        
+            <li>
+                <a href="/2014/Vigenere-Cipher/">Vignere Cipher<aside class="dates">Dec 10</aside></a>
+            </li>
+        
+    </ul>
+
+
+
+
+
+  </section>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="/assets/js/main.js"></script>
+  <script src="/assets/js/highlight.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54598212-3', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>
+
+
+
