@@ -3,8 +3,32 @@
   <channel>
     <title>Tai Tong&#39;s Blog</title>
     <description>Blog about everything from coding to anything I find interesting.</description>
-    <link>http://tairuitong.me</link>
-    <atom:link href="http://tairuitong.me/feed.xml" rel="self" type="application/rss+xml" />
+    <link>http://www.tairuitong.me</link>
+    <atom:link href="http://www.tairuitong.me/feed.xml" rel="self" type="application/rss+xml" />
+    
+      <item>
+        <title>New Notes Page!</title>
+        
+        
+          <description>&lt;h1&gt;New Notes Page&lt;/h1&gt;
+</description>
+        
+        <pubDate>Thu, 28 Jan 2016 04:00:00 -0500</pubDate>
+        <link>http://www.tairuitong.me/2016/New-Notes-Page/</link>
+        <guid isPermaLink="true">http://www.tairuitong.me/2016/New-Notes-Page/</guid>
+      </item>
+    
+      <item>
+        <title>Hackathon Culture</title>
+        
+        
+          <description>&lt;h1&gt;Hackathons are churning up less new but more same&lt;/h1&gt;
+</description>
+        
+        <pubDate>Thu, 28 Jan 2016 04:00:00 -0500</pubDate>
+        <link>http://www.tairuitong.me/2016/Hackathons-Culture/</link>
+        <guid isPermaLink="true">http://www.tairuitong.me/2016/Hackathons-Culture/</guid>
+      </item>
     
       <item>
         <title>JobChoice and Winning best in Data Analytics in MHacks</title>
@@ -14,8 +38,8 @@
 </description>
         
         <pubDate>Tue, 22 Sep 2015 05:00:00 -0400</pubDate>
-        <link>http://tairuitong.me/2015/Winning-MHacks-With-JobChoice/</link>
-        <guid isPermaLink="true">http://tairuitong.me/2015/Winning-MHacks-With-JobChoice/</guid>
+        <link>http://www.tairuitong.me/2015/Winning-MHacks-With-JobChoice/</link>
+        <guid isPermaLink="true">http://www.tairuitong.me/2015/Winning-MHacks-With-JobChoice/</guid>
       </item>
     
       <item>
@@ -26,8 +50,8 @@
 </description>
         
         <pubDate>Sun, 04 Jan 2015 04:00:00 -0500</pubDate>
-        <link>http://tairuitong.me/2015/streographic-opengl/</link>
-        <guid isPermaLink="true">http://tairuitong.me/2015/streographic-opengl/</guid>
+        <link>http://www.tairuitong.me/2015/streographic-opengl/</link>
+        <guid isPermaLink="true">http://www.tairuitong.me/2015/streographic-opengl/</guid>
       </item>
     
       <item>
@@ -42,8 +66,8 @@
 </description>
         
         <pubDate>Tue, 23 Dec 2014 04:00:00 -0500</pubDate>
-        <link>http://tairuitong.me/2014/uploading-to-php-2/</link>
-        <guid isPermaLink="true">http://tairuitong.me/2014/uploading-to-php-2/</guid>
+        <link>http://www.tairuitong.me/2014/uploading-to-php-2/</link>
+        <guid isPermaLink="true">http://www.tairuitong.me/2014/uploading-to-php-2/</guid>
       </item>
     
       <item>
@@ -58,8 +82,8 @@
 </description>
         
         <pubDate>Mon, 22 Dec 2014 04:00:00 -0500</pubDate>
-        <link>http://tairuitong.me/2014/uploading-to-php/</link>
-        <guid isPermaLink="true">http://tairuitong.me/2014/uploading-to-php/</guid>
+        <link>http://www.tairuitong.me/2014/uploading-to-php/</link>
+        <guid isPermaLink="true">http://www.tairuitong.me/2014/uploading-to-php/</guid>
       </item>
     
       <item>
@@ -68,12 +92,12 @@
         
           <description>&lt;script src=&quot;//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js&quot;&gt;&lt;/script&gt;
 
-&lt;p&gt;While studying for exams on computer security, I decided to just write up a Javascript caesar cipher and a Vigenère cipher given the key below. A Vigenère cipher works similar to caesar cipher with shifting letters by an off set. A Vigenere cipher works by transcribing a key repeatedly under the plaintext, and according to the letter of the corresponding key the shift is determined. And the matrix below can accompany new characters by generating a new matrix, the matrix is read according to the first column A and given the corresponding key character on the top row, will give the according letter in return.&lt;/p&gt;
+&lt;p&gt;During one of my recent study sessions with my friends for an exam on computer security, one of the notes on ancient ciphers caught my eye. With procrastination looming over my head while I study, I decided to take a poke at creating a JavaScript based Vigenère cipher.&lt;/p&gt;
 </description>
         
         <pubDate>Wed, 10 Dec 2014 04:00:00 -0500</pubDate>
-        <link>http://tairuitong.me/2014/Vigenere-Cipher/</link>
-        <guid isPermaLink="true">http://tairuitong.me/2014/Vigenere-Cipher/</guid>
+        <link>http://www.tairuitong.me/2014/Vigenere-Cipher/</link>
+        <guid isPermaLink="true">http://www.tairuitong.me/2014/Vigenere-Cipher/</guid>
       </item>
     
   </channel>

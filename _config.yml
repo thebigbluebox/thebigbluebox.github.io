@@ -3,24 +3,36 @@ description: Blog about everything from coding to anything I find interesting.
 meta_description: "Tai Rui Tong's blog about everything"
 
 aboutPage: true
+notesPage: true
 
 markdown: redcarpet
 highlighter: pygments
 
-paginate: 20
+paginate: 10
 baseurl: /
 domain_name: 'http://tairuitong.me'
 google_analytics: 'UA-54598212-1'
 disqus_shortname: 'theperfectsquareca'
 timezone: America/New_York
+
+collections:
+    notes:
+        output: true
+
 # Details for the RSS feed generator
-url:            'http://tairuitong.me'
+url:            'http://www.tairuitong.me'
 author:         'Tai Tong'
 authorTwitter:  'TaiRTong'
 
 permalink:       /:year/:title/
 
 defaults:
+    - 
+        scope:
+            path: ""
+            type: notes
+        values:
+            layout: post
     -
         scope:
             path: "" # empty string for all files

@@ -1,7 +1,7 @@
 ---
 title:  "Streographic OpenGL Setup"
 date:   2015-1-4 9:00:00
-description: Lets try to emulate oculos with our openGL code
+description: Lets try to emulate Oculus with our openGL code
 ---
 #Stereographic OpenGL setup
 

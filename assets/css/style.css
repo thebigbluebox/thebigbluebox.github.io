@@ -612,6 +612,26 @@ h2.month {
   background: #4fafed;
 }
 
+.tagslist {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.tag {	
+    border-radius: 25px;
+    background: #5FB6D9;
+	color: #fff;
+	font-size: 15px;
+    padding: 5px; 
+	margin: 5px;
+    width: auto;
+    height: auto; 
+}
+
+.category {
+	background: #AFED54;
+}
+
 #sharing a {
   font-size: 20px;
   font-size: 13px;

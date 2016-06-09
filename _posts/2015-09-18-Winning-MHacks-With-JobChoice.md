@@ -7,7 +7,7 @@ description: What I did at MHacks and how my partner and I won Best in Data Anal
 
 ##### The project that I did at this year's MHack6
 
-This year at Michigan University's 6th hackathon, MHack6, my partner (Ryan) and I set out to make a web application that made it simple for users to find which location
+This year at Michigan University's 6th hackathon, MHack6, my partner (Ryan C Davis) and I set out to make a web application that made it simple for users to find which location
 from your different job offers will best fit your choice of savings, comfort, and safety.
 
 ![MHACKS Logo](http://mhacks.org/images/mhacks_logo.svg)
@@ -21,7 +21,8 @@ The web application that we designed is composed of several different pieces of 
 So how does all of these things work together? Lets dive in with this section by section explanation
 
 ##### What is IBM Watson Trade Off Analytics?
-I am pretty much certain that you’ve heard about IBM’s Watson super computer, well if you didn’t know, it is a super computer that had the capability to understand and respond to a variety of different questions. It was able to understand questions from Jeopardy and beat the top 3 champions back in 2011. But now in 2015 IBM has opened up Watson’s intelligent analytics platform for use by everyone through simple API calls in IBM Bluemix.
+I am pretty much certain that you’ve heard about IBM’s Watson super computer, well if you didn’t know, it is a super computer that had the capability to understand and respond to a variety of different questions.
+It was able to understand questions from Jeopardy and beat the top 3 champions back in 2011. But now in 2015 IBM has opened up Watson’s intelligent analytics platform for use by everyone through simple API calls in IBM Bluemix.
 
 At the heart of JobChoice, is the analytics platform provided by Watson, our data is feed into Watson’s tradeoff analytics and from then on Watson replies with a JSON document containing its findings. The document is then further processed by the UI to utilize its answers for the graph JS widget provided by IBM.
 
