@@ -10,7 +10,8 @@
         <title>New Notes Page!</title>
         
         
-          <description>&lt;h1&gt;New Notes Page&lt;/h1&gt;
+          <description>&lt;h1 id=&quot;new-notes-page&quot;&gt;New Notes Page&lt;/h1&gt;
+
 </description>
         
         <pubDate>Thu, 28 Jan 2016 04:00:00 -0500</pubDate>
@@ -22,7 +23,8 @@
         <title>Hackathon Culture</title>
         
         
-          <description>&lt;h1&gt;Hackathons are churning up less new but more same&lt;/h1&gt;
+          <description>&lt;h1 id=&quot;hackathons-are-churning-up-less-new-but-more-same&quot;&gt;Hackathons are churning up less new but more same&lt;/h1&gt;
+
 </description>
         
         <pubDate>Thu, 28 Jan 2016 04:00:00 -0500</pubDate>
@@ -34,7 +36,8 @@
         <title>JobChoice and Winning best in Data Analytics in MHacks</title>
         
         
-          <description>&lt;h1&gt;JobChoice&lt;/h1&gt;
+          <description>&lt;h1 id=&quot;jobchoice&quot;&gt;JobChoice&lt;/h1&gt;
+
 </description>
         
         <pubDate>Tue, 22 Sep 2015 05:00:00 -0400</pubDate>
@@ -46,7 +49,8 @@
         <title>Streographic OpenGL Setup</title>
         
         
-          <description>&lt;h1&gt;Stereographic OpenGL setup&lt;/h1&gt;
+          <description>&lt;h1 id=&quot;stereographic-opengl-setup&quot;&gt;Stereographic OpenGL setup&lt;/h1&gt;
+
 </description>
         
         <pubDate>Sun, 04 Jan 2015 04:00:00 -0500</pubDate>
@@ -58,11 +62,12 @@
         <title>Uploading files to a LAMP stack and keep track of it with a CMS Part 2</title>
         
         
-          <description>&lt;h1&gt;Uploading files to a LAMP stack and keep track of it with a CMS Part 2&lt;/h1&gt;
-
+          <description>&lt;h1 id=&quot;uploading-files-to-a-lamp-stack-and-keep-track-of-it-with-a-cms-part-2&quot;&gt;Uploading files to a LAMP stack and keep track of it with a CMS Part 2&lt;/h1&gt;
 &lt;blockquote&gt;
-&lt;h6&gt;This is technically a continuation of Dave&amp;#39;s tutorial on how to create a Blog with LAMP &lt;a href=&quot;https://daveismyname.com/creating-a-blog-from-scratch-with-php-bp#.Va2tvpNViko&quot;&gt;here&lt;/a&gt;, and I&amp;#39;ve added my own twist and turned it into a small CMS by allowing users to upload photos and keep track of their uploads. I will be referencing a lot of the files back to what was created on Dave&amp;#39;s tutorial&lt;/h6&gt;
+
+  &lt;h6 id=&quot;this-is-technically-a-continuation-of-daves-tutorial-on-how-to-create-a-blog-with-lamp-herehttpsdaveismynamecomcreating-a-blog-from-scratch-with-php-bpva2tvpnviko-and-ive-added-my-own-twist-and-turned-it-into-a-small-cms-by-allowing-users-to-upload-photos-and-keep-track-of-their-uploads-i-will-be-referencing-a-lot-of-the-files-back-to-what-was-created-on-daves-tutorial&quot;&gt;This is technically a continuation of Dave’s tutorial on how to create a Blog with LAMP &lt;a href=&quot;https://daveismyname.com/creating-a-blog-from-scratch-with-php-bp#.Va2tvpNViko&quot;&gt;here&lt;/a&gt;, and I’ve added my own twist and turned it into a small CMS by allowing users to upload photos and keep track of their uploads. I will be referencing a lot of the files back to what was created on Dave’s tutorial&lt;/h6&gt;
 &lt;/blockquote&gt;
+
 </description>
         
         <pubDate>Tue, 23 Dec 2014 04:00:00 -0500</pubDate>
@@ -74,11 +79,12 @@
         <title>Uploading files to a LAMP stack and keep track of it with a CMS</title>
         
         
-          <description>&lt;h1&gt;Uploading files to a LAMP stack and keep track of it with a CMS Part 1&lt;/h1&gt;
-
+          <description>&lt;h1 id=&quot;uploading-files-to-a-lamp-stack-and-keep-track-of-it-with-a-cms-part-1&quot;&gt;Uploading files to a LAMP stack and keep track of it with a CMS Part 1&lt;/h1&gt;
 &lt;blockquote&gt;
-&lt;h6&gt;This is technically a continuation of Dave&amp;#39;s tutorial on how to create a Blog with LAMP &lt;a href=&quot;https://daveismyname.com/creating-a-blog-from-scratch-with-php-bp#.Va2tvpNViko&quot;&gt;here&lt;/a&gt;, and I&amp;#39;ve added my own twist and turned it into a small CMS by allowing users to upload photos and keep track of their uploads. I will be referencing a lot of the files back to what was created on Dave&amp;#39;s tutorial&lt;/h6&gt;
+
+  &lt;h6 id=&quot;this-is-technically-a-continuation-of-daves-tutorial-on-how-to-create-a-blog-with-lamp-herehttpsdaveismynamecomcreating-a-blog-from-scratch-with-php-bpva2tvpnviko-and-ive-added-my-own-twist-and-turned-it-into-a-small-cms-by-allowing-users-to-upload-photos-and-keep-track-of-their-uploads-i-will-be-referencing-a-lot-of-the-files-back-to-what-was-created-on-daves-tutorial&quot;&gt;This is technically a continuation of Dave’s tutorial on how to create a Blog with LAMP &lt;a href=&quot;https://daveismyname.com/creating-a-blog-from-scratch-with-php-bp#.Va2tvpNViko&quot;&gt;here&lt;/a&gt;, and I’ve added my own twist and turned it into a small CMS by allowing users to upload photos and keep track of their uploads. I will be referencing a lot of the files back to what was created on Dave’s tutorial&lt;/h6&gt;
 &lt;/blockquote&gt;
+
 </description>
         
         <pubDate>Mon, 22 Dec 2014 04:00:00 -0500</pubDate>
@@ -93,6 +99,7 @@
           <description>&lt;script src=&quot;//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js&quot;&gt;&lt;/script&gt;
 
 &lt;p&gt;During one of my recent study sessions with my friends for an exam on computer security, one of the notes on ancient ciphers caught my eye. With procrastination looming over my head while I study, I decided to take a poke at creating a JavaScript based Vigenère cipher.&lt;/p&gt;
+
 </description>
         
         <pubDate>Wed, 10 Dec 2014 04:00:00 -0500</pubDate>

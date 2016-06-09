@@ -42,15 +42,15 @@
         <h2 class="headline">December 23, 2014</h2>
     </header>
     <section id="post-body">
-        <h1>Uploading files to a LAMP stack and keep track of it with a CMS Part 2</h1>
-
+        <h1 id="uploading-files-to-a-lamp-stack-and-keep-track-of-it-with-a-cms-part-2">Uploading files to a LAMP stack and keep track of it with a CMS Part 2</h1>
 <blockquote>
-<h6>This is technically a continuation of Dave&#39;s tutorial on how to create a Blog with LAMP <a href="https://daveismyname.com/creating-a-blog-from-scratch-with-php-bp#.Va2tvpNViko">here</a>, and I&#39;ve added my own twist and turned it into a small CMS by allowing users to upload photos and keep track of their uploads. I will be referencing a lot of the files back to what was created on Dave&#39;s tutorial</h6>
+
+  <h6 id="this-is-technically-a-continuation-of-daves-tutorial-on-how-to-create-a-blog-with-lamp-herehttpsdaveismynamecomcreating-a-blog-from-scratch-with-php-bpva2tvpnviko-and-ive-added-my-own-twist-and-turned-it-into-a-small-cms-by-allowing-users-to-upload-photos-and-keep-track-of-their-uploads-i-will-be-referencing-a-lot-of-the-files-back-to-what-was-created-on-daves-tutorial">This is technically a continuation of Dave’s tutorial on how to create a Blog with LAMP <a href="https://daveismyname.com/creating-a-blog-from-scratch-with-php-bp#.Va2tvpNViko">here</a>, and I’ve added my own twist and turned it into a small CMS by allowing users to upload photos and keep track of their uploads. I will be referencing a lot of the files back to what was created on Dave’s tutorial</h6>
 </blockquote>
 
-<p>So in part 1 we essentially created the backend portion to handle the handover of files from the temp folder into the permenant folder of /img/upload. In this section we will write the front end to handle uploading, editing, and the total overview. Since I assume you to have atleast understood part 1, you must be competent with PHP. And the code here are now usually self documenting so I won&#39;t speak much.</p>
+<p>So in part 1 we essentially created the backend portion to handle the handover of files from the temp folder into the permenant folder of /img/upload. In this section we will write the front end to handle uploading, editing, and the total overview. Since I assume you to have atleast understood part 1, you must be competent with PHP. And the code here are now usually self documenting so I won’t speak much.</p>
 
-<h3>The upload page</h3>
+<h3 id="the-upload-page">The upload page</h3>
 
 <div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="o">&lt;</span><span class="p">?</span><span class="n">php</span> <span class="sr">//in</span><span class="n">clude</span> <span class="n">config</span>
 <span class="n">require_once</span><span class="p">(</span><span class="s1">&#39;../includes/config.php&#39;</span><span class="p">);</span>
@@ -68,32 +68,32 @@
 
 <span class="o">&lt;</span><span class="n">div</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;wrapper&quot;</span><span class="o">&gt;</span>
 
-    <span class="o">&lt;</span><span class="p">?</span><span class="n">php</span> <span class="kp">include</span><span class="p">(</span><span class="s1">&#39;menu.php&#39;</span><span class="p">);</span><span class="sc">?&gt;</span>
-        <span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;imageupload.php&quot;</span><span class="o">&gt;</span><span class="no">Images</span> <span class="no">Index</span><span class="o">&lt;</span><span class="sr">/a&gt;&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
-        <span class="o">&lt;</span><span class="n">h2</span><span class="o">&gt;</span><span class="no">Upload</span> <span class="no">Images</span><span class="o">&lt;</span><span class="sr">/h2&gt;</span>
-<span class="sr">       </span>
-<span class="sr">       /</span><span class="o">/</span><span class="n">we</span> <span class="n">use</span> <span class="n">the</span> <span class="n">imageupload</span><span class="o">-</span><span class="n">script</span> <span class="n">we</span> <span class="n">made</span> <span class="k">in</span> <span class="n">part</span> <span class="mi">1</span>
-        <span class="o">&lt;</span><span class="n">form</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;imageupload-script.php&quot;</span> <span class="nb">method</span><span class="o">=</span><span class="s2">&quot;post&quot;</span> <span class="n">enctype</span><span class="o">=</span><span class="s2">&quot;multipart/form-data&quot;</span><span class="o">&gt;</span>
-            
-            <span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;&lt;</span><span class="n">label</span><span class="o">&gt;</span><span class="no">Title</span><span class="o">&lt;</span><span class="sr">/label&gt;&lt;br /</span><span class="o">&gt;</span>
-            <span class="o">&lt;</span><span class="n">input</span> <span class="n">type</span><span class="o">=</span><span class="s1">&#39;text&#39;</span> <span class="nb">name</span><span class="o">=</span><span class="s1">&#39;imgTitle&#39;</span><span class="o">&gt;&lt;</span><span class="sr">/p&gt;</span>
-<span class="sr">           </span>
-<span class="sr">           &lt;p&gt;&lt;label&gt;Description&lt;/</span><span class="n">label</span><span class="o">&gt;&lt;</span><span class="n">br</span> <span class="sr">/&gt;</span>
-<span class="sr">           &lt;textarea name=&#39;imgDesc&#39; cols=&#39;60&#39; rows=&#39;10&#39;&gt;&lt;/</span><span class="n">textarea</span><span class="o">&gt;&lt;</span><span class="sr">/p&gt;</span>
-<span class="sr">           </span>
-<span class="sr">           &lt;label for=&quot;file&quot;&gt;Filename:&lt;/</span><span class="n">label</span><span class="o">&gt;</span>
-            <span class="o">&lt;</span><span class="n">input</span> <span class="n">type</span><span class="o">=</span><span class="s2">&quot;file&quot;</span> <span class="nb">name</span><span class="o">=</span><span class="s2">&quot;file&quot;</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;file&quot;</span><span class="o">&gt;&lt;</span><span class="n">br</span><span class="o">&gt;</span>
-            
-            <span class="o">&lt;</span><span class="n">label</span> <span class="k">for</span><span class="o">=</span><span class="s2">&quot;inGallery&quot;</span><span class="o">&gt;</span><span class="no">Show</span> <span class="k">in</span> <span class="ss">Gallery</span><span class="p">:</span> <span class="o">&lt;</span><span class="sr">/label&gt;</span>
-<span class="sr">           &lt;input type=&quot;checkbox&quot; name=&quot;inGallery&quot; id=&quot;inGallery&quot; value=&quot;checked&quot;&gt;&lt;/</span><span class="n">br</span><span class="o">&gt;</span>
+	<span class="o">&lt;</span><span class="p">?</span><span class="n">php</span> <span class="kp">include</span><span class="p">(</span><span class="s1">&#39;menu.php&#39;</span><span class="p">);</span><span class="sc">?&gt;</span>
+		<span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;imageupload.php&quot;</span><span class="o">&gt;</span><span class="no">Images</span> <span class="no">Index</span><span class="o">&lt;</span><span class="sr">/a&gt;&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
+		<span class="o">&lt;</span><span class="n">h2</span><span class="o">&gt;</span><span class="no">Upload</span> <span class="no">Images</span><span class="o">&lt;</span><span class="sr">/h2&gt;</span>
+<span class="sr">		</span>
+<span class="sr">		/</span><span class="o">/</span><span class="n">we</span> <span class="n">use</span> <span class="n">the</span> <span class="n">imageupload</span><span class="o">-</span><span class="n">script</span> <span class="n">we</span> <span class="n">made</span> <span class="k">in</span> <span class="n">part</span> <span class="mi">1</span>
+		<span class="o">&lt;</span><span class="n">form</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;imageupload-script.php&quot;</span> <span class="nb">method</span><span class="o">=</span><span class="s2">&quot;post&quot;</span> <span class="n">enctype</span><span class="o">=</span><span class="s2">&quot;multipart/form-data&quot;</span><span class="o">&gt;</span>
+			
+			<span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;&lt;</span><span class="n">label</span><span class="o">&gt;</span><span class="no">Title</span><span class="o">&lt;</span><span class="sr">/label&gt;&lt;br /</span><span class="o">&gt;</span>
+			<span class="o">&lt;</span><span class="n">input</span> <span class="n">type</span><span class="o">=</span><span class="s1">&#39;text&#39;</span> <span class="nb">name</span><span class="o">=</span><span class="s1">&#39;imgTitle&#39;</span><span class="o">&gt;&lt;</span><span class="sr">/p&gt;</span>
+<span class="sr">			</span>
+<span class="sr">			&lt;p&gt;&lt;label&gt;Description&lt;/</span><span class="n">label</span><span class="o">&gt;&lt;</span><span class="n">br</span> <span class="sr">/&gt;</span>
+<span class="sr">			&lt;textarea name=&#39;imgDesc&#39; cols=&#39;60&#39; rows=&#39;10&#39;&gt;&lt;/</span><span class="n">textarea</span><span class="o">&gt;&lt;</span><span class="sr">/p&gt;</span>
+<span class="sr">			</span>
+<span class="sr">			&lt;label for=&quot;file&quot;&gt;Filename:&lt;/</span><span class="n">label</span><span class="o">&gt;</span>
+			<span class="o">&lt;</span><span class="n">input</span> <span class="n">type</span><span class="o">=</span><span class="s2">&quot;file&quot;</span> <span class="nb">name</span><span class="o">=</span><span class="s2">&quot;file&quot;</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;file&quot;</span><span class="o">&gt;&lt;</span><span class="n">br</span><span class="o">&gt;</span>
+			
+			<span class="o">&lt;</span><span class="n">label</span> <span class="k">for</span><span class="o">=</span><span class="s2">&quot;inGallery&quot;</span><span class="o">&gt;</span><span class="no">Show</span> <span class="k">in</span> <span class="ss">Gallery</span><span class="p">:</span> <span class="o">&lt;</span><span class="sr">/label&gt;</span>
+<span class="sr">			&lt;input type=&quot;checkbox&quot; name=&quot;inGallery&quot; id=&quot;inGallery&quot; value=&quot;checked&quot;&gt;&lt;/</span><span class="n">br</span><span class="o">&gt;</span>
 
-            <span class="o">&lt;</span><span class="n">input</span> <span class="n">type</span><span class="o">=</span><span class="s2">&quot;submit&quot;</span> <span class="nb">name</span><span class="o">=</span><span class="s2">&quot;submit&quot;</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;Submit&quot;</span><span class="o">&gt;</span>
-        <span class="o">&lt;</span><span class="sr">/form&gt;</span>
+			<span class="o">&lt;</span><span class="n">input</span> <span class="n">type</span><span class="o">=</span><span class="s2">&quot;submit&quot;</span> <span class="nb">name</span><span class="o">=</span><span class="s2">&quot;submit&quot;</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;Submit&quot;</span><span class="o">&gt;</span>
+		<span class="o">&lt;</span><span class="sr">/form&gt;</span>
 <span class="sr">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
 <span class="o">&lt;</span><span class="sr">/body&gt;</span>
 <span class="sr">&lt;/</span><span class="n">html</span><span class="o">&gt;</span></code></pre></div>
 
-<h3>The edit image page</h3>
+<h3 id="the-edit-image-page">The edit image page</h3>
 
 <div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="o">&lt;</span><span class="p">?</span><span class="n">php</span> <span class="sr">//in</span><span class="n">clude</span> <span class="n">config</span>
 <span class="n">require_once</span><span class="p">(</span><span class="s1">&#39;../includes/config.php&#39;</span><span class="p">);</span>
@@ -111,101 +111,101 @@
 
 <span class="o">&lt;</span><span class="n">div</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;wrapper&quot;</span><span class="o">&gt;</span>
 
-    <span class="o">&lt;</span><span class="p">?</span><span class="n">php</span> <span class="kp">include</span><span class="p">(</span><span class="s1">&#39;menu.php&#39;</span><span class="p">);</span><span class="sc">?&gt;</span>
-    <span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;imageupload.php&quot;</span><span class="o">&gt;</span><span class="no">Images</span> <span class="no">Index</span><span class="o">&lt;</span><span class="sr">/a&gt;&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
+	<span class="o">&lt;</span><span class="p">?</span><span class="n">php</span> <span class="kp">include</span><span class="p">(</span><span class="s1">&#39;menu.php&#39;</span><span class="p">);</span><span class="sc">?&gt;</span>
+	<span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;imageupload.php&quot;</span><span class="o">&gt;</span><span class="no">Images</span> <span class="no">Index</span><span class="o">&lt;</span><span class="sr">/a&gt;&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
 
-    <span class="o">&lt;</span><span class="n">h2</span><span class="o">&gt;</span><span class="no">Edit</span> <span class="no">Image</span><span class="o">&lt;</span><span class="sr">/h2&gt;</span>
-<span class="sr">   &lt;?php</span>
-<span class="sr">   /</span><span class="o">/</span><span class="k">if</span> <span class="n">form</span> <span class="n">has</span> <span class="n">been</span> <span class="n">submitted</span> <span class="n">process</span> <span class="n">it</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">isset</span><span class="p">(</span><span class="vg">$_POST</span><span class="o">[</span><span class="s1">&#39;submit&#39;</span><span class="o">]</span><span class="p">)){</span>
-        <span class="sr">//</span><span class="vg">$_POST</span> <span class="o">=</span> <span class="n">array_map</span><span class="p">(</span> <span class="s1">&#39;stripslashes&#39;</span><span class="p">,</span> <span class="vg">$_POST</span> <span class="p">);</span>
-        <span class="sr">//</span><span class="n">collect</span> <span class="n">form</span> <span class="n">data</span>
-        <span class="n">extract</span><span class="p">(</span><span class="vg">$_POST</span><span class="p">);</span>
-        <span class="sr">//</span><span class="n">very</span> <span class="n">basic</span> <span class="n">validation</span>
-        <span class="k">if</span><span class="p">(</span><span class="vg">$imgTitle</span> <span class="o">==</span><span class="s1">&#39;&#39;</span><span class="p">){</span>
-            <span class="vg">$error</span><span class="o">[]</span> <span class="o">=</span> <span class="s1">&#39;Please enter the title.&#39;</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">isset</span><span class="p">(</span><span class="vg">$error</span><span class="p">)){</span>
-            <span class="n">try</span> <span class="p">{</span>
-                <span class="sr">//</span><span class="vg">$imgTitle</span> <span class="o">=</span> <span class="n">slug</span><span class="p">(</span><span class="vg">$imgTitle</span><span class="p">);</span>
-                <span class="sr">//inse</span><span class="n">rt</span> <span class="n">into</span> <span class="n">database</span>
-                <span class="vg">$stmt</span> <span class="o">=</span> <span class="vg">$db</span><span class="o">-&gt;</span><span class="n">prepare</span><span class="p">(</span><span class="s1">&#39;UPDATE picture_directory SET imgTitle = :imgTitle, imgDesc = :imgDesc WHERE id = :id&#39;</span><span class="p">)</span> <span class="p">;</span>
-                <span class="vg">$stmt</span><span class="o">-&gt;</span><span class="n">execute</span><span class="p">(</span><span class="n">array</span><span class="p">(</span>
-                    
-                    <span class="s1">&#39;:imgTitle&#39;</span> <span class="o">=&gt;</span> <span class="n">htmlspecialchars</span><span class="p">(</span><span class="vg">$imgTitle</span><span class="p">),</span>
-                    <span class="s1">&#39;:imgDesc&#39;</span> <span class="o">=&gt;</span> <span class="n">htmlspecialchars</span><span class="p">(</span><span class="vg">$imgDesc</span><span class="p">),</span>
-                    <span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="vg">$id</span>
-                <span class="p">));</span>
-                <span class="vg">$stmt</span> <span class="o">=</span> <span class="vg">$db</span><span class="o">-&gt;</span><span class="n">prepare</span><span class="p">(</span><span class="s1">&#39;DELETE FROM picture_directory_album WHERE imgID = :imgID&#39;</span><span class="p">);</span>
-                <span class="vg">$stmt</span><span class="o">-&gt;</span><span class="n">execute</span><span class="p">(</span><span class="n">array</span><span class="p">(</span><span class="s1">&#39;:imgID&#39;</span> <span class="o">=&gt;</span> <span class="vg">$id</span><span class="p">));</span>
-                
-                <span class="sr">//</span><span class="n">redirect</span> <span class="n">to</span> <span class="n">index</span> <span class="n">page</span>
-                <span class="n">header</span><span class="p">(</span><span class="s1">&#39;Location: imageupload.php?action=updated&#39;</span><span class="p">);</span>
-                <span class="nb">exit</span><span class="p">;</span>
-            <span class="p">}</span> <span class="kp">catch</span><span class="p">(</span><span class="no">PDOException</span> <span class="vg">$e</span><span class="p">)</span> <span class="p">{</span>
-                <span class="n">echo</span> <span class="vg">$e</span><span class="o">-&gt;</span><span class="n">getMessage</span><span class="p">();</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="sc">?&gt;</span>
+	<span class="o">&lt;</span><span class="n">h2</span><span class="o">&gt;</span><span class="no">Edit</span> <span class="no">Image</span><span class="o">&lt;</span><span class="sr">/h2&gt;</span>
+<span class="sr">	&lt;?php</span>
+<span class="sr">	/</span><span class="o">/</span><span class="k">if</span> <span class="n">form</span> <span class="n">has</span> <span class="n">been</span> <span class="n">submitted</span> <span class="n">process</span> <span class="n">it</span>
+	<span class="k">if</span><span class="p">(</span><span class="n">isset</span><span class="p">(</span><span class="vg">$_POST</span><span class="o">[</span><span class="s1">&#39;submit&#39;</span><span class="o">]</span><span class="p">)){</span>
+		<span class="sr">//</span><span class="vg">$_POST</span> <span class="o">=</span> <span class="n">array_map</span><span class="p">(</span> <span class="s1">&#39;stripslashes&#39;</span><span class="p">,</span> <span class="vg">$_POST</span> <span class="p">);</span>
+		<span class="sr">//</span><span class="n">collect</span> <span class="n">form</span> <span class="n">data</span>
+		<span class="n">extract</span><span class="p">(</span><span class="vg">$_POST</span><span class="p">);</span>
+		<span class="sr">//</span><span class="n">very</span> <span class="n">basic</span> <span class="n">validation</span>
+		<span class="k">if</span><span class="p">(</span><span class="vg">$imgTitle</span> <span class="o">==</span><span class="s1">&#39;&#39;</span><span class="p">){</span>
+			<span class="vg">$error</span><span class="o">[]</span> <span class="o">=</span> <span class="s1">&#39;Please enter the title.&#39;</span><span class="p">;</span>
+		<span class="p">}</span>
+		<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">isset</span><span class="p">(</span><span class="vg">$error</span><span class="p">)){</span>
+			<span class="n">try</span> <span class="p">{</span>
+				<span class="sr">//</span><span class="vg">$imgTitle</span> <span class="o">=</span> <span class="n">slug</span><span class="p">(</span><span class="vg">$imgTitle</span><span class="p">);</span>
+				<span class="sr">//inse</span><span class="n">rt</span> <span class="n">into</span> <span class="n">database</span>
+				<span class="vg">$stmt</span> <span class="o">=</span> <span class="vg">$db</span><span class="o">-&gt;</span><span class="n">prepare</span><span class="p">(</span><span class="s1">&#39;UPDATE picture_directory SET imgTitle = :imgTitle, imgDesc = :imgDesc WHERE id = :id&#39;</span><span class="p">)</span> <span class="p">;</span>
+				<span class="vg">$stmt</span><span class="o">-&gt;</span><span class="n">execute</span><span class="p">(</span><span class="n">array</span><span class="p">(</span>
+					
+					<span class="s1">&#39;:imgTitle&#39;</span> <span class="o">=&gt;</span> <span class="n">htmlspecialchars</span><span class="p">(</span><span class="vg">$imgTitle</span><span class="p">),</span>
+					<span class="s1">&#39;:imgDesc&#39;</span> <span class="o">=&gt;</span> <span class="n">htmlspecialchars</span><span class="p">(</span><span class="vg">$imgDesc</span><span class="p">),</span>
+					<span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="vg">$id</span>
+				<span class="p">));</span>
+				<span class="vg">$stmt</span> <span class="o">=</span> <span class="vg">$db</span><span class="o">-&gt;</span><span class="n">prepare</span><span class="p">(</span><span class="s1">&#39;DELETE FROM picture_directory_album WHERE imgID = :imgID&#39;</span><span class="p">);</span>
+				<span class="vg">$stmt</span><span class="o">-&gt;</span><span class="n">execute</span><span class="p">(</span><span class="n">array</span><span class="p">(</span><span class="s1">&#39;:imgID&#39;</span> <span class="o">=&gt;</span> <span class="vg">$id</span><span class="p">));</span>
+				
+				<span class="sr">//</span><span class="n">redirect</span> <span class="n">to</span> <span class="n">index</span> <span class="n">page</span>
+				<span class="n">header</span><span class="p">(</span><span class="s1">&#39;Location: imageupload.php?action=updated&#39;</span><span class="p">);</span>
+				<span class="nb">exit</span><span class="p">;</span>
+			<span class="p">}</span> <span class="kp">catch</span><span class="p">(</span><span class="no">PDOException</span> <span class="vg">$e</span><span class="p">)</span> <span class="p">{</span>
+			    <span class="n">echo</span> <span class="vg">$e</span><span class="o">-&gt;</span><span class="n">getMessage</span><span class="p">();</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="sc">?&gt;</span>
 
 
-    <span class="o">&lt;</span><span class="p">?</span><span class="n">php</span>
-    <span class="sr">//</span><span class="n">check</span> <span class="k">for</span> <span class="n">any</span> <span class="n">errors</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">isset</span><span class="p">(</span><span class="vg">$error</span><span class="p">)){</span>
-        <span class="n">foreach</span><span class="p">(</span><span class="vg">$error</span> <span class="n">as</span> <span class="vg">$error</span><span class="p">){</span>
-            <span class="n">echo</span> <span class="vg">$error</span><span class="o">.</span><span class="s1">&#39;&lt;br /&gt;&#39;</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-        <span class="n">try</span> <span class="p">{</span>
-            <span class="vg">$stmt</span> <span class="o">=</span> <span class="vg">$db</span><span class="o">-&gt;</span><span class="n">prepare</span><span class="p">(</span><span class="s1">&#39;SELECT id, inGallery, imgTitle, imgDesc FROM picture_directory WHERE id = :id&#39;</span><span class="p">)</span> <span class="p">;</span>
-            <span class="vg">$stmt</span><span class="o">-&gt;</span><span class="n">execute</span><span class="p">(</span><span class="n">array</span><span class="p">(</span><span class="s1">&#39;:id&#39;</span> <span class="o">=&gt;</span> <span class="vg">$_GET</span><span class="o">[</span><span class="s1">&#39;id&#39;</span><span class="o">]</span><span class="p">));</span>
-            <span class="vg">$row</span> <span class="o">=</span> <span class="vg">$stmt</span><span class="o">-&gt;</span><span class="n">fetch</span><span class="p">();</span> 
-        <span class="p">}</span> <span class="kp">catch</span><span class="p">(</span><span class="no">PDOException</span> <span class="vg">$e</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">echo</span> <span class="vg">$e</span><span class="o">-&gt;</span><span class="n">getMessage</span><span class="p">();</span>
-        <span class="p">}</span>
-    <span class="sc">?&gt;</span>
+	<span class="o">&lt;</span><span class="p">?</span><span class="n">php</span>
+	<span class="sr">//</span><span class="n">check</span> <span class="k">for</span> <span class="n">any</span> <span class="n">errors</span>
+	<span class="k">if</span><span class="p">(</span><span class="n">isset</span><span class="p">(</span><span class="vg">$error</span><span class="p">)){</span>
+		<span class="n">foreach</span><span class="p">(</span><span class="vg">$error</span> <span class="n">as</span> <span class="vg">$error</span><span class="p">){</span>
+			<span class="n">echo</span> <span class="vg">$error</span><span class="o">.</span><span class="s1">&#39;&lt;br /&gt;&#39;</span><span class="p">;</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+		<span class="n">try</span> <span class="p">{</span>
+			<span class="vg">$stmt</span> <span class="o">=</span> <span class="vg">$db</span><span class="o">-&gt;</span><span class="n">prepare</span><span class="p">(</span><span class="s1">&#39;SELECT id, inGallery, imgTitle, imgDesc FROM picture_directory WHERE id = :id&#39;</span><span class="p">)</span> <span class="p">;</span>
+			<span class="vg">$stmt</span><span class="o">-&gt;</span><span class="n">execute</span><span class="p">(</span><span class="n">array</span><span class="p">(</span><span class="s1">&#39;:id&#39;</span> <span class="o">=&gt;</span> <span class="vg">$_GET</span><span class="o">[</span><span class="s1">&#39;id&#39;</span><span class="o">]</span><span class="p">));</span>
+			<span class="vg">$row</span> <span class="o">=</span> <span class="vg">$stmt</span><span class="o">-&gt;</span><span class="n">fetch</span><span class="p">();</span> 
+		<span class="p">}</span> <span class="kp">catch</span><span class="p">(</span><span class="no">PDOException</span> <span class="vg">$e</span><span class="p">)</span> <span class="p">{</span>
+		    <span class="n">echo</span> <span class="vg">$e</span><span class="o">-&gt;</span><span class="n">getMessage</span><span class="p">();</span>
+		<span class="p">}</span>
+	<span class="sc">?&gt;</span>
 
-        <span class="o">&lt;</span><span class="n">h2</span><span class="o">&gt;</span><span class="no">Edit</span> <span class="no">Images</span><span class="o">&lt;</span><span class="sr">/h2&gt;</span>
-<span class="sr">       &lt;form action=&#39;&#39; method=&#39;post&#39;&gt;</span>
-<span class="sr">           &lt;input type=&#39;hidden&#39; name=&#39;id&#39; value=&#39;&lt;?php echo $row[&#39;id&#39;];?&gt;&#39;&gt;</span>
+		<span class="o">&lt;</span><span class="n">h2</span><span class="o">&gt;</span><span class="no">Edit</span> <span class="no">Images</span><span class="o">&lt;</span><span class="sr">/h2&gt;</span>
+<span class="sr">		&lt;form action=&#39;&#39; method=&#39;post&#39;&gt;</span>
+<span class="sr">			&lt;input type=&#39;hidden&#39; name=&#39;id&#39; value=&#39;&lt;?php echo $row[&#39;id&#39;];?&gt;&#39;&gt;</span>
 
-<span class="sr">           &lt;p&gt;&lt;label&gt;Title&lt;/</span><span class="n">label</span><span class="o">&gt;&lt;</span><span class="n">br</span> <span class="sr">/&gt;</span>
-<span class="sr">           &lt;input type=&#39;text&#39; name=&#39;imgTitle&#39; value=&#39;&lt;?php echo $row[&#39;imgTitle&#39;];?&gt;&#39;&gt;&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
+<span class="sr">			&lt;p&gt;&lt;label&gt;Title&lt;/</span><span class="n">label</span><span class="o">&gt;&lt;</span><span class="n">br</span> <span class="sr">/&gt;</span>
+<span class="sr">			&lt;input type=&#39;text&#39; name=&#39;imgTitle&#39; value=&#39;&lt;?php echo $row[&#39;imgTitle&#39;];?&gt;&#39;&gt;&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
 
-            <span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;&lt;</span><span class="n">label</span><span class="o">&gt;</span><span class="no">Description</span><span class="o">&lt;</span><span class="sr">/label&gt;&lt;br /</span><span class="o">&gt;</span>
-            <span class="o">&lt;</span><span class="n">textarea</span> <span class="nb">name</span><span class="o">=</span><span class="s1">&#39;imgDesc&#39;</span> <span class="n">cols</span><span class="o">=</span><span class="s1">&#39;60&#39;</span> <span class="n">rows</span><span class="o">=</span><span class="s1">&#39;10&#39;</span><span class="o">&gt;&lt;</span><span class="p">?</span><span class="n">php</span> <span class="n">echo</span> <span class="vg">$row</span><span class="o">[</span><span class="s1">&#39;imgDesc&#39;</span><span class="o">]</span><span class="p">;</span><span class="sc">?&gt;</span><span class="o">&lt;</span><span class="sr">/textarea&gt;&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
+			<span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;&lt;</span><span class="n">label</span><span class="o">&gt;</span><span class="no">Description</span><span class="o">&lt;</span><span class="sr">/label&gt;&lt;br /</span><span class="o">&gt;</span>
+			<span class="o">&lt;</span><span class="n">textarea</span> <span class="nb">name</span><span class="o">=</span><span class="s1">&#39;imgDesc&#39;</span> <span class="n">cols</span><span class="o">=</span><span class="s1">&#39;60&#39;</span> <span class="n">rows</span><span class="o">=</span><span class="s1">&#39;10&#39;</span><span class="o">&gt;&lt;</span><span class="p">?</span><span class="n">php</span> <span class="n">echo</span> <span class="vg">$row</span><span class="o">[</span><span class="s1">&#39;imgDesc&#39;</span><span class="o">]</span><span class="p">;</span><span class="sc">?&gt;</span><span class="o">&lt;</span><span class="sr">/textarea&gt;&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
 
-        <span class="o">&lt;</span><span class="n">input</span> <span class="n">type</span><span class="o">=</span><span class="s1">&#39;submit&#39;</span> <span class="nb">name</span><span class="o">=</span><span class="s1">&#39;submit&#39;</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;Update&#39;</span><span class="o">&gt;</span>
+		<span class="o">&lt;</span><span class="n">input</span> <span class="n">type</span><span class="o">=</span><span class="s1">&#39;submit&#39;</span> <span class="nb">name</span><span class="o">=</span><span class="s1">&#39;submit&#39;</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;Update&#39;</span><span class="o">&gt;</span>
 
-        <span class="o">&lt;</span><span class="sr">/form&gt;</span>
+		<span class="o">&lt;</span><span class="sr">/form&gt;</span>
 
 <span class="sr">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
 
 <span class="o">&lt;</span><span class="sr">/body&gt;</span>
 <span class="sr">&lt;/</span><span class="n">html</span><span class="o">&gt;</span></code></pre></div>
 
-<h3>The admin overview page for images</h3>
+<h3 id="the-admin-overview-page-for-images">The admin overview page for images</h3>
 
 <div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="o">&lt;</span><span class="p">?</span><span class="n">php</span> <span class="sr">//in</span><span class="n">clude</span> <span class="n">config</span>
 <span class="n">require_once</span><span class="p">(</span><span class="s1">&#39;../includes/config.php&#39;</span><span class="p">);</span>
 <span class="sr">//i</span><span class="n">f</span> <span class="ow">not</span> <span class="n">logged</span> <span class="k">in</span> <span class="n">redirect</span> <span class="n">to</span> <span class="n">login</span> <span class="n">page</span>
 <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="vg">$user</span><span class="o">-&gt;</span><span class="n">is_logged_in</span><span class="p">()){</span> <span class="n">header</span><span class="p">(</span><span class="s1">&#39;Location: login.php&#39;</span><span class="p">);</span> <span class="p">}</span>
-<span class="sr">//</span><span class="n">function</span> <span class="k">for</span> <span class="n">delete</span>  
+<span class="sr">//</span><span class="n">function</span> <span class="k">for</span> <span class="n">delete</span> 	
 <span class="k">if</span><span class="p">(</span><span class="n">isset</span><span class="p">(</span><span class="vg">$_GET</span><span class="o">[</span><span class="s1">&#39;delimg&#39;</span><span class="o">]</span><span class="p">)){</span>
-    <span class="vg">$stmt</span> <span class="o">=</span> <span class="vg">$db</span><span class="o">-&gt;</span><span class="n">prepare</span><span class="p">(</span><span class="s1">&#39;SELECT FROM picture_directory WHERE id = :id&#39;</span><span class="p">);</span>
-    <span class="vg">$row</span> <span class="o">=</span> <span class="vg">$stmt</span><span class="o">-&gt;</span><span class="n">fetch</span><span class="p">();</span>
-    <span class="vg">$filepath</span> <span class="o">=</span> <span class="vg">$row</span><span class="o">[</span><span class="s1">&#39;imgPath&#39;</span><span class="o">]</span><span class="p">;</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">is_readable</span><span class="p">(</span><span class="vg">$filepath</span><span class="p">)){</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">unlink</span><span class="p">(</span><span class="vg">$filepath</span><span class="p">))</span> <span class="p">{</span><span class="n">echo</span> <span class="s2">&quot;Deleted file &quot;</span><span class="p">;</span> <span class="p">}</span>
-        <span class="k">else</span><span class="p">{</span><span class="n">echo</span> <span class="s2">&quot;File can&#39;t be deleted&quot;</span><span class="p">;}</span>
-    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
-        <span class="n">echo</span> <span class="s2">&quot;File is not present&quot;</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="vg">$stmt</span> <span class="o">=</span> <span class="vg">$db</span><span class="o">-&gt;</span><span class="n">prepare</span><span class="p">(</span><span class="s1">&#39;DELETE FROM picture_directory WHERE id = :id&#39;</span><span class="p">);</span>
-    <span class="vg">$stmt</span><span class="o">-&gt;</span><span class="n">execute</span><span class="p">(</span><span class="n">array</span><span class="p">(</span><span class="s1">&#39;:id&#39;</span> <span class="o">=&gt;</span> <span class="vg">$_GET</span><span class="o">[</span><span class="s1">&#39;delimg&#39;</span><span class="o">]</span><span class="p">));</span>
-    <span class="n">header</span><span class="p">(</span><span class="s1">&#39;Location: imageupload.php?action=deleted&#39;</span><span class="p">);</span>
-    <span class="nb">exit</span><span class="p">;</span>
+	<span class="vg">$stmt</span> <span class="o">=</span> <span class="vg">$db</span><span class="o">-&gt;</span><span class="n">prepare</span><span class="p">(</span><span class="s1">&#39;SELECT FROM picture_directory WHERE id = :id&#39;</span><span class="p">);</span>
+	<span class="vg">$row</span> <span class="o">=</span> <span class="vg">$stmt</span><span class="o">-&gt;</span><span class="n">fetch</span><span class="p">();</span>
+	<span class="vg">$filepath</span> <span class="o">=</span> <span class="vg">$row</span><span class="o">[</span><span class="s1">&#39;imgPath&#39;</span><span class="o">]</span><span class="p">;</span>
+	<span class="k">if</span><span class="p">(</span><span class="n">is_readable</span><span class="p">(</span><span class="vg">$filepath</span><span class="p">)){</span>
+		<span class="k">if</span><span class="p">(</span><span class="n">unlink</span><span class="p">(</span><span class="vg">$filepath</span><span class="p">))</span> <span class="p">{</span><span class="n">echo</span> <span class="s2">&quot;Deleted file &quot;</span><span class="p">;</span> <span class="p">}</span>
+		<span class="k">else</span><span class="p">{</span><span class="n">echo</span> <span class="s2">&quot;File can&#39;t be deleted&quot;</span><span class="p">;}</span>
+	<span class="p">}</span><span class="k">else</span><span class="p">{</span>
+		<span class="n">echo</span> <span class="s2">&quot;File is not present&quot;</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="vg">$stmt</span> <span class="o">=</span> <span class="vg">$db</span><span class="o">-&gt;</span><span class="n">prepare</span><span class="p">(</span><span class="s1">&#39;DELETE FROM picture_directory WHERE id = :id&#39;</span><span class="p">);</span>
+	<span class="vg">$stmt</span><span class="o">-&gt;</span><span class="n">execute</span><span class="p">(</span><span class="n">array</span><span class="p">(</span><span class="s1">&#39;:id&#39;</span> <span class="o">=&gt;</span> <span class="vg">$_GET</span><span class="o">[</span><span class="s1">&#39;delimg&#39;</span><span class="o">]</span><span class="p">));</span>
+	<span class="n">header</span><span class="p">(</span><span class="s1">&#39;Location: imageupload.php?action=deleted&#39;</span><span class="p">);</span>
+	<span class="nb">exit</span><span class="p">;</span>
 <span class="p">}</span>
 <span class="sc">?&gt;</span>
 <span class="o">&lt;!</span><span class="n">doctype</span> <span class="n">html</span><span class="o">&gt;</span>
@@ -217,10 +217,10 @@
 <span class="sr">  &lt;script language=&quot;JavaScript&quot; type=&quot;text/</span><span class="n">javascript</span><span class="s2">&quot;&gt;</span>
 <span class="s2">  function delimg(id, title)</span>
 <span class="s2">  {</span>
-<span class="s2">     if (confirm(&quot;</span><span class="no">Are</span> <span class="n">you</span> <span class="n">sure</span> <span class="n">you</span> <span class="n">want</span> <span class="n">to</span> <span class="n">delete</span> <span class="s1">&#39;&quot; + title + &quot;&#39;</span><span class="s2">&quot;))</span>
-<span class="s2">     {</span>
-<span class="s2">       window.location.href = &#39;imageupload.php?delimg=&#39; + id;</span>
-<span class="s2">     }</span>
+<span class="s2">	  if (confirm(&quot;</span><span class="no">Are</span> <span class="n">you</span> <span class="n">sure</span> <span class="n">you</span> <span class="n">want</span> <span class="n">to</span> <span class="n">delete</span> <span class="s1">&#39;&quot; + title + &quot;&#39;</span><span class="s2">&quot;))</span>
+<span class="s2">	  {</span>
+<span class="s2">	  	window.location.href = &#39;imageupload.php?delimg=&#39; + id;</span>
+<span class="s2">	  }</span>
 <span class="s2">  }</span>
 <span class="s2">  &lt;/script&gt;</span>
 <span class="s2">&lt;/head&gt;</span>
@@ -228,40 +228,40 @@
 
 <span class="s2">&lt;div id=&quot;</span><span class="n">wrapper</span><span class="s2">&quot;&gt;</span>
 
-<span class="s2">   &lt;?php include(&#39;menu.php&#39;);?&gt;</span>
-<span class="s2">   </span>
-<span class="s2">   &lt;h2&gt;Images Upload&lt;/h2&gt;</span>
-<span class="s2">   &lt;p&gt;&lt;a href=&quot;</span><span class="n">add</span><span class="o">-</span><span class="n">imageupload</span><span class="o">.</span><span class="n">php</span><span class="s2">&quot;&gt;Upload Image&lt;/a&gt;&lt;/p&gt;</span>
-<span class="s2">   &lt;?php</span>
-<span class="s2">   if(isset($_GET[&#39;action&#39;])){ </span>
-<span class="s2">       echo &#39;&lt;h3&gt;Image &#39;.$_GET[&#39;action&#39;].&#39;.&lt;/h3&gt;&#39;; </span>
-<span class="s2">   }</span>
-<span class="s2">   ?&gt;</span>
-<span class="s2">   &lt;table&gt;</span>
-<span class="s2">   &lt;tr&gt;</span>
-<span class="s2">       &lt;th&gt;Title&lt;/th&gt;</span>
-<span class="s2">       &lt;th&gt;ID&lt;/th&gt;</span>
-<span class="s2">       &lt;th&gt;Action&lt;/th&gt;</span>
-<span class="s2">   &lt;/tr&gt;</span>
-<span class="s2">   &lt;?php </span>
-<span class="s2">       try {</span>
-<span class="s2">           $stmt = $db-&gt;query(&#39;SELECT id, imgTitle FROM picture_directory ORDER BY id DESC&#39;);</span>
-<span class="s2">           while($row = $stmt-&gt;fetch()){</span>
-<span class="s2">               echo &#39;&lt;tr&gt;&#39;;</span>
-<span class="s2">               echo &#39;&lt;td&gt;&#39;.$row[&#39;imgTitle&#39;].&#39;&lt;/td&gt;&#39;;</span>
-<span class="s2">               echo &#39;&lt;td&gt;&#39;.$row[&#39;id&#39;].&#39;&lt;/td&gt;&#39;;</span>
-<span class="s2">               ?&gt;</span>
-<span class="s2">               &lt;td&gt;</span>
-<span class="s2">                   &lt;a href=&quot;</span><span class="n">edit</span><span class="o">-</span><span class="n">imageupload</span><span class="o">.</span><span class="n">php?</span><span class="nb">id</span><span class="o">=&lt;</span><span class="p">?</span><span class="n">php</span> <span class="n">echo</span> <span class="vg">$row</span><span class="o">[</span><span class="s1">&#39;id&#39;</span><span class="o">]</span><span class="p">;</span><span class="sc">?&gt;</span><span class="s2">&quot;&gt;Edit&lt;/a&gt; | </span>
-<span class="s2">                   &lt;a href=&quot;</span><span class="ss">javascript</span><span class="p">:</span><span class="n">delimg</span><span class="p">(</span><span class="s1">&#39;&lt;?php echo $row[&#39;</span><span class="nb">id</span><span class="s1">&#39;];?&gt;&#39;</span><span class="p">,</span><span class="s1">&#39;&lt;?php echo htmlspecialchars($row[&#39;</span><span class="n">imgTitle</span><span class="s1">&#39;]);?&gt;&#39;</span><span class="p">)</span><span class="s2">&quot;&gt;Delete&lt;/a&gt;</span>
-<span class="s2">               &lt;/td&gt;</span>
-<span class="s2">               &lt;?php</span>
-<span class="s2">               echo &#39;&lt;/tr&gt;&#39;;</span>
-<span class="s2">           }</span>
-<span class="s2">       }catch(PDOException $e) {</span>
-<span class="s2">           echo $e-&gt;getMessage();</span>
-<span class="s2">       }</span>
-<span class="s2">   ?&gt;</span>
+<span class="s2">	&lt;?php include(&#39;menu.php&#39;);?&gt;</span>
+<span class="s2">	</span>
+<span class="s2">	&lt;h2&gt;Images Upload&lt;/h2&gt;</span>
+<span class="s2">	&lt;p&gt;&lt;a href=&quot;</span><span class="n">add</span><span class="o">-</span><span class="n">imageupload</span><span class="o">.</span><span class="n">php</span><span class="s2">&quot;&gt;Upload Image&lt;/a&gt;&lt;/p&gt;</span>
+<span class="s2">	&lt;?php</span>
+<span class="s2">	if(isset($_GET[&#39;action&#39;])){ </span>
+<span class="s2">		echo &#39;&lt;h3&gt;Image &#39;.$_GET[&#39;action&#39;].&#39;.&lt;/h3&gt;&#39;; </span>
+<span class="s2">	}</span>
+<span class="s2">	?&gt;</span>
+<span class="s2">	&lt;table&gt;</span>
+<span class="s2">	&lt;tr&gt;</span>
+<span class="s2">		&lt;th&gt;Title&lt;/th&gt;</span>
+<span class="s2">		&lt;th&gt;ID&lt;/th&gt;</span>
+<span class="s2">		&lt;th&gt;Action&lt;/th&gt;</span>
+<span class="s2">	&lt;/tr&gt;</span>
+<span class="s2">	&lt;?php </span>
+<span class="s2">		try {</span>
+<span class="s2">			$stmt = $db-&gt;query(&#39;SELECT id, imgTitle FROM picture_directory ORDER BY id DESC&#39;);</span>
+<span class="s2">			while($row = $stmt-&gt;fetch()){</span>
+<span class="s2">				echo &#39;&lt;tr&gt;&#39;;</span>
+<span class="s2">				echo &#39;&lt;td&gt;&#39;.$row[&#39;imgTitle&#39;].&#39;&lt;/td&gt;&#39;;</span>
+<span class="s2">				echo &#39;&lt;td&gt;&#39;.$row[&#39;id&#39;].&#39;&lt;/td&gt;&#39;;</span>
+<span class="s2">				?&gt;</span>
+<span class="s2">				&lt;td&gt;</span>
+<span class="s2">					&lt;a href=&quot;</span><span class="n">edit</span><span class="o">-</span><span class="n">imageupload</span><span class="o">.</span><span class="n">php?</span><span class="nb">id</span><span class="o">=&lt;</span><span class="p">?</span><span class="n">php</span> <span class="n">echo</span> <span class="vg">$row</span><span class="o">[</span><span class="s1">&#39;id&#39;</span><span class="o">]</span><span class="p">;</span><span class="sc">?&gt;</span><span class="s2">&quot;&gt;Edit&lt;/a&gt; | </span>
+<span class="s2">					&lt;a href=&quot;</span><span class="ss">javascript</span><span class="p">:</span><span class="n">delimg</span><span class="p">(</span><span class="s1">&#39;&lt;?php echo $row[&#39;</span><span class="nb">id</span><span class="s1">&#39;];?&gt;&#39;</span><span class="p">,</span><span class="s1">&#39;&lt;?php echo htmlspecialchars($row[&#39;</span><span class="n">imgTitle</span><span class="s1">&#39;]);?&gt;&#39;</span><span class="p">)</span><span class="s2">&quot;&gt;Delete&lt;/a&gt;</span>
+<span class="s2">				&lt;/td&gt;</span>
+<span class="s2">				&lt;?php</span>
+<span class="s2">				echo &#39;&lt;/tr&gt;&#39;;</span>
+<span class="s2">			}</span>
+<span class="s2">		}catch(PDOException $e) {</span>
+<span class="s2">		    echo $e-&gt;getMessage();</span>
+<span class="s2">		}</span>
+<span class="s2">	?&gt;</span>
 <span class="s2">&lt;/table&gt;</span>
 <span class="s2">&lt;/div&gt;</span>
 <span class="s2">&lt;/body&gt;</span>

@@ -5,7 +5,6 @@ meta_description: "Tai Rui Tong's blog about everything"
 aboutPage: true
 notesPage: true
 
-markdown: redcarpet
 highlighter: pygments
 
 paginate: 10
