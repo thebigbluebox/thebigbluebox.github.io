@@ -3,9 +3,9 @@ title:  "Streographic OpenGL Setup"
 date:   2015-1-4 9:00:00
 description: Lets try to emulate Oculus with our openGL code
 ---
-#Stereographic OpenGL setup
+# Stereographic OpenGL setup
 
-#####The code described here are applicable to OpenGL 1.5 but the concept works the same for other versions of OpenGL
+##### The code described here are applicable to OpenGL 1.5 but the concept works the same for other versions of OpenGL
 
 For my final graphics project, my group decided to opt for a stereographic final project that would work with the Google Cardboard or any device that can support rendering stereographic displays. Our finished project is written in C++ and is available on github here. The purpose of this page is to explain how I created the correct projection for the two different displays for the individual eyes.
 
