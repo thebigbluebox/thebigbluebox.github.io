@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Tai Tong's Blog - Linux Basics</title>
+  <link rel="shortcut icon" href="/assets/images/favicon.ico">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="alternate" type="application/rss+xml" title="My Blog" href="/rss.xml">
+  <link rel="stylesheet" href="/assets/css/highlight.css">
+</head>
+<body>
+
+  <nav class="main-nav">
+    
+        <a href='/'> <span class="arrow">←</span> Home </a>
+    
+
+    
+        
+            <a href='/about'>About </a>
+        
+    
+    
+     
+        
+            <a href='/notes'>Notes </a>
+        
+    
+    
+    <a class="cta" href="/feed.xml">Subscribe</a>
+</nav>
+
+  
+
+  <section id="wrapper" class="">
+    <article class="post">
+    <header>
+        <h1>Linux Basics</h1>
+        <h2 class="headline">May 3, 2016</h2>
+    </header>
+    <section id="post-body">
+        <p>#Linux Basics
+Things I learned from just reading linux essentials</p>
+
+<ul>
+  <li>Pwd print working directory shows current path</li>
+</ul>
+
+<h4 id="ls-list-what-is-currently-in-our-directory">Ls list what is currently in our directory</h4>
+<ol>
+  <li>Ls [option] [directory]</li>
+  <li>-l flag is long listing</li>
+  <li>drwxr-xr-x  12 TaiRui  staff   408  4 Apr 19:46 Applications
+    <ul>
+      <li>D &lt;-directory type if nothing there it is not a directory</li>
+      <li>RWXR permissions</li>
+      <li>12 -&gt; number of blocks</li>
+      <li>TaiRui owner of the directory / file</li>
+      <li>Group that the owner is part of</li>
+      <li>File size in MiB</li>
+      <li>The time it was last changed</li>
+      <li>Folder name / File name
+# Paths</li>
+      <li>Absolute which are absolute locations based from your home level ~
+   ○ Relative which can be achieved from current / or from above ../, or from your user home level ~
+   ○ And change directories using cd [directory]</li>
+      <li>Important folders in your NIX system
+   ○ /etc -&gt; stores configuration files for the system
+   ○ /var/log -&gt; stores logs for various system components
+   ○ /bin -&gt; location of several commonly used programs
+   ○ /usr/bin -&gt; Another location for programs [http://unix.stackexchange.com/questions/5915/difference-between-bin-and-usr-bin]</li>
+      <li>Everything is a file in UNIX
+   ○ Everything in a NIX system is a file, this was set as a core principal design
+   ○ File extensions don’t matter to the system, as it relies on the file header within the file to tell the nix system what type of file it is
+        <ul>
+          <li>We can check a file’s type using the file command
+   ○ Files are case sensitive and even commands are case sensitive as well
+   ○ Spaces!</li>
+          <li>How do we deal with spaces in the file or directory? Either by using quotes cd ‘Family Photos’</li>
+          <li>Or via an escape character cd Family\ Photos the escape was the \ &lt;- there is a space after that escape character
+   ○ Hidden files in nix systems all begin with a full stop period, so in your home directory configurations can be seen by doing a ls -a</li>
+        </ul>
+      </li>
+      <li>Man Pages
+   ○ Man [command] which will show you a list of all configuration with the command shows you how to use it
+   ○ Searching can be done with man -k <keyword> or while in a man page /<keyword> then press n to browse next and next</keyword></keyword></li>
+      <li>File and Directory Manipulation
+   ○ Mkdir [options] <directory>
+</directory>        <ul>
+          <li>The creation of directory</li>
+          <li>-p will create the parent directory if you where to create a directory /parent1/folder</li>
+          <li>-v will log the creation of the folders</li>
+          <li>-pv combination p and v, lol so we list out the creation of multiple parent folders and such
+   ○ Rmdir removes the directory =
+   ○ Touch [option] <file> we don't just create a file we TOUCH ONE 
+   ○ Cp copying a file or folder</file></li>
+          <li>Cp source_file new_file</li>
+          <li>Cp -r source_folder new_folder
+   ○ MV moving a file or folder</li>
+          <li>Mv source file new_source_location</li>
+          <li>Mv -r source_folder new_source_location_folder</li>
+          <li>To rename we can just do the same for moving folders and files just change the name
+   ○ Rm removes a file</li>
+          <li>Rm [option] <file></file></li>
+          <li>Rm -r &lt;- removes recursively</li>
+        </ul>
+      </li>
+      <li>Command line Text Editors
+   ○ Vi - Vim the thing that everyone is scared of
+        <ul>
+          <li>Open a file vi [options] <file.txt></file.txt></li>
+          <li>Read only view <file.txt></file.txt></li>
+          <li>Text commands
+      □ i will change the opened mode to insertion mode which allows for the modification of the file
+      □ ZZ save and exit
+      □ :q! quit don’t save
+      □ :w save
+      □ :wq save and quit
+      □ Arrow keys - move the cursor around
+      □ j, k, h, l - move the cursor down, up, left and right (similar to the arrow keys)
+      □ ^ (caret) - move cursor to beginning of current line
+      □ $ - move cursor to end of the current line
+      □ nG - move to the nth line (eg 5G moves to 5th line)
+      □ G - move to the last line
+      □ w - move to the beginning of the next word
+      □ nw - move forward n word (eg 2w moves two words forwards)
+      □ b - move to the beginning of the previous word
+      □ nb - move back n word
+      □ { - move backward one paragraph
+      □ } - move forward one paragraph
+      □ x - delete a single character
+      □ nx - delete n characters (eg 5x deletes five characters)
+      □ dd - delete the current line
+      □ dn - d followed by a movement command. Delete to where the movement command would have taken you. (eg d5w means delete 5 words)
+      □ u - Undo the last action (you may keep pressing u to keep undoing)
+      □ U (Note: capital) - Undo all changes to the current line
+   ○ Cat (concatenate) -&gt; used to view files and logs right in the cmdline
+   ○ Less -&gt; used to view large files with ability to scroll</li>
+        </ul>
+      </li>
+      <li>Wildcards
+   ○ *  All seeing star, matches n characters of whatever
+   ○ ? Matches one unknown character ?A* matches the second letter with A
+   ○ [] range operator, matches any letter within the specified range ?[sv]* matches second letter with either s or v or [0-9] matches numbers from 0-9</li>
+      <li>Permissions
+   ○ 3 things for a file
+        <ul>
+          <li>Read [r]</li>
+          <li>Write [w]</li>
+          <li>Execute [x]
+   ○ 3 different types of permissions</li>
+          <li>Owner single person owns the file, permission could be granted to other users to access the file</li>
+          <li>Group</li>
+          <li>Others 
+   ○ Chmod to change the permission to the file</li>
+          <li>3 components : 
+      □ Who are we changing the permission for user, owner or all? 
+      □ Are we granting or revoking permissions
+      □ Which permission are we setting (R W X)</li>
+          <li>And we can do short hand such as 777 which in octal speak will set the individual bit values for the permissions at the [owner,group,others] group, and within that the bit representation of the value is used to determine the permission level</li>
+        </ul>
+      </li>
+      <li>Filters
+   ○ Filter is a program that  accepts textual data and transforms it in a particular way
+   ○ Head prints out the head of the document up to n number of lines
+   ○ Tail prints out the bottom of the document up to n number of lines
+   ○ Sort sorts the printout of the document by default alphabetically
+   ○ Nl shows line numbers for the print out
+   ○ Wc word count, character count.. Etc look in man pages
+   ○ Cut useful for column data, csv… tabbed data, but you can cut out a certain column using this command
+   ○ Sed stream editor, can edit an input stream’s data, or just do search and replace within a document
+   ○ Uniq gives output of only unique data, really useful for column data again
+   ○ Tac &lt;-reverse of cat, going from the bottom to the top</li>
+      <li>Regex
+   ○ . (dot) - a single character.
+   ○ ? - the preceding character matches 0 or 1 times only.
+   ○ * - the preceding character matches 0 or more times.
+   ○ + - the preceding character matches 1 or more times.
+   ○ {n} - the preceding character matches exactly n times.
+   ○ {n,m} - the preceding character matches at least n times and not more than m times.
+   ○ [agd] - the character is one of those included within the square brackets.
+   ○ [^agd] - the character is not one of those included within the square brackets.
+   ○ [c-f] - the dash within the square brackets operates as a range. In this case it means either the letters c, d, e or f.
+   ○ () - allows us to group several characters to behave as one.
+   ○ | (pipe symbol) - the logical OR operation.
+   ○ ^ - matches the beginning of the line.
+   ○ $ - matches the end of the line.</li>
+      <li>Piping!! And Redirection
+   ○ Every program that we run in the commandline has 3 different streams that can be connected to it
+   ○ STDIN standard input data fed into the program
+   ○ STDOUT standard output data outputted from the program
+   ○ STDERR which are the error output stream
+   ○ Redirecting to a file
+        <ul>
+          <li>If we wish to take the output stream of a application and save it to a file we will use the ‘&gt;’ greater than symbol to a file that you want as the output</li>
+          <li>If we redirect to afile that’s name isn’t already created then a new file will be created for you, however if redirecting to an existing file that file will be over written 
+      □ But we can get the data appended to the file using the » operator
+   ○ Redirecting from a file</li>
+          <li>Using the ‘&lt;’ less than operator we can actually redirect a file to be as an input to a program, we redirect into the stdin stream
+   ○ Redirecting to standard error</li>
+          <li>Using the 2&gt; operator where we identify the stream by its number stream 2 being the err stream, we can direct an error the error stream which will be printed out on the commandline</li>
+          <li>ls -l video.mpg blah.foo &gt; myoutput 2&gt;&amp;1 will redirect the output stream of err into the output file stream to be saved into the file myoutput
+   ○ Piping</li>
+          <li>
+            <table>
+              <tbody>
+                <tr>
+                  <td>We can pipe the output of one file into another file using the</td>
+                  <td>operator, it will pipe the output from the application on the left into the one on the right</td>
+                </tr>
+              </tbody>
+            </table>
+          </li>
+        </ul>
+      </li>
+      <li>Process management
+   ○ Top &lt;-shows processes in ram gives a live output
+   ○ PS aux to show all processes running
+   ○ Killing a process can be done with kill <pid> or we can truly kill by kill -9 <pid> which is a force kill which will not wait and kill it
+   ○ Running processes in the background
+</pid></pid>        <ul>
+          <li>You can run processes in the background by adding the &amp; operator at the end of a commandline to move the process in the background</li>
+          <li>To move a job or process back into the foreground use the ‘fg’ command with the job id to bring that process into the foreground</li>
+          <li>Ctrl z will bring the currently running foreground application into the background</li>
+        </ul>
+      </li>
+      <li>Bash Scripting
+   ○ http://ryanstutorials.net/linuxtutorial/scripting.php</li>
+    </ul>
+  </li>
+</ol>
+
+
+    </section>
+</article>
+<footer id="post-meta" class="clearfix">
+    <a href="http://twitter.com/TaiRTong">
+        <img class="avatar" src="/assets/images/avatar.png">
+        <div>
+            <span class="dark">Tai Tong</span>
+            <span>Blog about everything from coding to anything I find interesting.</span>
+        </div>
+    </a>
+
+    <section id="sharing">
+        <a class="twitter" href="https://twitter.com/intent/tweet?text=//notes/Linux/ - Linux Basics by @TaiRTong"><span class="icon-twitter"> Tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+    </section>
+</footer>
+
+<!-- Disqus comments -->
+
+
+<!-- Archive post list -->
+
+
+
+
+
+  </section>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="/assets/js/main.js"></script>
+  <script src="/assets/js/highlight.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54598212-3', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>
+
+
+

@@ -59,71 +59,89 @@
   <p>Your variables should look like this</p>
 </blockquote>
 
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$allowedExts</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s2">&quot;gif&quot;</span><span class="p">,</span> <span class="s2">&quot;jpeg&quot;</span><span class="p">,</span> <span class="s2">&quot;jpg&quot;</span><span class="p">,</span> <span class="s2">&quot;png&quot;</span><span class="p">);</span>
-		<span class="vg">$temp</span> <span class="o">=</span> <span class="n">explode</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;name&quot;</span><span class="o">]</span><span class="p">);</span>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">		<span class="vg">$allowedExts</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s2">"gif"</span><span class="p">,</span> <span class="s2">"jpeg"</span><span class="p">,</span> <span class="s2">"jpg"</span><span class="p">,</span> <span class="s2">"png"</span><span class="p">);</span>
+		<span class="vg">$temp</span> <span class="o">=</span> <span class="n">explode</span><span class="p">(</span><span class="s2">"."</span><span class="p">,</span> <span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"name"</span><span class="p">]);</span>
 		<span class="vg">$extension</span> <span class="o">=</span> <span class="k">end</span><span class="p">(</span><span class="vg">$temp</span><span class="p">);</span>
-		<span class="vg">$imgTitle</span> <span class="o">=</span> <span class="vg">$_POST</span><span class="o">[</span><span class="s1">&#39;imgTitle&#39;</span><span class="o">]</span><span class="p">;</span>
-		<span class="vg">$imgDesc</span> <span class="o">=</span> <span class="vg">$_POST</span><span class="o">[</span><span class="s1">&#39;imgDesc&#39;</span><span class="o">]</span><span class="p">;</span></code></pre></div>
+		<span class="vg">$imgTitle</span> <span class="o">=</span> <span class="vg">$_POST</span><span class="p">[</span><span class="s1">'imgTitle'</span><span class="p">];</span>
+		<span class="vg">$imgDesc</span> <span class="o">=</span> <span class="vg">$_POST</span><span class="p">[</span><span class="s1">'imgDesc'</span><span class="p">];</span></code></pre></figure>
 
 <p>Now that we’ve checked some basic request body information we can now move on to verifying that the file isn’t too large and that the file type from the request header matches one of the cases and the extension is valid and within our $allowedExts array. We will require a title for every image file that is uploaded so we will print an error if the title is missing.</p>
 
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="lineno"> 1</span> <span class="n">echo</span> <span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;size&quot;</span><span class="o">]</span><span class="p">;</span>
-<span class="lineno"> 2</span> <span class="k">if</span><span class="p">(</span><span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;size&quot;</span><span class="o">]</span> <span class="o">&gt;</span> <span class="mi">200000000</span><span class="p">){</span>
-<span class="lineno"> 3</span> 	<span class="n">echo</span> <span class="s2">&quot;File is too large&quot;</span><span class="p">;</span>
-<span class="lineno"> 4</span> <span class="p">}</span>
-<span class="lineno"> 5</span> <span class="n">echo</span> <span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;type&quot;</span><span class="o">]</span><span class="p">;</span>
-<span class="lineno"> 6</span> <span class="k">if</span> <span class="p">(((</span><span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;type&quot;</span><span class="o">]</span> <span class="o">==</span> <span class="s2">&quot;image/gif&quot;</span><span class="p">)</span>
-<span class="lineno"> 7</span> <span class="o">||</span> <span class="p">(</span><span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;type&quot;</span><span class="o">]</span> <span class="o">==</span> <span class="s2">&quot;image/jpeg&quot;</span><span class="p">)</span>
-<span class="lineno"> 8</span> <span class="o">||</span> <span class="p">(</span><span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;type&quot;</span><span class="o">]</span> <span class="o">==</span> <span class="s2">&quot;image/jpg&quot;</span><span class="p">)</span>
-<span class="lineno"> 9</span> <span class="o">||</span> <span class="p">(</span><span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;type&quot;</span><span class="o">]</span> <span class="o">==</span> <span class="s2">&quot;image/pjpeg&quot;</span><span class="p">)</span>
-<span class="lineno">10</span> <span class="o">||</span> <span class="p">(</span><span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;type&quot;</span><span class="o">]</span> <span class="o">==</span> <span class="s2">&quot;image/x-png&quot;</span><span class="p">)</span>
-<span class="lineno">11</span> <span class="o">||</span> <span class="p">(</span><span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;type&quot;</span><span class="o">]</span> <span class="o">==</span> <span class="s2">&quot;image/png&quot;</span><span class="p">))</span>
-<span class="lineno">12</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;size&quot;</span><span class="o">]</span> <span class="o">&lt;</span> <span class="mi">200000000</span><span class="p">)</span>
-<span class="lineno">13</span> <span class="o">&amp;&amp;</span> <span class="n">in_array</span><span class="p">(</span><span class="vg">$extension</span><span class="p">,</span> <span class="vg">$allowedExts</span><span class="p">))</span> <span class="p">{</span>
-<span class="lineno">14</span> <span class="k">if</span><span class="p">(</span><span class="vg">$imgTitle</span> <span class="o">==</span> <span class="n">null</span><span class="p">){</span>
-<span class="lineno">15</span> 	<span class="n">echo</span> <span class="s2">&quot;&lt;p class=</span><span class="se">\&quot;</span><span class="s2">error</span><span class="se">\&quot;</span><span class="s2">&gt; Please Enter a Title&lt;/p&gt;&quot;</span><span class="p">;</span>
-<span class="lineno">16</span> 	<span class="n">echo</span> <span class="s1">&#39;&lt;a href=&quot;javascript:history.go(-1)&quot;&gt;&lt;h2&gt; Go Back &lt;/h2&gt;&lt;/a&gt;&#39;</span><span class="p">;</span>
-<span class="lineno">17</span> <span class="p">}</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17</pre></td><td class="code"><pre><span class="n">echo</span> <span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"size"</span><span class="p">];</span>
+<span class="k">if</span><span class="p">(</span><span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"size"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">200000000</span><span class="p">){</span>
+	<span class="n">echo</span> <span class="s2">"File is too large"</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">echo</span> <span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"type"</span><span class="p">];</span>
+<span class="k">if</span> <span class="p">(((</span><span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"image/gif"</span><span class="p">)</span>
+<span class="o">||</span> <span class="p">(</span><span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"image/jpeg"</span><span class="p">)</span>
+<span class="o">||</span> <span class="p">(</span><span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"image/jpg"</span><span class="p">)</span>
+<span class="o">||</span> <span class="p">(</span><span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"image/pjpeg"</span><span class="p">)</span>
+<span class="o">||</span> <span class="p">(</span><span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"image/x-png"</span><span class="p">)</span>
+<span class="o">||</span> <span class="p">(</span><span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"image/png"</span><span class="p">))</span>
+<span class="o">&amp;&amp;</span> <span class="p">(</span><span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"size"</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">200000000</span><span class="p">)</span>
+<span class="o">&amp;&amp;</span> <span class="n">in_array</span><span class="p">(</span><span class="vg">$extension</span><span class="p">,</span> <span class="vg">$allowedExts</span><span class="p">))</span> <span class="p">{</span>
+<span class="k">if</span><span class="p">(</span><span class="vg">$imgTitle</span> <span class="o">==</span> <span class="n">null</span><span class="p">){</span>
+	<span class="n">echo</span> <span class="s2">"&lt;p class=</span><span class="se">\"</span><span class="s2">error</span><span class="se">\"</span><span class="s2">&gt; Please Enter a Title&lt;/p&gt;"</span><span class="p">;</span>
+	<span class="n">echo</span> <span class="s1">'&lt;a href="javascript:history.go(-1)"&gt;&lt;h2&gt; Go Back &lt;/h2&gt;&lt;/a&gt;'</span><span class="p">;</span>
+<span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></figure>
 
 <p>We added to the above code we will now check for any errors that could have occured during the upload, of which we will send back and not continue the upload.</p>
 
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">else</span><span class="p">{</span>
-	<span class="k">if</span> <span class="p">(</span><span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;error&quot;</span><span class="o">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">){</span>
-	<span class="n">echo</span> <span class="s2">&quot;&lt;p class=</span><span class="se">\&quot;</span><span class="s2">error</span><span class="se">\&quot;</span><span class="s2">&gt;Return Code: &quot;</span> <span class="o">.</span> <span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;error&quot;</span><span class="o">]</span> <span class="o">.</span> <span class="s2">&quot;&lt;/p&gt;&quot;</span><span class="o">.</span> <span class="s2">&quot;&lt;br&gt;&quot;</span><span class="p">;</span>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">else</span><span class="p">{</span>
+	<span class="k">if</span> <span class="p">(</span><span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"error"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">){</span>
+	<span class="n">echo</span> <span class="s2">"&lt;p class=</span><span class="se">\"</span><span class="s2">error</span><span class="se">\"</span><span class="s2">&gt;Return Code: "</span> <span class="o">.</span> <span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"error"</span><span class="p">]</span> <span class="o">.</span> <span class="s2">"&lt;/p&gt;"</span><span class="o">.</span> <span class="s2">"&lt;br&gt;"</span><span class="p">;</span>
 	<span class="p">}</span> 
 	<span class="k">else</span> <span class="p">{</span>
 		<span class="sr">//</span><span class="n">diagnostic</span> <span class="n">comments</span> <span class="n">to</span> <span class="n">make</span> <span class="n">sure</span> <span class="n">it</span> <span class="n">uploaded</span>
-		<span class="n">echo</span> <span class="s2">&quot;../img/Upload: &quot;</span> <span class="o">.</span> <span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;name&quot;</span><span class="o">]</span> <span class="o">.</span> <span class="s2">&quot;&lt;br&gt;&quot;</span><span class="p">;</span>
-		<span class="n">echo</span> <span class="s2">&quot;Type: &quot;</span> <span class="o">.</span> <span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;type&quot;</span><span class="o">]</span> <span class="o">.</span> <span class="s2">&quot;&lt;br&gt;&quot;</span><span class="p">;</span>
-		<span class="n">echo</span> <span class="s2">&quot;Size: &quot;</span> <span class="o">.</span> <span class="p">(</span><span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;size&quot;</span><span class="o">]</span> <span class="o">/</span> <span class="mi">1024</span><span class="p">)</span> <span class="o">.</span> <span class="s2">&quot; kB&lt;br&gt;&quot;</span><span class="p">;</span>
-		<span class="n">echo</span> <span class="s2">&quot;Temp file: &quot;</span> <span class="o">.</span> <span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;tmp_name&quot;</span><span class="o">]</span> <span class="o">.</span> <span class="s2">&quot;&lt;br&gt;&quot;</span><span class="p">;</span>
+		<span class="n">echo</span> <span class="s2">"../img/Upload: "</span> <span class="o">.</span> <span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"name"</span><span class="p">]</span> <span class="o">.</span> <span class="s2">"&lt;br&gt;"</span><span class="p">;</span>
+		<span class="n">echo</span> <span class="s2">"Type: "</span> <span class="o">.</span> <span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">.</span> <span class="s2">"&lt;br&gt;"</span><span class="p">;</span>
+		<span class="n">echo</span> <span class="s2">"Size: "</span> <span class="o">.</span> <span class="p">(</span><span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"size"</span><span class="p">]</span> <span class="o">/</span> <span class="mi">1024</span><span class="p">)</span> <span class="o">.</span> <span class="s2">" kB&lt;br&gt;"</span><span class="p">;</span>
+		<span class="n">echo</span> <span class="s2">"Temp file: "</span> <span class="o">.</span> <span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"tmp_name"</span><span class="p">]</span> <span class="o">.</span> <span class="s2">"&lt;br&gt;"</span><span class="p">;</span>
 		
 		<span class="sr">//i</span><span class="n">f</span> <span class="n">the</span> <span class="n">file</span> <span class="n">exists</span> <span class="n">already</span> <span class="n">within</span> <span class="n">the</span> <span class="n">upload</span> <span class="n">directory</span> <span class="n">we</span> <span class="n">will</span> <span class="n">stop</span> <span class="n">the</span> <span class="n">upload</span>
-		<span class="k">if</span> <span class="p">(</span><span class="n">file_exists</span><span class="p">(</span><span class="s2">&quot;../img/upload/&quot;</span> <span class="o">.</span> <span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;name&quot;</span><span class="o">]</span><span class="p">))</span> <span class="p">{</span>
-			<span class="n">echo</span> <span class="s2">&quot;&lt;p class=</span><span class="se">\&quot;</span><span class="s2">error</span><span class="se">\&quot;</span><span class="s2">&gt;&quot;</span><span class="o">.</span><span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;name&quot;</span><span class="o">]</span> <span class="o">.</span> <span class="s2">&quot; already exists&lt;/p&gt; &quot;</span><span class="p">;</span>
-		<span class="p">}</span></code></pre></div>
+		<span class="k">if</span> <span class="p">(</span><span class="n">file_exists</span><span class="p">(</span><span class="s2">"../img/upload/"</span> <span class="o">.</span> <span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"name"</span><span class="p">]))</span> <span class="p">{</span>
+			<span class="n">echo</span> <span class="s2">"&lt;p class=</span><span class="se">\"</span><span class="s2">error</span><span class="se">\"</span><span class="s2">&gt;"</span><span class="o">.</span><span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"name"</span><span class="p">]</span> <span class="o">.</span> <span class="s2">" already exists&lt;/p&gt; "</span><span class="p">;</span>
+		<span class="p">}</span></code></pre></figure>
 
 <p>After the file has gone through our extensive verification we can finally move on to the most crucial step of the file upload, which is to move the file from the temporary folder to the permenant folder in /img/upload. We accomplish this using the move_upload_file command. We will also be using parameterized sql statements to store and track the uploaded files. The MySQL database will hold the title, description, and the file path.</p>
 
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">else</span> <span class="p">{</span>
-				<span class="n">move_uploaded_file</span><span class="p">(</span><span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;tmp_name&quot;</span><span class="o">]</span><span class="p">,</span>
-				<span class="s2">&quot;../img/upload/&quot;</span> <span class="o">.</span> <span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;name&quot;</span><span class="o">]</span><span class="p">);</span>
-				<span class="n">echo</span> <span class="s2">&quot;Stored in: &quot;</span> <span class="o">.</span> <span class="s2">&quot;../img/upload/&quot;</span> <span class="o">.</span> <span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;name&quot;</span><span class="o">]</span><span class="p">;</span>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">	
+				<span class="k">else</span> <span class="p">{</span>
+				<span class="n">move_uploaded_file</span><span class="p">(</span><span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"tmp_name"</span><span class="p">],</span>
+				<span class="s2">"../img/upload/"</span> <span class="o">.</span> <span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"name"</span><span class="p">]);</span>
+				<span class="n">echo</span> <span class="s2">"Stored in: "</span> <span class="o">.</span> <span class="s2">"../img/upload/"</span> <span class="o">.</span> <span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"name"</span><span class="p">];</span>
 				<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">isset</span><span class="p">(</span><span class="vg">$error</span><span class="p">)){</span>
 					<span class="n">try</span> <span class="p">{</span>
 						<span class="sr">//</span><span class="n">creates</span> <span class="n">the</span> <span class="n">file</span> <span class="n">path</span> <span class="n">to</span> <span class="n">store</span> <span class="k">in</span> <span class="n">the</span> <span class="n">database</span>
-						<span class="vg">$path</span> <span class="o">=</span> <span class="s2">&quot;/img/upload/&quot;</span><span class="o">.</span><span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;name&quot;</span><span class="o">]</span><span class="p">;</span>
+						<span class="vg">$path</span> <span class="o">=</span> <span class="s2">"/img/upload/"</span><span class="o">.</span><span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"name"</span><span class="p">];</span>
 						
 						<span class="sr">//inse</span><span class="n">rt</span> <span class="n">into</span> <span class="n">database</span>
-						<span class="vg">$stmt</span> <span class="o">=</span> <span class="vg">$db</span><span class="o">-&gt;</span><span class="n">prepare</span><span class="p">(</span><span class="s1">&#39;INSERT INTO picture_directory (imgTitle,imgDesc,imgPath) VALUES ( :imgTitle, :imgDesc, :imgPath)&#39;</span><span class="p">)</span> <span class="p">;</span>
+						<span class="vg">$stmt</span> <span class="o">=</span> <span class="vg">$db</span><span class="o">-&gt;</span><span class="n">prepare</span><span class="p">(</span><span class="s1">'INSERT INTO picture_directory (imgTitle,imgDesc,imgPath) VALUES ( :imgTitle, :imgDesc, :imgPath)'</span><span class="p">)</span> <span class="p">;</span>
 						<span class="vg">$stmt</span><span class="o">-&gt;</span><span class="n">execute</span><span class="p">(</span><span class="n">array</span><span class="p">(</span>
-							<span class="s1">&#39;:imgTitle&#39;</span> <span class="o">=&gt;</span> <span class="n">htmlspecialchars</span><span class="p">(</span><span class="vg">$imgTitle</span><span class="p">),</span>
-							<span class="s1">&#39;:imgDesc&#39;</span> <span class="o">=&gt;</span> <span class="n">htmlspecialchars</span><span class="p">(</span><span class="vg">$imgDesc</span><span class="p">),</span>
-							<span class="s1">&#39;:imgPath&#39;</span> <span class="o">=&gt;</span> <span class="vg">$path</span>
+							<span class="s1">':imgTitle'</span> <span class="o">=&gt;</span> <span class="n">htmlspecialchars</span><span class="p">(</span><span class="vg">$imgTitle</span><span class="p">),</span>
+							<span class="s1">':imgDesc'</span> <span class="o">=&gt;</span> <span class="n">htmlspecialchars</span><span class="p">(</span><span class="vg">$imgDesc</span><span class="p">),</span>
+							<span class="s1">':imgPath'</span> <span class="o">=&gt;</span> <span class="vg">$path</span>
 						<span class="p">));</span>
 						
 						<span class="sr">//</span><span class="n">redirect</span> <span class="n">to</span> <span class="n">index</span> <span class="n">page</span>
-						<span class="n">header</span><span class="p">(</span><span class="s1">&#39;Location: imageupload.php?action=added&#39;</span><span class="p">);</span>
+						<span class="n">header</span><span class="p">(</span><span class="s1">'Location: imageupload.php?action=added'</span><span class="p">);</span>
 						<span class="nb">exit</span><span class="p">;</span>
 					<span class="p">}</span> <span class="kp">catch</span><span class="p">(</span><span class="no">PDOException</span> <span class="vg">$e</span><span class="p">)</span> <span class="p">{</span>
 					    <span class="n">echo</span> <span class="vg">$e</span><span class="o">-&gt;</span><span class="n">getMessage</span><span class="p">();</span>
@@ -132,82 +150,82 @@
 				<span class="p">}</span>
 			<span class="p">}</span>
 		<span class="p">}</span> 
-	<span class="p">}</span><span class="sc">?&gt;</span></code></pre></div>
+	<span class="p">}</span><span class="sc">?&gt;</span></code></pre></figure>
 
 <p>The end script should look something like this with the authentication and included header files for styling</p>
 
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="o">&lt;</span><span class="p">?</span><span class="n">php</span> <span class="sr">//in</span><span class="n">clude</span> <span class="n">config</span>
-<span class="n">require_once</span><span class="p">(</span><span class="s1">&#39;../includes/config.php&#39;</span><span class="p">);</span>
-<span class="sr">//i</span><span class="n">f</span> <span class="ow">not</span> <span class="n">logged</span> <span class="k">in</span> <span class="n">redirect</span> <span class="n">to</span> <span class="n">login</span> <span class="n">page</span>
-<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="vg">$user</span><span class="o">-&gt;</span><span class="n">is_logged_in</span><span class="p">()){</span> <span class="n">header</span><span class="p">(</span><span class="s1">&#39;Location: login.php&#39;</span><span class="p">);</span> <span class="p">}</span>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="o">&lt;</span><span class="p">?</span><span class="n">php</span> <span class="sr">//in</span><span class="n">clude</span> <span class="n">config</span>
+<span class="n">require_once</span><span class="p">(</span><span class="s1">'../includes/config.php'</span><span class="p">);</span>
+<span class="sr">//i</span><span class="n">f</span> <span class="n">not</span> <span class="n">logged</span> <span class="k">in</span> <span class="n">redirect</span> <span class="n">to</span> <span class="n">login</span> <span class="n">page</span>
+<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="vg">$user</span><span class="o">-&gt;</span><span class="n">is_logged_in</span><span class="p">()){</span> <span class="n">header</span><span class="p">(</span><span class="s1">'Location: login.php'</span><span class="p">);</span> <span class="p">}</span>
 <span class="sc">?&gt;</span>
 <span class="o">&lt;!</span><span class="n">doctype</span> <span class="n">html</span><span class="o">&gt;</span>
-<span class="o">&lt;</span><span class="n">html</span> <span class="n">lang</span><span class="o">=</span><span class="s2">&quot;en&quot;</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">html</span> <span class="n">lang</span><span class="o">=</span><span class="s2">"en"</span><span class="o">&gt;</span>
 <span class="o">&lt;</span><span class="n">head</span><span class="o">&gt;</span>
-  <span class="o">&lt;</span><span class="n">meta</span> <span class="n">charset</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="o">&gt;</span>
-  <span class="o">&lt;</span><span class="n">title</span><span class="o">&gt;</span><span class="no">Admin</span> <span class="o">-</span> <span class="no">Image</span> <span class="no">Upload</span> <span class="no">Script</span><span class="o">&lt;</span><span class="sr">/title&gt;</span>
-<span class="sr">  &lt;?php include(&#39;imports.php&#39;); ?&gt;</span>
-<span class="sr">&lt;/</span><span class="n">head</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="n">meta</span> <span class="n">charset</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="n">title</span><span class="o">&gt;</span><span class="no">Admin</span> <span class="o">-</span> <span class="no">Image</span> <span class="no">Upload</span> <span class="no">Script</span><span class="o">&lt;</span><span class="sr">/title&gt;
+  &lt;?php include('imports.php'); ?&gt;
+&lt;/</span><span class="n">head</span><span class="o">&gt;</span>
 <span class="o">&lt;</span><span class="n">body</span><span class="o">&gt;</span>
 
-<span class="o">&lt;</span><span class="n">div</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;wrapper&quot;</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">div</span> <span class="nb">id</span><span class="o">=</span><span class="s2">"wrapper"</span><span class="o">&gt;</span>
 
-	<span class="o">&lt;</span><span class="p">?</span><span class="n">php</span> <span class="kp">include</span><span class="p">(</span><span class="s1">&#39;menu.php&#39;</span><span class="p">);</span><span class="sc">?&gt;</span>
-		<span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;imageupload.php&quot;</span><span class="o">&gt;</span><span class="no">Images</span> <span class="no">Index</span><span class="o">&lt;</span><span class="sr">/a&gt;&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
+	<span class="o">&lt;</span><span class="p">?</span><span class="n">php</span> <span class="kp">include</span><span class="p">(</span><span class="s1">'menu.php'</span><span class="p">);</span><span class="sc">?&gt;</span>
+		<span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s2">"imageupload.php"</span><span class="o">&gt;</span><span class="no">Images</span> <span class="no">Index</span><span class="o">&lt;</span><span class="sr">/a&gt;&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
 	<span class="o">&lt;</span><span class="p">?</span><span class="n">php</span> 
-		<span class="vg">$allowedExts</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s2">&quot;gif&quot;</span><span class="p">,</span> <span class="s2">&quot;jpeg&quot;</span><span class="p">,</span> <span class="s2">&quot;jpg&quot;</span><span class="p">,</span> <span class="s2">&quot;png&quot;</span><span class="p">);</span>
-		<span class="vg">$temp</span> <span class="o">=</span> <span class="n">explode</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;name&quot;</span><span class="o">]</span><span class="p">);</span>
+		<span class="vg">$allowedExts</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s2">"gif"</span><span class="p">,</span> <span class="s2">"jpeg"</span><span class="p">,</span> <span class="s2">"jpg"</span><span class="p">,</span> <span class="s2">"png"</span><span class="p">);</span>
+		<span class="vg">$temp</span> <span class="o">=</span> <span class="n">explode</span><span class="p">(</span><span class="s2">"."</span><span class="p">,</span> <span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"name"</span><span class="p">]);</span>
 		<span class="vg">$extension</span> <span class="o">=</span> <span class="k">end</span><span class="p">(</span><span class="vg">$temp</span><span class="p">);</span>
-		<span class="vg">$imgTitle</span> <span class="o">=</span> <span class="vg">$_POST</span><span class="o">[</span><span class="s1">&#39;imgTitle&#39;</span><span class="o">]</span><span class="p">;</span>
-		<span class="vg">$imgDesc</span> <span class="o">=</span> <span class="vg">$_POST</span><span class="o">[</span><span class="s1">&#39;imgDesc&#39;</span><span class="o">]</span><span class="p">;</span>
+		<span class="vg">$imgTitle</span> <span class="o">=</span> <span class="vg">$_POST</span><span class="p">[</span><span class="s1">'imgTitle'</span><span class="p">];</span>
+		<span class="vg">$imgDesc</span> <span class="o">=</span> <span class="vg">$_POST</span><span class="p">[</span><span class="s1">'imgDesc'</span><span class="p">];</span>
 
-		<span class="n">echo</span> <span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;size&quot;</span><span class="o">]</span><span class="p">;</span>
-		<span class="k">if</span><span class="p">(</span><span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;size&quot;</span><span class="o">]</span> <span class="o">&gt;</span> <span class="mi">200000000</span><span class="p">){</span>
-			<span class="n">echo</span> <span class="s2">&quot;File is too large&quot;</span><span class="p">;</span>
+		<span class="n">echo</span> <span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"size"</span><span class="p">];</span>
+		<span class="k">if</span><span class="p">(</span><span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"size"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">200000000</span><span class="p">){</span>
+			<span class="n">echo</span> <span class="s2">"File is too large"</span><span class="p">;</span>
 		<span class="p">}</span>
-		<span class="n">echo</span> <span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;type&quot;</span><span class="o">]</span><span class="p">;</span>
-		<span class="k">if</span> <span class="p">(((</span><span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;type&quot;</span><span class="o">]</span> <span class="o">==</span> <span class="s2">&quot;image/gif&quot;</span><span class="p">)</span>
-		<span class="o">||</span> <span class="p">(</span><span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;type&quot;</span><span class="o">]</span> <span class="o">==</span> <span class="s2">&quot;image/jpeg&quot;</span><span class="p">)</span>
-		<span class="o">||</span> <span class="p">(</span><span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;type&quot;</span><span class="o">]</span> <span class="o">==</span> <span class="s2">&quot;image/jpg&quot;</span><span class="p">)</span>
-		<span class="o">||</span> <span class="p">(</span><span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;type&quot;</span><span class="o">]</span> <span class="o">==</span> <span class="s2">&quot;image/pjpeg&quot;</span><span class="p">)</span>
-		<span class="o">||</span> <span class="p">(</span><span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;type&quot;</span><span class="o">]</span> <span class="o">==</span> <span class="s2">&quot;image/x-png&quot;</span><span class="p">)</span>
-		<span class="o">||</span> <span class="p">(</span><span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;type&quot;</span><span class="o">]</span> <span class="o">==</span> <span class="s2">&quot;image/png&quot;</span><span class="p">))</span>
-		<span class="o">&amp;&amp;</span> <span class="p">(</span><span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;size&quot;</span><span class="o">]</span> <span class="o">&lt;</span> <span class="mi">200000000</span><span class="p">)</span>
+		<span class="n">echo</span> <span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"type"</span><span class="p">];</span>
+		<span class="k">if</span> <span class="p">(((</span><span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"image/gif"</span><span class="p">)</span>
+		<span class="o">||</span> <span class="p">(</span><span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"image/jpeg"</span><span class="p">)</span>
+		<span class="o">||</span> <span class="p">(</span><span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"image/jpg"</span><span class="p">)</span>
+		<span class="o">||</span> <span class="p">(</span><span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"image/pjpeg"</span><span class="p">)</span>
+		<span class="o">||</span> <span class="p">(</span><span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"image/x-png"</span><span class="p">)</span>
+		<span class="o">||</span> <span class="p">(</span><span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"image/png"</span><span class="p">))</span>
+		<span class="o">&amp;&amp;</span> <span class="p">(</span><span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"size"</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">200000000</span><span class="p">)</span>
 		<span class="o">&amp;&amp;</span> <span class="n">in_array</span><span class="p">(</span><span class="vg">$extension</span><span class="p">,</span> <span class="vg">$allowedExts</span><span class="p">))</span> <span class="p">{</span>
 		<span class="k">if</span><span class="p">(</span><span class="vg">$imgTitle</span> <span class="o">==</span> <span class="n">null</span><span class="p">){</span>
-			<span class="n">echo</span> <span class="s2">&quot;&lt;p class=</span><span class="se">\&quot;</span><span class="s2">error</span><span class="se">\&quot;</span><span class="s2">&gt; Please Enter a Title&lt;/p&gt;&quot;</span><span class="p">;</span>
-			<span class="n">echo</span> <span class="s1">&#39;&lt;a href=&quot;javascript:history.go(-1)&quot;&gt;&lt;h2&gt; Go Back &lt;/h2&gt;&lt;/a&gt;&#39;</span><span class="p">;</span>
+			<span class="n">echo</span> <span class="s2">"&lt;p class=</span><span class="se">\"</span><span class="s2">error</span><span class="se">\"</span><span class="s2">&gt; Please Enter a Title&lt;/p&gt;"</span><span class="p">;</span>
+			<span class="n">echo</span> <span class="s1">'&lt;a href="javascript:history.go(-1)"&gt;&lt;h2&gt; Go Back &lt;/h2&gt;&lt;/a&gt;'</span><span class="p">;</span>
 		<span class="p">}</span>
 		<span class="k">else</span><span class="p">{</span>
-			<span class="k">if</span> <span class="p">(</span><span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;error&quot;</span><span class="o">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">){</span>
-			<span class="n">echo</span> <span class="s2">&quot;&lt;p class=</span><span class="se">\&quot;</span><span class="s2">error</span><span class="se">\&quot;</span><span class="s2">&gt;Return Code: &quot;</span> <span class="o">.</span> <span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;error&quot;</span><span class="o">]</span> <span class="o">.</span> <span class="s2">&quot;&lt;/p&gt;&quot;</span><span class="o">.</span> <span class="s2">&quot;&lt;br&gt;&quot;</span><span class="p">;</span>
+			<span class="k">if</span> <span class="p">(</span><span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"error"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">){</span>
+			<span class="n">echo</span> <span class="s2">"&lt;p class=</span><span class="se">\"</span><span class="s2">error</span><span class="se">\"</span><span class="s2">&gt;Return Code: "</span> <span class="o">.</span> <span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"error"</span><span class="p">]</span> <span class="o">.</span> <span class="s2">"&lt;/p&gt;"</span><span class="o">.</span> <span class="s2">"&lt;br&gt;"</span><span class="p">;</span>
 			<span class="p">}</span> 
 			<span class="k">else</span> <span class="p">{</span>
-				<span class="n">echo</span> <span class="s2">&quot;../img/Upload: &quot;</span> <span class="o">.</span> <span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;name&quot;</span><span class="o">]</span> <span class="o">.</span> <span class="s2">&quot;&lt;br&gt;&quot;</span><span class="p">;</span>
-				<span class="n">echo</span> <span class="s2">&quot;Type: &quot;</span> <span class="o">.</span> <span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;type&quot;</span><span class="o">]</span> <span class="o">.</span> <span class="s2">&quot;&lt;br&gt;&quot;</span><span class="p">;</span>
-				<span class="n">echo</span> <span class="s2">&quot;Size: &quot;</span> <span class="o">.</span> <span class="p">(</span><span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;size&quot;</span><span class="o">]</span> <span class="o">/</span> <span class="mi">1024</span><span class="p">)</span> <span class="o">.</span> <span class="s2">&quot; kB&lt;br&gt;&quot;</span><span class="p">;</span>
-				<span class="n">echo</span> <span class="s2">&quot;Temp file: &quot;</span> <span class="o">.</span> <span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;tmp_name&quot;</span><span class="o">]</span> <span class="o">.</span> <span class="s2">&quot;&lt;br&gt;&quot;</span><span class="p">;</span>
-				<span class="k">if</span> <span class="p">(</span><span class="n">file_exists</span><span class="p">(</span><span class="s2">&quot;../img/upload/&quot;</span> <span class="o">.</span> <span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;name&quot;</span><span class="o">]</span><span class="p">))</span> <span class="p">{</span>
-					<span class="n">echo</span> <span class="s2">&quot;&lt;p class=</span><span class="se">\&quot;</span><span class="s2">error</span><span class="se">\&quot;</span><span class="s2">&gt;&quot;</span><span class="o">.</span><span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;name&quot;</span><span class="o">]</span> <span class="o">.</span> <span class="s2">&quot; already exists&lt;/p&gt; &quot;</span><span class="p">;</span>
+				<span class="n">echo</span> <span class="s2">"../img/Upload: "</span> <span class="o">.</span> <span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"name"</span><span class="p">]</span> <span class="o">.</span> <span class="s2">"&lt;br&gt;"</span><span class="p">;</span>
+				<span class="n">echo</span> <span class="s2">"Type: "</span> <span class="o">.</span> <span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">.</span> <span class="s2">"&lt;br&gt;"</span><span class="p">;</span>
+				<span class="n">echo</span> <span class="s2">"Size: "</span> <span class="o">.</span> <span class="p">(</span><span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"size"</span><span class="p">]</span> <span class="o">/</span> <span class="mi">1024</span><span class="p">)</span> <span class="o">.</span> <span class="s2">" kB&lt;br&gt;"</span><span class="p">;</span>
+				<span class="n">echo</span> <span class="s2">"Temp file: "</span> <span class="o">.</span> <span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"tmp_name"</span><span class="p">]</span> <span class="o">.</span> <span class="s2">"&lt;br&gt;"</span><span class="p">;</span>
+				<span class="k">if</span> <span class="p">(</span><span class="n">file_exists</span><span class="p">(</span><span class="s2">"../img/upload/"</span> <span class="o">.</span> <span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"name"</span><span class="p">]))</span> <span class="p">{</span>
+					<span class="n">echo</span> <span class="s2">"&lt;p class=</span><span class="se">\"</span><span class="s2">error</span><span class="se">\"</span><span class="s2">&gt;"</span><span class="o">.</span><span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"name"</span><span class="p">]</span> <span class="o">.</span> <span class="s2">" already exists&lt;/p&gt; "</span><span class="p">;</span>
 				<span class="p">}</span>
 				<span class="k">else</span> <span class="p">{</span>
-				<span class="n">move_uploaded_file</span><span class="p">(</span><span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;tmp_name&quot;</span><span class="o">]</span><span class="p">,</span>
-				<span class="s2">&quot;../img/upload/&quot;</span> <span class="o">.</span> <span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;name&quot;</span><span class="o">]</span><span class="p">);</span>
-				<span class="n">echo</span> <span class="s2">&quot;Stored in: &quot;</span> <span class="o">.</span> <span class="s2">&quot;../img/upload/&quot;</span> <span class="o">.</span> <span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;name&quot;</span><span class="o">]</span><span class="p">;</span>
+				<span class="n">move_uploaded_file</span><span class="p">(</span><span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"tmp_name"</span><span class="p">],</span>
+				<span class="s2">"../img/upload/"</span> <span class="o">.</span> <span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"name"</span><span class="p">]);</span>
+				<span class="n">echo</span> <span class="s2">"Stored in: "</span> <span class="o">.</span> <span class="s2">"../img/upload/"</span> <span class="o">.</span> <span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"name"</span><span class="p">];</span>
 				<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">isset</span><span class="p">(</span><span class="vg">$error</span><span class="p">)){</span>
 					<span class="n">try</span> <span class="p">{</span>
-						<span class="vg">$path</span> <span class="o">=</span> <span class="s2">&quot;/img/upload/&quot;</span><span class="o">.</span><span class="vg">$_FILES</span><span class="o">[</span><span class="s2">&quot;file&quot;</span><span class="o">][</span><span class="s2">&quot;name&quot;</span><span class="o">]</span><span class="p">;</span>
+						<span class="vg">$path</span> <span class="o">=</span> <span class="s2">"/img/upload/"</span><span class="o">.</span><span class="vg">$_FILES</span><span class="p">[</span><span class="s2">"file"</span><span class="p">][</span><span class="s2">"name"</span><span class="p">];</span>
 						
 						<span class="sr">//inse</span><span class="n">rt</span> <span class="n">into</span> <span class="n">database</span>
-						<span class="vg">$stmt</span> <span class="o">=</span> <span class="vg">$db</span><span class="o">-&gt;</span><span class="n">prepare</span><span class="p">(</span><span class="s1">&#39;INSERT INTO picture_directory (imgTitle,imgDesc,imgPath) VALUES ( :imgTitle, :imgDesc, :imgPath)&#39;</span><span class="p">)</span> <span class="p">;</span>
+						<span class="vg">$stmt</span> <span class="o">=</span> <span class="vg">$db</span><span class="o">-&gt;</span><span class="n">prepare</span><span class="p">(</span><span class="s1">'INSERT INTO picture_directory (imgTitle,imgDesc,imgPath) VALUES ( :imgTitle, :imgDesc, :imgPath)'</span><span class="p">)</span> <span class="p">;</span>
 						<span class="vg">$stmt</span><span class="o">-&gt;</span><span class="n">execute</span><span class="p">(</span><span class="n">array</span><span class="p">(</span>
-							<span class="s1">&#39;:imgTitle&#39;</span> <span class="o">=&gt;</span> <span class="n">htmlspecialchars</span><span class="p">(</span><span class="vg">$imgTitle</span><span class="p">),</span>
-							<span class="s1">&#39;:imgDesc&#39;</span> <span class="o">=&gt;</span> <span class="n">htmlspecialchars</span><span class="p">(</span><span class="vg">$imgDesc</span><span class="p">),</span>
-							<span class="s1">&#39;:imgPath&#39;</span> <span class="o">=&gt;</span> <span class="vg">$path</span>
+							<span class="s1">':imgTitle'</span> <span class="o">=&gt;</span> <span class="n">htmlspecialchars</span><span class="p">(</span><span class="vg">$imgTitle</span><span class="p">),</span>
+							<span class="s1">':imgDesc'</span> <span class="o">=&gt;</span> <span class="n">htmlspecialchars</span><span class="p">(</span><span class="vg">$imgDesc</span><span class="p">),</span>
+							<span class="s1">':imgPath'</span> <span class="o">=&gt;</span> <span class="vg">$path</span>
 						<span class="p">));</span>
 						
 						<span class="sr">//</span><span class="n">redirect</span> <span class="n">to</span> <span class="n">index</span> <span class="n">page</span>
-						<span class="n">header</span><span class="p">(</span><span class="s1">&#39;Location: imageupload.php?action=added&#39;</span><span class="p">);</span>
+						<span class="n">header</span><span class="p">(</span><span class="s1">'Location: imageupload.php?action=added'</span><span class="p">);</span>
 						<span class="nb">exit</span><span class="p">;</span>
 					<span class="p">}</span> <span class="kp">catch</span><span class="p">(</span><span class="no">PDOException</span> <span class="vg">$e</span><span class="p">)</span> <span class="p">{</span>
 					    <span class="n">echo</span> <span class="vg">$e</span><span class="o">-&gt;</span><span class="n">getMessage</span><span class="p">();</span>
@@ -217,9 +235,9 @@
 			<span class="p">}</span>
 		<span class="p">}</span> 
 	<span class="p">}</span><span class="sc">?&gt;</span>
-<span class="o">&lt;</span><span class="sr">/div&gt;</span>
-<span class="sr">&lt;/</span><span class="n">body</span><span class="o">&gt;</span>
-<span class="o">&lt;</span><span class="sr">/html&gt;</span></code></pre></div>
+<span class="o">&lt;</span><span class="sr">/div&gt;
+&lt;/</span><span class="n">body</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="sr">/html&gt;</span></code></pre></figure>
 
     </section>
 </article>
@@ -247,59 +265,8 @@
 
 <!-- Disqus comments -->
 
-    <div class="archive readmore">
-        <h3>Comments</h3>
-        <section class="disqus">
-    <div id="disqus_thread"></div>
-    <script type="text/javascript">
-        var disqus_shortname = 'theperfectsquareca';
-        var disqus_developer = 0; // developer mode is on
-        (function() {
-            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-</section>
-    </div>
-
 
 <!-- Archive post list -->
-
-    <ul id="post-list" class="archive readmore">
-        <h3>Read more</h3>
-        
-            <li>
-                <a href="/2016/New-Notes-Page/">New Notes Page!<aside class="dates">Jan 28</aside></a>
-            </li>
-        
-            <li>
-                <a href="/2016/Hackathons-Culture/">Hackathon Culture<aside class="dates">Jan 28</aside></a>
-            </li>
-        
-            <li>
-                <a href="/2015/Winning-MHacks-With-JobChoice/">JobChoice and Winning best in Data Analytics in MHacks<aside class="dates">Sep 22</aside></a>
-            </li>
-        
-            <li>
-                <a href="/2015/streographic-opengl/">Streographic OpenGL Setup<aside class="dates">Jan 04</aside></a>
-            </li>
-        
-            <li>
-                <a href="/2014/uploading-to-php-2/">Uploading files to a LAMP stack and keep track of it with a CMS Part 2<aside class="dates">Dec 23</aside></a>
-            </li>
-        
-            <li>
-                <a href="/2014/uploading-to-php/">Uploading files to a LAMP stack and keep track of it with a CMS<aside class="dates">Dec 22</aside></a>
-            </li>
-        
-            <li>
-                <a href="/2014/Vigenere-Cipher/">Vignere Cipher<aside class="dates">Dec 10</aside></a>
-            </li>
-        
-    </ul>
 
 
 

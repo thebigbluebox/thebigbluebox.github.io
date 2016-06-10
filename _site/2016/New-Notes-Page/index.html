@@ -55,33 +55,34 @@ So opening up my notes page is both a place for all the strangers and me to see.
   <li>Within note.md or note.html, you’ll again place that lovel YAML Font Matter header that will describe what the page is about</li>
 </ul>
 
-<h2 id="section">```</h2>
-<p>title: Notes
+<div class="highlighter-rouge"><pre class="highlight"><code>---
+title: Notes
 permalink: notes/
 profile: false
-—
-```</p>
+---
+</code></pre>
+</div>
 
 <ul>
   <li>After that we go into your _config.yml to actually setup a few things, which are your collections (the new collection of things other than posts)</li>
 </ul>
 
-<p>```
-# create a new collection by adding the parameter collections
+<div class="highlighter-rouge"><pre class="highlight"><code># create a new collection by adding the parameter collections
 collections:
     notes:
     # output gives you the same feel as a post like page where each article is rerendered as a individual page
-        output: true</p>
-
-<h1 id="now-we-also-add-to-our-defaults-options-to-theme-and-get-the-pages-have-a-type-covered">now we also add to our defaults options to theme and get the pages have a type covered</h1>
-<p>defaults:
+        output: true
+        
+# now we also add to our defaults options to theme and get the pages have a type covered
+defaults:
      - 
         scope:
-            path: “”
+            path: ""
             type: notes
         values:
             layout: post
-```</p>
+</code></pre>
+</div>
 
 <ul>
   <li>After that create a folder with an underscore infront of the name directory ‘_’ and the name should be like “/_notes” using the same name as your collection</li>
@@ -114,59 +115,8 @@ collections:
 
 <!-- Disqus comments -->
 
-    <div class="archive readmore">
-        <h3>Comments</h3>
-        <section class="disqus">
-    <div id="disqus_thread"></div>
-    <script type="text/javascript">
-        var disqus_shortname = 'theperfectsquareca';
-        var disqus_developer = 0; // developer mode is on
-        (function() {
-            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-</section>
-    </div>
-
 
 <!-- Archive post list -->
-
-    <ul id="post-list" class="archive readmore">
-        <h3>Read more</h3>
-        
-            <li>
-                <a href="/2016/New-Notes-Page/">New Notes Page!<aside class="dates">Jan 28</aside></a>
-            </li>
-        
-            <li>
-                <a href="/2016/Hackathons-Culture/">Hackathon Culture<aside class="dates">Jan 28</aside></a>
-            </li>
-        
-            <li>
-                <a href="/2015/Winning-MHacks-With-JobChoice/">JobChoice and Winning best in Data Analytics in MHacks<aside class="dates">Sep 22</aside></a>
-            </li>
-        
-            <li>
-                <a href="/2015/streographic-opengl/">Streographic OpenGL Setup<aside class="dates">Jan 04</aside></a>
-            </li>
-        
-            <li>
-                <a href="/2014/uploading-to-php-2/">Uploading files to a LAMP stack and keep track of it with a CMS Part 2<aside class="dates">Dec 23</aside></a>
-            </li>
-        
-            <li>
-                <a href="/2014/uploading-to-php/">Uploading files to a LAMP stack and keep track of it with a CMS<aside class="dates">Dec 22</aside></a>
-            </li>
-        
-            <li>
-                <a href="/2014/Vigenere-Cipher/">Vignere Cipher<aside class="dates">Dec 10</aside></a>
-            </li>
-        
-    </ul>
 
 
 
