@@ -3,11 +3,9 @@ title:  "Google Maps"
 date:   2016-5-4 9:00:00
 description: The most popular map api in the world
 
-categories:
- - category: "web"
-
 technologies:
  - name: "Google Maps JS"
+
 ---
 # Google Maps API
 

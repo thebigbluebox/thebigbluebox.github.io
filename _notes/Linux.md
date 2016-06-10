@@ -2,8 +2,7 @@
 title:  "Linux Basics"
 date:   2016-5-3 9:00:00
 description: Back to the basics
-categories:
- - category: "linux"
+
 ---
 
 # Linux Basics
