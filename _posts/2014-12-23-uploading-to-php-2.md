@@ -5,11 +5,11 @@ description: Content management system built with LAMP
 ---
 #Uploading files to a LAMP stack and keep track of it with a CMS Part 2
 >
-######This is technically a continuation of Dave's tutorial on how to create a Blog with LAMP [here](https://daveismyname.com/creating-a-blog-from-scratch-with-php-bp#.Va2tvpNViko), and I've added my own twist and turned it into a small CMS by allowing users to upload photos and keep track of their uploads. I will be referencing a lot of the files back to what was created on Dave's tutorial
+###### This is technically a continuation of Dave's tutorial on how to create a Blog with LAMP [here](https://daveismyname.com/creating-a-blog-from-scratch-with-php-bp#.Va2tvpNViko), and I've added my own twist and turned it into a small CMS by allowing users to upload photos and keep track of their uploads. I will be referencing a lot of the files back to what was created on Dave's tutorial
 
 So in part 1 we essentially created the backend portion to handle the handover of files from the temp folder into the permenant folder of /img/upload. In this section we will write the front end to handle uploading, editing, and the total overview. Since I assume you to have atleast understood part 1, you must be competent with PHP. And the code here are now usually self documenting so I won't speak much.
 
-###The upload page
+### The upload page
 
 {% highlight ruby %}
 <?php //include config
