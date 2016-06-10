@@ -7,9 +7,10 @@
     <a href='{{ note.url }}'>{{ note.title }} <h2>{{ note.description }}</h2></a>
 
     <div class="tagslist">
-      {% for category in note.categories %}
-      <div class="tag category {{category.type}}">{{ category.type }}</div>
-      {% endfor %} {% for technology in note.technologies %}
+      {% for cat in note.categories %}
+      <div class="tag category">{{ cat.category }}</div>
+      {% endfor %}
+      {% for technology in note.technologies %}
       <div class="tag">{{ technology.name }}</div>
       {% endfor %}
     </div>

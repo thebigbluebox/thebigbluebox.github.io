@@ -62,11 +62,9 @@
         <title>Uploading files to a LAMP stack and keep track of it with a CMS Part 2</title>
         
         
-          <description>&lt;h1 id=&quot;uploading-files-to-a-lamp-stack-and-keep-track-of-it-with-a-cms-part-2&quot;&gt;Uploading files to a LAMP stack and keep track of it with a CMS Part 2&lt;/h1&gt;
-&lt;blockquote&gt;
-
-  &lt;h6 id=&quot;this-is-technically-a-continuation-of-daves-tutorial-on-how-to-create-a-blog-with-lamp-herehttpsdaveismynamecomcreating-a-blog-from-scratch-with-php-bpva2tvpnviko-and-ive-added-my-own-twist-and-turned-it-into-a-small-cms-by-allowing-users-to-upload-photos-and-keep-track-of-their-uploads-i-will-be-referencing-a-lot-of-the-files-back-to-what-was-created-on-daves-tutorial&quot;&gt;This is technically a continuation of Dave’s tutorial on how to create a Blog with LAMP &lt;a href=&quot;https://daveismyname.com/creating-a-blog-from-scratch-with-php-bp#.Va2tvpNViko&quot;&gt;here&lt;/a&gt;, and I’ve added my own twist and turned it into a small CMS by allowing users to upload photos and keep track of their uploads. I will be referencing a lot of the files back to what was created on Dave’s tutorial&lt;/h6&gt;
-&lt;/blockquote&gt;
+          <description>&lt;p&gt;#Uploading files to a LAMP stack and keep track of it with a CMS Part 2
+&amp;gt;
+###### This is technically a continuation of Dave’s tutorial on how to create a Blog with LAMP &lt;a href=&quot;https://daveismyname.com/creating-a-blog-from-scratch-with-php-bp#.Va2tvpNViko&quot;&gt;here&lt;/a&gt;, and I’ve added my own twist and turned it into a small CMS by allowing users to upload photos and keep track of their uploads. I will be referencing a lot of the files back to what was created on Dave’s tutorial&lt;/p&gt;
 
 </description>
         
