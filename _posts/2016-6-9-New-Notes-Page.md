@@ -1,6 +1,6 @@
 ---
 title:  "New Notes Page!"
-date:   2016-1-28 9:00:00
+date:   2016-6-1 10:36:00
 description: A place for all my notes that aren't professional
 ---
 # New Notes Page
