@@ -29,8 +29,6 @@
             <a href='/notes'>Notes </a>
         
     
-    
-    <a class="cta" href="/feed.xml">Subscribe</a>
 </nav>
 
   
@@ -63,7 +61,8 @@
       <li>File size in MiB</li>
       <li>The time it was last changed</li>
       <li>Folder name / File name
-# Paths</li>
+        <h1 id="paths">Paths</h1>
+      </li>
       <li>Absolute which are absolute locations based from your home level ~
         <ul>
           <li>Relative which can be achieved from current / or from above ../, or from your user home level ~</li>
@@ -140,6 +139,8 @@
           <li>Vi - Vim the thing that everyone is scared of</li>
         </ul>
       </li>
+    </ul>
+    <ul>
       <li>Open a file vi [options] <file.txt></file.txt></li>
       <li>Read only view <file.txt></file.txt></li>
       <li>Text commands</li>
@@ -165,117 +166,107 @@
       <li>dd - delete the current line</li>
       <li>dn - d followed by a movement command. Delete to where the movement command would have taken you. (eg d5w means delete 5 words)</li>
       <li>u - Undo the last action (you may keep pressing u to keep undoing)</li>
-      <li>U (Note: capital) - Undo all changes to the current line</li>
-      <li>Cat (concatenate) -&gt; used to view files and logs right in the cmdline</li>
-      <li>Less -&gt; used to view large files with ability to scroll</li>
-      <li>Wildcards
+      <li>U (Note: capital) - Undo all changes to the current line
+      * Cat (concatenate) -&gt; used to view files and logs right in the cmdline
+      * Less -&gt; used to view large files with ability to scroll 
+    * Wildcards
+      * *  All seeing star, matches n characters of whatever
+      * ? Matches one unknown character ?A* matches the second letter with A
+      * [] range operator, matches any letter within the specified range ?[sv]* matches second letter with either s or v or [0-9] matches numbers from 0-9
+    * Permissions
+      * 3 things for a file
         <ul>
-          <li>
+          <li>Read [r]</li>
+          <li>Write [w]</li>
+          <li>Execute [x]
             <ul>
-              <li>All seeing star, matches n characters of whatever</li>
+              <li>3 different types of permissions</li>
             </ul>
           </li>
-          <li>? Matches one unknown character ?A* matches the second letter with A</li>
-          <li>[] range operator, matches any letter within the specified range ?[sv]* matches second letter with either s or v or [0-9] matches numbers from 0-9</li>
-        </ul>
-      </li>
-      <li>Permissions
-        <ul>
-          <li>3 things for a file
+          <li>Owner single person owns the file, permission could be granted to other users to access the file</li>
+          <li>Group</li>
+          <li>Others
             <ul>
-              <li>Read [r]</li>
-              <li>Write [w]</li>
-              <li>Execute [x]</li>
+              <li>Chmod to change the permission to the file</li>
             </ul>
           </li>
-          <li>3 different types of permissions
-            <ul>
-              <li>Owner single person owns the file, permission could be granted to other users to access the file</li>
-              <li>Group</li>
-              <li>Others</li>
-            </ul>
-          </li>
-          <li>Chmod to change the permission to the file
-            <ul>
-              <li>3 components :</li>
-            </ul>
-          </li>
+          <li>3 components :</li>
         </ul>
       </li>
       <li>Who are we changing the permission for user, owner or all?</li>
       <li>Are we granting or revoking permissions</li>
       <li>Which permission are we setting (R W X)
         <ul>
-          <li>And we can do short hand such as 777 which in octal speak will set the individual bit values for the permissions at the [owner,group,others] group, and within that the bit representation of the value is used to determine the permission level</li>
-        </ul>
-      </li>
-      <li>Filters
-        <ul>
-          <li>Filter is a program that  accepts textual data and transforms it in a particular way</li>
-          <li>Head prints out the head of the document up to n number of lines</li>
-          <li>Tail prints out the bottom of the document up to n number of lines</li>
-          <li>Sort sorts the printout of the document by default alphabetically</li>
-          <li>Nl shows line numbers for the print out</li>
-          <li>Wc word count, character count.. Etc look in man pages</li>
-          <li>Cut useful for column data, csv… tabbed data, but you can cut out a certain column using this command</li>
-          <li>Sed stream editor, can edit an input stream’s data, or just do search and replace within a document</li>
-          <li>Uniq gives output of only unique data, really useful for column data again</li>
-          <li>Tac &lt;-reverse of cat, going from the bottom to the top</li>
-        </ul>
-      </li>
-      <li>Regex
-        <ul>
-          <li>. (dot) - a single character.</li>
-          <li>? - the preceding character matches 0 or 1 times only.</li>
-          <li>* - the preceding character matches 0 or more times.</li>
-          <li>+ - the preceding character matches 1 or more times.</li>
-          <li>{n} - the preceding character matches exactly n times.</li>
-          <li>{n,m} - the preceding character matches at least n times and not more than m times.</li>
-          <li>[agd] - the character is one of those included within the square brackets.</li>
-          <li>[^agd] - the character is not one of those included within the square brackets.</li>
-          <li>[c-f] - the dash within the square brackets operates as a range. In this case it means either the letters c, d, e or f.</li>
-          <li>() - allows us to group several characters to behave as one.</li>
-          <li>
-            <table>
-              <tbody>
-                <tr>
-                  <td> (pipe symbol) - the logical OR operation.</td>
-                </tr>
-              </tbody>
-            </table>
-          </li>
-          <li>^ - matches the beginning of the line.</li>
-          <li>$ - matches the end of the line.</li>
-        </ul>
-      </li>
-      <li>Piping!! And Redirection
-        <ul>
-          <li>Every program that we run in the commandline has 3 different streams that can be connected to it</li>
-          <li>STDIN standard input data fed into the program</li>
-          <li>STDOUT standard output data outputted from the program</li>
-          <li>STDERR which are the error output stream</li>
-          <li>Redirecting to a file
+          <li>And we can do short hand such as 777 which in octal speak will set the individual bit values for the permissions at the [owner,group,others] group, and within that the bit representation of the value is used to determine the permission level
             <ul>
-              <li>If we wish to take the output stream of a application and save it to a file we will use the ‘&gt;’ greater than symbol to a file that you want as the output</li>
-              <li>If we redirect to afile that’s name isn’t already created then a new file will be created for you, however if redirecting to an existing file that file will be over written</li>
+              <li>Filters
+                <ul>
+                  <li>Filter is a program that  accepts textual data and transforms it in a particular way</li>
+                  <li>Head prints out the head of the document up to n number of lines</li>
+                  <li>Tail prints out the bottom of the document up to n number of lines</li>
+                  <li>Sort sorts the printout of the document by default alphabetically</li>
+                  <li>Nl shows line numbers for the print out</li>
+                  <li>Wc word count, character count.. Etc look in man pages</li>
+                  <li>Cut useful for column data, csv… tabbed data, but you can cut out a certain column using this command</li>
+                  <li>Sed stream editor, can edit an input stream’s data, or just do search and replace within a document</li>
+                  <li>Uniq gives output of only unique data, really useful for column data again</li>
+                  <li>Tac &lt;-reverse of cat, going from the bottom to the top</li>
+                </ul>
+              </li>
+              <li>Regex
+                <ul>
+                  <li>. (dot) - a single character.</li>
+                  <li>? - the preceding character matches 0 or 1 times only.</li>
+                  <li>* - the preceding character matches 0 or more times.</li>
+                  <li>+ - the preceding character matches 1 or more times.</li>
+                  <li>{n} - the preceding character matches exactly n times.</li>
+                  <li>{n,m} - the preceding character matches at least n times and not more than m times.</li>
+                  <li>[agd] - the character is one of those included within the square brackets.</li>
+                  <li>[^agd] - the character is not one of those included within the square brackets.</li>
+                  <li>[c-f] - the dash within the square brackets operates as a range. In this case it means either the letters c, d, e or f.</li>
+                  <li>() - allows us to group several characters to behave as one.</li>
+                  <li>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td> (pipe symbol) - the logical OR operation.</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </li>
+                  <li>^ - matches the beginning of the line.</li>
+                  <li>$ - matches the end of the line.</li>
+                </ul>
+              </li>
+              <li>Piping!! And Redirection
+                <ul>
+                  <li>Every program that we run in the commandline has 3 different streams that can be connected to it</li>
+                  <li>STDIN standard input data fed into the program</li>
+                  <li>STDOUT standard output data outputted from the program</li>
+                  <li>STDERR which are the error output stream</li>
+                  <li>Redirecting to a file</li>
+                </ul>
+              </li>
             </ul>
           </li>
+          <li>If we wish to take the output stream of a application and save it to a file we will use the ‘&gt;’ greater than symbol to a file that you want as the output</li>
+          <li>If we redirect to afile that’s name isn’t already created then a new file will be created for you, however if redirecting to an existing file that file will be over written</li>
         </ul>
       </li>
-      <li>But we can get the data appended to the file using the » operator</li>
-      <li>Redirecting from a file
+      <li>But we can get the data appended to the file using the » operator
+      * Redirecting from a file
         <ul>
-          <li>Using the ‘&lt;’ less than operator we can actually redirect a file to be as an input to a program, we redirect into the stdin stream</li>
-        </ul>
-      </li>
-      <li>Redirecting to standard error
-        <ul>
+          <li>Using the ‘&lt;’ less than operator we can actually redirect a file to be as an input to a program, we redirect into the stdin stream
+            <ul>
+              <li>Redirecting to standard error</li>
+            </ul>
+          </li>
           <li>Using the 2&gt; operator where we identify the stream by its number stream 2 being the err stream, we can direct an error the error stream which will be printed out on the commandline</li>
-          <li>ls -l video.mpg blah.foo &gt; myoutput 2&gt;&amp;1 will redirect the output stream of err into the output file stream to be saved into the file myoutput</li>
-        </ul>
-      </li>
-      <li>Piping
-        <ul>
+          <li>ls -l video.mpg blah.foo &gt; myoutput 2&gt;&amp;1 will redirect the output stream of err into the output file stream to be saved into the file myoutput
+            <ul>
+              <li>Piping</li>
+            </ul>
+          </li>
           <li>
             <table>
               <tbody>
@@ -285,26 +276,28 @@
                 </tr>
               </tbody>
             </table>
-          </li>
-        </ul>
-      </li>
-      <li>Process management
-        <ul>
-          <li>Top &lt;-shows processes in ram gives a live output</li>
-          <li>PS aux to show all processes running</li>
-          <li>Killing a process can be done with kill <pid> or we can truly kill by kill -9 <pid> which is a force kill which will not wait and kill it</pid></pid></li>
-          <li>Running processes in the background
             <ul>
-              <li>You can run processes in the background by adding the &amp; operator at the end of a commandline to move the process in the background</li>
-              <li>To move a job or process back into the foreground use the ‘fg’ command with the job id to bring that process into the foreground</li>
-              <li>Ctrl z will bring the currently running foreground application into the background</li>
+              <li>Process management
+                <ul>
+                  <li>Top &lt;-shows processes in ram gives a live output</li>
+                  <li>PS aux to show all processes running</li>
+                  <li>Killing a process can be done with kill <pid> or we can truly kill by kill -9 <pid> which is a force kill which will not wait and kill it</pid></pid></li>
+                  <li>Running processes in the background</li>
+                </ul>
+              </li>
             </ul>
           </li>
-        </ul>
-      </li>
-      <li>Bash Scripting
-        <ul>
-          <li>http://ryanstutorials.net/linuxtutorial/scripting.php</li>
+          <li>You can run processes in the background by adding the &amp; operator at the end of a commandline to move the process in the background</li>
+          <li>To move a job or process back into the foreground use the ‘fg’ command with the job id to bring that process into the foreground</li>
+          <li>Ctrl z will bring the currently running foreground application into the background
+            <ul>
+              <li>Bash Scripting
+                <ul>
+                  <li>http://ryanstutorials.net/linuxtutorial/scripting.php</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
         </ul>
       </li>
     </ul>

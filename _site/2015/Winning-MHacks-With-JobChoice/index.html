@@ -29,8 +29,6 @@
             <a href='/notes'>Notes </a>
         
     
-    
-    <a class="cta" href="/feed.xml">Subscribe</a>
 </nav>
 
   
@@ -51,11 +49,13 @@ from your different job offers will best fit your choice of savings, comfort, an
 
 <p><img src="http://mhacks.org/images/mhacks_logo.svg" alt="MHACKS Logo" /></p>
 
-<p>The web application that we designed is composed of several different pieces of technology, lets list the stack now
-* Node JS
-* Express
-* Jade
-* IBM Watson Trade Off analytics</p>
+<p>The web application that we designed is composed of several different pieces of technology, lets list the stack now</p>
+<ul>
+  <li>Node JS</li>
+  <li>Express</li>
+  <li>Jade</li>
+  <li>IBM Watson Trade Off analytics</li>
+</ul>
 
 <p>So how does all of these things work together? Lets dive in with this section by section explanation</p>
 
@@ -90,7 +90,7 @@ It was able to understand questions from Jeopardy and beat the top 3 champions b
 
 <p>Bluemix.js is the initial starting point of where IBM Bluemix service will start, and this code was copied directly from the <a href="https://github.com/watson-developer-cloud/tradeoff-analytics-nodejs">Bluemix</a> example however we changed it to reference from our credentials.json file:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="s1">'use strict'</span><span class="p">;</span>
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="s1">'use strict'</span><span class="p">;</span>
 
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="p">.</span><span class="nx">getServiceCreds</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
 <span class="k">if</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">VCAP_SERVICES</span><span class="p">)</span> <span class="p">{</span>
@@ -110,11 +110,11 @@ It was able to understand questions from Jeopardy and beat the top 3 champions b
 <span class="p">};</span>
 </code></pre>
 </div>
-<p>##### Express.js</p>
+<h5 id="expressjs">Express.js</h5>
 
 <p>Within the express.js it contains the an express application to which will be the main where the templating engine will reside. This design was a flaw from how we structured our application from the beginning of the hackathon, a better design would have been to merge this express.js with the app.js in the root directory. However we still have this as crucial part of the web app as it connects the Jade templating engine with the frontend of the application.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="s1">'use strict'</span><span class="p">;</span>
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="s1">'use strict'</span><span class="p">;</span>
 <span class="c1">// Module dependencies</span>
 <span class="kd">var</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'express'</span><span class="p">),</span>
 <span class="nx">errorhandler</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'errorhandler'</span><span class="p">),</span>
@@ -149,14 +149,14 @@ It was able to understand questions from Jeopardy and beat the top 3 champions b
 
 <p>The problem model is a JSON array with all your parameters, and each parameters being filled with its corresponding values. A problem model JSON is composed of a columns JSON array proceeding that are the options JSON array. The columns JSON array will contain the variables that each option possesses to be compared across each other. While the options are going to be the dataset which will contain the data to be compared.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">model</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"subject"</span><span class="p">:</span><span class="s2">"ToMaximizeAandC"</span><span class="p">,</span>
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">model</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"subject"</span><span class="p">:</span><span class="s2">"ToMaximizeAandC"</span><span class="p">,</span>
 <span class="s2">"columns"</span><span class="p">:[{}],</span>
 <span class="s2">"options"</span><span class="p">:[{}]}</span>
 </code></pre>
 </div>
 <p>A simple problem model could be where there are three variables that are being analyzed (variable A, B, and C). Our main objective for this problem is trying to maximize variables A and C). To formulate this problem for TradeOff analytics we would create a our columns JSON array like so to reflect our objectives</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="s2">"columns"</span><span class="err">:</span> <span class="p">[{</span>
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="s2">"columns"</span><span class="err">:</span> <span class="p">[{</span>
 <span class="s2">"key"</span><span class="p">:</span><span class="s2">"variableA"</span><span class="p">,</span>
 <span class="s2">"type"</span><span class="p">:</span><span class="s2">"numeric"</span><span class="p">,</span>
 <span class="s2">"goal"</span><span class="p">:</span><span class="s2">"max"</span><span class="p">,</span>
@@ -184,7 +184,7 @@ It was able to understand questions from Jeopardy and beat the top 3 champions b
 
 <p>Within the options we will fill in 3 sample data</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="s2">"options"</span><span class="err">:</span><span class="p">[{</span>
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="s2">"options"</span><span class="err">:</span><span class="p">[{</span>
 <span class="s2">"key"</span><span class="p">:</span><span class="s2">"1"</span><span class="p">,</span>
 <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"first option"</span><span class="p">,</span>
 <span class="s2">"values"</span><span class="p">:{</span>
@@ -210,7 +210,7 @@ It was able to understand questions from Jeopardy and beat the top 3 champions b
 </div>
 <p>And the final structure should like this</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">model</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"subject"</span><span class="p">:</span><span class="s2">"ToMaximizeAandC"</span><span class="p">,</span>
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">model</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"subject"</span><span class="p">:</span><span class="s2">"ToMaximizeAandC"</span><span class="p">,</span>
 <span class="s2">"columns"</span><span class="p">:</span> <span class="p">[{</span>
 <span class="s2">"key"</span><span class="p">:</span><span class="s2">"variableA"</span><span class="p">,</span>
 <span class="s2">"type"</span><span class="p">:</span><span class="s2">"numeric"</span><span class="p">,</span>
