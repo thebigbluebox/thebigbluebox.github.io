@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Tai Tong's Blog - React Native, first iOS framework</title>
+  <link rel="shortcut icon" href="/assets/images/favicon.ico">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="alternate" type="application/rss+xml" title="My Blog" href="/rss.xml">
+  <link rel="stylesheet" href="/assets/css/highlight.css">
+</head>
+<body>
+
+  <nav class="main-nav">
+    
+        <a href='/'> <span class="arrow">←</span> Home </a>
+    
+
+    
+        
+            <a href='/about'>About </a>
+        
+    
+    
+     
+        
+            <a href='/notes'>Notes </a>
+        
+    
+</nav>
+
+  
+
+  <section id="wrapper" class="">
+    <article class="post">
+    <header>
+        <h1>React Native, first iOS framework</h1>
+        <h2 class="headline">June 22, 2016</h2>
+    </header>
+    <section id="post-body">
+        <h1 id="react-native-notes">React Native Notes</h1>
+
+<h2 id="core-components">Core Components</h2>
+<p>Building blocks of React Native application, each component</p>
+
+<h2 id="connecting-to-the-data-layer">Connecting to the data layer</h2>
+<p>React uses a MVC app architecture, but essentially rethinks the overall MVC pattern into something else</p>
+
+<h3 id="mvc-model">MVC Model</h3>
+<ul>
+  <li>The model is the data</li>
+  <li>The view is how the data is presented in an app</li>
+  <li>The controller provides the logic for handling data within the app</li>
+</ul>
+
+<p>However react lets you create multiple components which are combined to form a view but each component can also handle the logic that a controller might have provided</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>class Example extends React.Component {
+    render() {
+        // Code that renders the view of the existing data, and
+        // potentially a form to trigger changes to that data through
+        // the handleSubmit function
+    }
+
+    handleSubmit(e) {
+        // Code that modifies the data, like a controller's logic
+    }
+};
+</code></pre>
+</div>
+<p>Each component in a react app is also aware of two different types of data have different roles</p>
+<ul>
+  <li><em>props</em> is data which is passed into a component when it is created, used as the ‘options’  which you want for any given component. If you had a button component, an example prop would be the text of the button
+A component can’t change its props (ie. they’re immutable)</li>
+  <li><em>state</em> is data which can be changed over time by an component. If the button example above was a login/logout button then the state would store the current login status of the user and the button would be able to access this, and modify if it they clicked on the button to change their status</li>
+</ul>
+
+<p>To reduce repetition, state -&gt; owned by the highest parent component in the app’s comp hierachy AKA <em>container components</em>
+Meaning you won’t put the state in the example button’s state within the button component but it will exist in the parent view which contains the button and then use props to pass relevant parts of the state down to child components.
+Data only flow one way -&gt; Downwards through any given app.</p>
+
+<h2 id="storing-data">Storing data</h2>
+<p>We are using the Flux Architecture which is something facebook made to make application syncing easier
+Flux exapnds on React’s data relationship by introducing the concept of Stores, containers for app’s state objects and a new workflow for modifying the state over time</p>
+<ul>
+  <li>Store in a Flux app has a callback func which is registered with a Dispatcher</li>
+  <li>Views (similar to React components) can trigger Actions [An object that has data on thing that just happend… it could include new data that was input into a form in the app] as well as an action type [a constant that describes the type of Action being performed]</li>
+  <li>The action is then sent to the dispatcher</li>
+  <li>The dispatcher propagates this action to all the various registered store callbacks</li>
+  <li>If t he store can tell that it was affected by an action (because the action type is related to its data) it will update itself and therefore the contained state. Once updated it’ll emit a change event</li>
+  <li>Special Views called <em>controller</em> views (container components) will be listening for these change events and when they get one, they know they should fetch the new Store data</li>
+  <li>Once fetched they call <em>setState()</em> with the new data, causing the component inside the View to re-render</li>
+</ul>
+
+<p>Since we are using Redux in the mock F8 application, the website also talks about this</p>
+
+<p>Redux is a framework implementation of the Flux architecture but it also strips it down.
+<em>There is no dispatcher in Redux, and there is only one store for the state of the entire app</em></p>
+
+<ul>
+  <li>React components can cause Actions to be triggered, for example by a button click</li>
+  <li>Actions are an object (containing a type label and other data related to the Action) sent to the Store via the dispatch functiona</li>
+  <li>The store then takes the action payload and sends it to the Reducers along with the current state tree (object that contains all state data in a particular structure)</li>
+  <li>A reducer is a pure function that takes the previous state and an Action, then returns a new state based on any changes that the action might have indicated. A redux app can have one reducer, but most app will end up using several that each handle a different part of the state</li>
+  <li>The store recieves this new state and replaces the current one with it. <em>When a state is updated, it is technically replaced</em></li>
+  <li>When the state changes, the Store triggers a change event</li>
+  <li>Any react component that have subscribed to the change event make a call to retrieve the new state from the store</li>
+  <li>The components are updated with the new state</li>
+</ul>
+
+<p>Store is only concerned with holding the state, compoonents in the view are only concerned with displaying data and triggering Actions
+Actions are only concerned with indicating that something in the state has changed and including data aobut what it was
+Reducers are only concerned with combining an old state and mutating Actions into a new state</p>
+
+<ul>
+  <li>Actions are the only way to trigger a state change, this centralizes this process away from the UI components, and because they are properly ordered by the Reducer it prevents race conditions</li>
+  <li>state becomes essentially immutable and a series of states each representing an individual change are created this gives you a clear and easily traceable state history within your app</li>
+</ul>
+
+<h1 id="building-the-data-layer">Building the data layer</h1>
+<p>F8 uses a middle ware to perform persistant storage using Redux Persist</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>var middlewareWrapper = applyMiddleware(...);
+var createF8Store = middlewareWrapper(createStore(reducers));
+
+function configureStore(onComplete: ?() =&gt; void) {
+  const rehydrator = autoRehydrate();
+  const store = rehydrator(createF8Store);
+  persistStore(store, {storage: AsyncStorage}, onComplete);
+  ...
+  return store;
+}
+</code></pre>
+</div>
+
+<p><em>applyMiddleware()</em> returns a function that will ehnace the store object
+so we wrap Redux’s createStore() function in the enhancer “applyMiddleWare”, and the resulting enchanced store object is saved in createF8Store.</p>
+
+    </section>
+</article>
+<footer id="post-meta" class="clearfix">
+    <a href="http://twitter.com/TaiRTong">
+        <img class="avatar" src="/assets/images/avatar.png">
+        <div>
+            <span class="dark">Tai Tong</span>
+            <span>Blog about everything from coding to anything I find interesting.</span>
+        </div>
+    </a>
+
+    <section id="sharing">
+        <a class="twitter" href="https://twitter.com/intent/tweet?text=//notes/ReactNative/ - React Native, first iOS framework by @TaiRTong"><span class="icon-twitter"> Tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+    </section>
+</footer>
+
+<!-- Disqus comments -->
+
+
+<!-- Archive post list -->
+
+
+
+
+
+  </section>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="/assets/js/main.js"></script>
+  <script src="/assets/js/highlight.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54598212-3', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>
+
+
+

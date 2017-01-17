@@ -7,6 +7,32 @@
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Whats in my final term's Backpack</title>
+        
+        
+          <description>&lt;div style='position:relative;padding-bottom:92%'&gt;&lt;iframe src='https://gfycat.com/ifr/AntiqueDentalAphid' frameborder='0' scrolling='no' width='100%' height='100%' style='position:absolute;top:0;left:0;' allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;
+
+</description>
+        
+        <pubDate>Sat, 07 Jan 2017 04:00:00 -0500</pubDate>
+        <link>http://localhost:4000/2017/MyBackPack/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/MyBackPack/</guid>
+      </item>
+    
+      <item>
+        <title>New Years Resolution</title>
+        
+        
+          <description>&lt;p&gt;I don’t write a lot, especially with my poor skills in articulating my thoughts with written words. I’d rather stay far away from it, but how would I ever improve if I just hide from this fact about my life. I am going to take this post to reflect what 2016 has taught be, and reiterate those same new year resolutions that I didn’t complete in 2016. I think writing on this empty blog where I think the internet might be watching will keep me accountable for this year’s resolutions.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Thu, 29 Dec 2016 04:00:00 -0500</pubDate>
+        <link>http://localhost:4000/2016/New-Years-Resolution/</link>
+        <guid isPermaLink="true">http://localhost:4000/2016/New-Years-Resolution/</guid>
+      </item>
+    
+      <item>
         <title>Tech Resources that All Students Should Take Advantage Of</title>
         
         
@@ -118,21 +144,6 @@ This article is just to share all the things that I found were useful over my ye
         <pubDate>Mon, 22 Dec 2014 04:00:00 -0500</pubDate>
         <link>http://localhost:4000/2014/uploading-to-php/</link>
         <guid isPermaLink="true">http://localhost:4000/2014/uploading-to-php/</guid>
-      </item>
-    
-      <item>
-        <title>Vignere Cipher</title>
-        
-        
-          <description>&lt;script src=&quot;//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;During one of my recent study sessions with my friends for an exam on computer security, one of the notes on ancient ciphers caught my eye. With procrastination looming over my head while I study, I decided to take a poke at creating a JavaScript based Vigenère cipher.&lt;/p&gt;
-
-</description>
-        
-        <pubDate>Wed, 10 Dec 2014 04:00:00 -0500</pubDate>
-        <link>http://localhost:4000/2014/Vigenere-Cipher/</link>
-        <guid isPermaLink="true">http://localhost:4000/2014/Vigenere-Cipher/</guid>
       </item>
     
   </channel>
