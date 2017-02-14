@@ -62,7 +62,7 @@ Traditionally a camera slider works via a rail system in which there is base whi
 
 # Prototype 1 Gimbal / Slider
 
-![Prototype 1](http://i.imgur.com/Tfdmrpg.png "Prototype 1")
+![Prototype 1](http://i.imgur.com/Jst2nhg.png "Prototype 1")
 
 Item | Cost | Purpose
 --- | --- | ---
@@ -94,7 +94,7 @@ Moreover, the dowels which we had attached earlier proposed a new problem. The d
 
 # Prototype 2 Gimbal / Slider
 
-![Prototype 2](http://i.imgur.com/pqjxSfO.png "Prototype 2")
+![Prototype 2](http://i.imgur.com/42NQVj6.png "Prototype 2")
 
 Item | Cost | Purpose
 --- | --- | ---
@@ -117,6 +117,8 @@ Our Youtube video, please click on the image above
 
 # Prototype 3 Gimbal / Slider
 
+![Prototype 3](http://i.imgur.com/vE1nnlv.png "Prototype 3")
+
 Item | Cost | Purpose
 --- | --- | ---
 Egg timer | $3.00 | The main part of the panning head
@@ -126,12 +128,12 @@ Coat Hanger | FREE | Will use as extension arm for the mouse trap
 Dowels | $1.00 | The tracks for the pullback car to follow
 Total | $7.00 | 
 
-From our last prototype we were pretty satisfied with our gimbal setup and design so we kept it on top of the car chassis. However, we needed to come up with a new way to get the gimbal moving. Unlike, our last issue this took a bit more thinking and creativity until we finally came to our answer of a mouse trap. Going way back into high school physic we learned that mouse traps hold any extraordinary amount of elastic potential energy. Strong enough that it made us recall a common physic project the “mouse trap car”.
+From our last prototype we were pretty satisfied with our gimbal setup and design so we kept it on top of the car chassis. However, we needed to come up with a new way to get the gimbal moving. Unlike, our last issue this took a bit more thinking and creativity until we finally came to our answer of a mouse trap. Going way back into high school physics we learned that mouse traps hold any extraordinary amount of elastic potential energy. Strong enough that it made us recall a common physic project the “mouse trap car”.
 
 [![Mouse Trap Car Mechanism](https://img.youtube.com/vi/mVNFxlEMWvw/0.jpg)](https://www.youtube.com/watch?v=mVNFxlEMWvw "Mouse Trap Car Mechanism")
 Youtube video, please click on the image above
 
-![Mouse Traps](http://i.imgur.com/nKOSYg4.jpg)
+![Extension arm attached](http://i.imgur.com/ZQlYIPP.jpg)
 
 
 Using the concepts and knowledge behind that physic project we decided to apply it to our current problem. First, we needed to disassemble the mouse trap getting rid of all parts except for the platform and spring. Once that was done we took a metal hanger and cut off the longest straight piece of metal we could get from it. About 4 cm from the bottom we bended the piece of metal so that its was in the shape of an “L” with the horizontal part being as long as the width of the mouse trap. This would replace the hammer of the mouse trap and provide as our lever arm for pulling our gimbal. A piece of string was then taped onto the very end of the lever and the other end of the string was attached to the toy car’s chassis completing our new mechanism for moving the gimbal setup.
@@ -158,7 +160,7 @@ Card board | FREE | Material for the mechanism
 Water bottle | FREE | Weight for the dolly
 Total | $5.00 | 
 
-![Extension arm attached](http://i.imgur.com/ZQlYIPP.jpg)
+![Mouse Traps](http://i.imgur.com/nKOSYg4.jpg)
 
 In order to slow down the gimbal we addressed two issues friction, and weight. To fix the issue of friction we placed the entire structure of the gimbal setup on top of a flat piece of cardboard. This didn’t require any tape for attachment because the weight of the gimbal itself was enough to keep the piece of cardboard sliding with it. However, the addition of cardboard was still not enough to stop the gimbal from moving quickly so we tended to the issue of weight as well. At first, we added a full water bottle but soon realized this caused the gimbal to not move at all which was an issue. We didn’t know exactly how much water in the water bottle was required so we tried to figure it out through trial and error. What we discovered was that only 1/10 of the water in the water bottle was enough to almost render the gimbal set completely still but move forward at a slow enough pace acceptable for time lapses.
 
