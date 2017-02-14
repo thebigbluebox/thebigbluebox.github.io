@@ -78,13 +78,14 @@ To set up the gimble we needed to attach the camera, specifically a GoPro in our
 
 Once the GoPro was secured in place we needed to hold the egg timer in place so that only the top half would rotate providing the steady pan for timelapses. We achieved this by attaching two dowels to the front face of the egg timer which would complete our first prototype of the gimbal.
 
-We tested to see if the gimbal actually did work. And [here](https://img.youtube.com/vi/StTqXEQ2l-Y/0.jpg) is a sample link to our footage that I captured.
+We tested to see if the gimbal actually did work. And [here](https://vimeo.com/203969458) is a sample link to our footage that I captured.
 
 After, reviewing the video it seemed like our makeshift gimbal was functioning properly providing a slow enough pan to create suitable timelapses.
 
 ### Issues
 Moving onto our slider we ran into some issues. First, the wind-up car we planned to use had an awkward shape so this made it difficult to attach. To resolve this issue we removed the casing that was attached to the car and only took the chassis of the toy car which had the wind-up mechanism. 
-Image of the removal of the car top
+
+![Wind up mechanism](http://i.imgur.com/PGHsBhc.jpg "Wind up mechanism")
 
 Moreover, the dowels which we had attached earlier proposed a new problem. The dowels kept interfering with the attachment to the chassis of the car and needed to be removed in order to get the GoPro onto the car. We began to reassess our design.
 
@@ -108,8 +109,6 @@ Due to issues with the previous prototype we needed a redesign of our two object
 Although, we managed to solve the problem with attachment we ran into yet another issue. Due to the car’s simplistic gear mechanism and mainly hollow shell that we removed it didn’t take us long to figure out that the force provided by the wind-up car was not strong enough to move our gimbal setup.
 
 After, observing that the car’s wind-up gear mechanism would not suffice we needed to re-evaluate how we could get the gimbal to move as if it were on a slider.
-
-![Wind up mechanism](http://i.imgur.com/PGHsBhc.jpg "Wind up mechanism")
 
 [![Camera Dolly Not working](https://img.youtube.com/vi/XTTTOvyUdas/0.jpg)](https://www.youtube.com/watch?v=XTTTOvyUdas "Camera Dolly traction test")
 Our Youtube video, please click on the image above
@@ -169,3 +168,6 @@ Overall, our gimbal setup was great for the x-axis, but high end gimbals are cap
 
 # Conclusion
 With the $20 budget considered and the time we had available to complete the project we believe that we were able to accomplish our initial of creating a cheap alternative for a gimbal and camera slider combo. 
+
+<iframe src="https://player.vimeo.com/video/203969458" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+<p><a href="https://vimeo.com/203969458">Multimedia Timelapse Test</a> from <a href="https://vimeo.com/tairtong">Tai Tong</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
