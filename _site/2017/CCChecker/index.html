@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Tai Tong's Blog - Whats in my final term's Backpack</title>
+  <title>Tai Tong's Blog - Credit Card Checker</title>
   <link rel="shortcut icon" href="/assets/images/favicon.ico">
   <link rel="stylesheet" href="/assets/css/style.css">
   <link rel="alternate" type="application/rss+xml" title="My Blog" href="/rss.xml">
@@ -36,25 +36,46 @@
   <section id="wrapper" class="">
     <article class="post">
     <header>
-        <h1>Whats in my final term's Backpack</h1>
-        <h2 class="headline">January 7, 2017</h2>
+        <h1>Credit Card Checker</h1>
+        <h2 class="headline">January 24, 2017</h2>
     </header>
     <section id="post-body">
-        <div style='position:relative;padding-bottom:92%'><iframe src='https://gfycat.com/ifr/AntiqueDentalAphid' frameborder='0' scrolling='no' width='100%' height='100%' style='position:absolute;top:0;left:0;' allowfullscreen></iframe></div>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-With the new school year starting, I thought to myself that I should take 
+<p>Credit Card Number Checker
+##########################</p>
+
+<form id="cc">
+<input type="number" name="ccnumber" pattern="" />
+</form>
+
+<script>
+    function isValidCreditCard(sText){
+        var res = sText.match(/^[4][0-9]{15}$|^[4][0-9]{12}$|^[5][1-5][0-9]{14}|^[3][(4|7)][0-9]{13}/);
+        if(Number(res[0]) == Number(sText)){
+            //continue
+            var count = 0;
+            for(var i = 0; i < sText.length; i++ ){
+                console.log('current Value',Number(sText.charAt(i)));
+                var currentVal = Number(sText.charAt(i));
+                if(i%2 == 0){
+                    currentVal = Number(sText.charAt(i))*2;
+                    console.log('Currently a check digit', currentVal);
+                    if(currentVal > 9){
+                        currentVal -= 9;
+                    }
+                }
+                count+=currentVal;
+            }
+            if(count%10 == 0){
+                return true;
+            }
+        }
+        return false;
+    }
+</script>
 
 
-
-
-\begin{grammar}
-<expression> ::= ['$+$' | '$-$']
- <term> \{('$+$' | '$-$' ) <term>\}<term> ::= 
- <factor> \{('$*$' | '$/$') <factor>\}<factor> ::= "number" | "identifier"  | '(' <expression> ')'
- \end{grammar}
- produces:
- <expression>::=  [’+’j’’]<term>{(’+’j’’ )<term>}
- htermi::=hfactorif(’’j’=’)hfactorighfactori::=numberjidentifierj’(’hexpressioni’)’
     </section>
 </article>
 <footer id="post-meta" class="clearfix">
@@ -67,7 +88,7 @@ With the new school year starting, I thought to myself that I should take
     </a>
 
     <section id="sharing">
-        <a class="twitter" href="https://twitter.com/intent/tweet?text=//2017/MyBackPack/ - Whats in my final term's Backpack by @TaiRTong"><span class="icon-twitter"> Tweet</span></a>
+        <a class="twitter" href="https://twitter.com/intent/tweet?text=//2017/CCChecker/ - Credit Card Checker by @TaiRTong"><span class="icon-twitter"> Tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(

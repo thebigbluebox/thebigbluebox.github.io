@@ -7,6 +7,32 @@
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Making of a Panning Timelapse head for Multimedia </title>
+        
+        
+          <description>&lt;h1 id=&quot;what-is-a-pan-head&quot;&gt;What is a Pan Head&lt;/h1&gt;
+
+</description>
+        
+        <pubDate>Tue, 07 Feb 2017 04:00:00 -0500</pubDate>
+        <link>http://localhost:4000/2017/Multimedia-Part1/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/Multimedia-Part1/</guid>
+      </item>
+    
+      <item>
+        <title>Credit Card Checker</title>
+        
+        
+          <description>&lt;script src=&quot;//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js&quot;&gt;&lt;/script&gt;
+
+</description>
+        
+        <pubDate>Tue, 24 Jan 2017 04:00:00 -0500</pubDate>
+        <link>http://localhost:4000/2017/CCChecker/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/CCChecker/</guid>
+      </item>
+    
+      <item>
         <title>Whats in my final term's Backpack</title>
         
         
@@ -110,40 +136,6 @@ This article is just to share all the things that I found were useful over my ye
         <pubDate>Sun, 04 Jan 2015 04:00:00 -0500</pubDate>
         <link>http://localhost:4000/2015/streographic-opengl/</link>
         <guid isPermaLink="true">http://localhost:4000/2015/streographic-opengl/</guid>
-      </item>
-    
-      <item>
-        <title>Uploading files to a LAMP stack and keep track of it with a CMS Part 2</title>
-        
-        
-          <description>&lt;p&gt;#Uploading files to a LAMP stack and keep track of it with a CMS Part 2&lt;/p&gt;
-&lt;blockquote&gt;
-
-  &lt;h6 id=&quot;this-is-technically-a-continuation-of-daves-tutorial-on-how-to-create-a-blog-with-lamp-here-and-ive-added-my-own-twist-and-turned-it-into-a-small-cms-by-allowing-users-to-upload-photos-and-keep-track-of-their-uploads-i-will-be-referencing-a-lot-of-the-files-back-to-what-was-created-on-daves-tutorial&quot;&gt;This is technically a continuation of Dave’s tutorial on how to create a Blog with LAMP &lt;a href=&quot;https://daveismyname.com/creating-a-blog-from-scratch-with-php-bp#.Va2tvpNViko&quot;&gt;here&lt;/a&gt;, and I’ve added my own twist and turned it into a small CMS by allowing users to upload photos and keep track of their uploads. I will be referencing a lot of the files back to what was created on Dave’s tutorial&lt;/h6&gt;
-&lt;/blockquote&gt;
-
-</description>
-        
-        <pubDate>Tue, 23 Dec 2014 04:00:00 -0500</pubDate>
-        <link>http://localhost:4000/2014/uploading-to-php-2/</link>
-        <guid isPermaLink="true">http://localhost:4000/2014/uploading-to-php-2/</guid>
-      </item>
-    
-      <item>
-        <title>Uploading files to a LAMP stack and keep track of it with a CMS</title>
-        
-        
-          <description>&lt;h1 id=&quot;uploading-files-to-a-lamp-stack-and-keep-track-of-it-with-a-cms-part-1&quot;&gt;Uploading files to a LAMP stack and keep track of it with a CMS Part 1&lt;/h1&gt;
-&lt;blockquote&gt;
-
-  &lt;h6 id=&quot;this-is-technically-a-continuation-of-daves-tutorial-on-how-to-create-a-blog-with-lamp-here-and-ive-added-my-own-twist-and-turned-it-into-a-small-cms-by-allowing-users-to-upload-photos-and-keep-track-of-their-uploads-i-will-be-referencing-a-lot-of-the-files-back-to-what-was-created-on-daves-tutorial&quot;&gt;This is technically a continuation of Dave’s tutorial on how to create a Blog with LAMP &lt;a href=&quot;https://daveismyname.com/creating-a-blog-from-scratch-with-php-bp#.Va2tvpNViko&quot;&gt;here&lt;/a&gt;, and I’ve added my own twist and turned it into a small CMS by allowing users to upload photos and keep track of their uploads. I will be referencing a lot of the files back to what was created on Dave’s tutorial&lt;/h6&gt;
-&lt;/blockquote&gt;
-
-</description>
-        
-        <pubDate>Mon, 22 Dec 2014 04:00:00 -0500</pubDate>
-        <link>http://localhost:4000/2014/uploading-to-php/</link>
-        <guid isPermaLink="true">http://localhost:4000/2014/uploading-to-php/</guid>
       </item>
     
   </channel>
