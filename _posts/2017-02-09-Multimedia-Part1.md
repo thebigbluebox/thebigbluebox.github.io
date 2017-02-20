@@ -9,7 +9,7 @@ description: Documenting the creation of a DIY panning timelapse head
 
 - Raymond Su 400085910
 - Tai Rui Tong 001213902
-- Waleed Azhar 001312383
+- Waleed Dhillon 001312383
 
 # What is a Pan Head
 
