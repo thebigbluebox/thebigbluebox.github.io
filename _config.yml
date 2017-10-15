@@ -12,7 +12,7 @@ highlighter: rouge
 paginate: 10
 baseurl: /
 domain_name: 'http://tairuitong.me'
-google_analytics: 'UA-54598212-1'
+google_analytics: 'UA-54598212-3'
 disqus_shortname: 'theperfectsquareca'
 timezone: America/New_York
 
