@@ -1,17 +1,17 @@
 <nav class="main-nav">
     {% if page.url != "/index.html" %}
-        <a href='{{ site.baseurl }}'> <span class="arrow">←</span> Home </a>
+        <a href='{{ site.url }}'> <span class="arrow">←</span> Home </a>
     {% endif %}
 
     {% if page.url != "/about/" | page.url != "/notes/" %}
         {% if site.aboutPage %}
-            <a href='{{ site.baseurl }}about/'>About </a>
+            <a href='{{ site.urll }}/about/'>About </a>
         {% endif %}
     {% endif %}
     
      {% if page.url != "/notes/" %}
         {% if site.notesPage %}
-            <a href='{{ site.baseurl }}notes/'>Notes </a>
+            <a href='{{ site.url }}/notes/'>Notes </a>
         {% endif %}
     {% endif %}
 </nav>
