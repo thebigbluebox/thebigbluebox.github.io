@@ -6,13 +6,18 @@ profile: true
 
 # Hello
 >
-## My name is Tai, but you can call me Terry.
+## Terry here.
 
-I’m a computer science student at McMaster University in the lovely city of Hamilton Ontario. I am person with a fierce “firey” &#128293; passion to technology even if it’s over burdening sometimes with how quickly things get updated, looking at you NodeJS. I am a hackathon goer, community volunteer, coding mentor, and the president of McMaster’s largest tech community PhaseOne formerly known as HackItMac. If you ever really want to know more about me look at the resources I’ve laid out for you below. If you want to talk to me, drop me a email at <me@tairuitong.me> 
+Not sure what I can write in the beginning without sound either too nerdy, not funny, or serious. I am just the average joe programmer with the BURNING passion for technology, literally woven into me. I think I would say at the time that I am rewriting this first paragraph, I would describe "current year" to be the year of Javascript, VR, and machine learning which I hope by the time whoever is reading this, those 3 subjects are no longer the dominating factors of the year.
 
-If you’re more interested in my CV a PDF version is available [here](/assets/Terry_Tong-Resume.pdf), but here is a brief synopsis of it.
+I *was* a computer science student at McMaster University in the lovely city of Hamilton Ontario. I <s>am<s> was a hackathon goer, community volunteer, coding mentor, and the president of McMaster’s largest tech community PhaseOne formerly known as HackItMac. If you ever really want to know more about me look at the resources I’ve laid out for you below. If you want to talk to me, drop me a email at <me@tairuitong.me> 
 
-## President of PhaseOne Formerly HackItMac  Present
+## PointClickCare, Fullstack Java Developer Present
+You know, doing the thing with the stack. Currently working on Spring Boot applications, writing secure and correct rest API end points. Have the ability to clearly communicate to PO's regarding specification and render a mvp that actually fits their needs. Also am able to create front ends that just about does anything the PO wants, it just takes some espresso shots to get all the Javascript sorted out.
+
+Is also the scrum master of my current team, living by YOGA (YOU ONLY GO AGILE), working within 2 week sprints.
+
+## President of PhaseOne Formerly HackItMac  2016-2017
 Leading the team behind the largest tech club at McMaster, and the hosts of McMaster’s only Hackathon DeltaHacks 
 
 ## PointClickCare, Test Automation Engineer Co-Op	2015-2016
