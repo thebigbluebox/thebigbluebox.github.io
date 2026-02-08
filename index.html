@@ -1,6 +1,58 @@
----
-profile: true
----
-
-{% include post-list.html %}
-{% include footer.html %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tai Tong - Professional Software Developer</title>
+    <script type="module" crossorigin src="/assets/index-DszpJ9xK.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CvnT-1Jv.css">
+  </head>
+  <body>
+    <main class="site">
+      <div class="gameboy-frame">
+        <div class="screen-bezel">
+          <div class="lcd-frame">
+            <canvas id="gameCanvas" width="640" height="480"></canvas>
+          </div>
+        </div>
+      </div>
+      <section id="experience" class="experience locked" aria-live="polite">
+        <h1 class="experience-title">Challenge</h1>
+        <p class="experience-status">Win 3 rounds against the CPU to unlock.</p>
+        <button id="skipUnlocks" class="skip-button" type="button">
+          Win 5 and show
+          <span class="skip-tooltip"
+            >Skip the gimmick and show the results.</span
+          >
+        </button>
+        <div class="experience-content">
+          <div class="experience-block locked" data-unlock="linkedin">
+            <p class="experience-line">Linkedin</p>
+            <p class="experience-line">Unlock at 3 wins.</p>
+            <a
+              class="experience-link"
+              href="https://www.linkedin.com/in/tairtong/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >LinkedIn Profile</a
+            >
+          </div>
+          <div class="experience-block locked" data-unlock="resume">
+            <p class="experience-line">Resume PDF</p>
+            <p class="experience-line">Unlock at 5 wins.</p>
+            <a
+              class="experience-link"
+              href="/TaiRuiTong-Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Download Resume</a
+            >
+          </div>
+        </div>
+        <button id="resetProgress" class="reset-button" type="button">
+          Reset Unlocks
+        </button>
+      </section>
+    </main>
+  </body>
+</html>
